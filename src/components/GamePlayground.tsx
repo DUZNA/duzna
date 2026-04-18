@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GameCharacter from './GameCharacter';
 import { Card } from '@/components/ui/card';
+import grassTile from '@/assets/grass.png';
 
 const GamePlayground = () => {
   const [position, setPosition] = useState({ x: 200, y: 200 });
@@ -82,18 +83,20 @@ const GamePlayground = () => {
   }, [keysPressed, direction]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 p-8">
-      <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold text-primary">LPC Character Playground</h2>
-        <p className="text-muted-foreground">WASD to move • Hold SHIFT to run</p>
-      </div>
-
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
       <Card 
-        className="relative overflow-hidden bg-emerald-50 border-4 border-emerald-200 shadow-xl"
+        className="relative overflow-hidden border-4 border-emerald-800/20 shadow-2xl"
         style={{ width: playgroundSize.width, height: playgroundSize.height }}
       >
-        <div className="absolute inset-0 opacity-10" 
-             style={{ backgroundImage: 'radial-gradient(#059669 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
+        {/* Tiled grass background */}
+        <div 
+          className="absolute inset-0" 
+          style={{ 
+            backgroundImage: `url(${grassTile})`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '64px 64px',
+            imageRendering: 'pixelated'
+          }} 
         />
         
         <GameCharacter 
@@ -103,21 +106,6 @@ const GamePlayground = () => {
           isRunning={isRunning}
         />
       </Card>
-
-      <div className="flex items-center gap-4">
-        <div className="grid grid-cols-3 gap-2">
-          <div />
-          <kbd className="px-3 py-2 bg-white border-2 rounded-lg shadow-sm font-bold">W</kbd>
-          <div />
-          <kbd className="px-3 py-2 bg-white border-2 rounded-lg shadow-sm font-bold">A</kbd>
-          <kbd className="px-3 py-2 bg-white border-2 rounded-lg shadow-sm font-bold">S</kbd>
-          <kbd className="px-3 py-2 bg-white border-2 rounded-lg shadow-sm font-bold">D</kbd>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <kbd className={`px-6 py-2 border-2 rounded-lg shadow-sm font-bold transition-colors ${isRunning ? 'bg-primary text-white border-primary' : 'bg-white text-black border-gray-200'}`}>SHIFT</kbd>
-          <span className="text-xs text-muted-foreground font-medium">RUN</span>
-        </div>
-      </div>
     </div>
   );
 };
