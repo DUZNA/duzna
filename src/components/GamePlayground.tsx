@@ -82,6 +82,13 @@ const GamePlayground = () => {
     return () => clearInterval(moveInterval);
   }, [keysPressed, direction]);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
       <Card 
