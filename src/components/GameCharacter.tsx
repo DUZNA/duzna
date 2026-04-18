@@ -5,6 +5,8 @@ import bodyIdle from '@/assets/body.png';
 import headIdle from '@/assets/head.png';
 import bodyWalk from '@/assets/walk.png';
 import bodyRun from '@/assets/run.png';
+import headWalk from '@/assets/head_walk.png';
+import headRun from '@/assets/head_run.png';
 
 interface GameCharacterProps {
   position: { x: number; y: number };
@@ -29,14 +31,14 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
     if (isRunning) {
       return {
         bodySrc: bodyRun,
-        headSrc: null, // Assuming run sheet includes head or we just use body for now
+        headSrc: headRun,
         totalFrames: 8,
         interval: 100,
       };
     }
     return {
       bodySrc: bodyWalk,
-      headSrc: null, // Assuming walk sheet includes head or we just use body for now
+      headSrc: headWalk,
       totalFrames: 9,
       interval: 120,
     };
