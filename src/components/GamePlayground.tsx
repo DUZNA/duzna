@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GameCharacter from './GameCharacter';
 import { Card } from '@/components/ui/card';
-import grassTile from '@/assets/grass.png';
+import grassTile from '../assets/grass.png';
 
 const GamePlayground = () => {
   const [position, setPosition] = useState({ x: 200, y: 200 });
