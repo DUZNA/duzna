@@ -14,7 +14,7 @@ const GamePlayground = () => {
 
   const walkSpeed = 3;
   const runSpeed = 7;
-  const playgroundSize = { width: 600, height: 400 };
+  const playgroundSize = { width: window.innerWidth, height: window.innerHeight };
   const charSize = 64;
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
