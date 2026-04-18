@@ -12,17 +12,18 @@ interface GameCharacterProps {
 
 const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMoving }) => {
   const [frame, setFrame] = useState(0);
+  
+  // LPC idle/walk sheets usually have a specific number of frames.
+  // We'll assume a 2-frame animation for this specific asset set.
+  const totalFrames = 2;
 
-  // Simple animation toggle for idle/moving
   useEffect(() => {
-    if (!isMoving) {
-      setFrame(0);
-      return;
-    }
-
+    // Animate continuously for both idle and moving states
+    const intervalTime = isMoving ? 150 : 400; // Faster animation when moving
+    
     const interval = setInterval(() => {
-      setFrame((f) => (f === 0 ? 1 : 0));
-    }, 200);
+      setFrame((f) => (f + 1) % totalFrames);
+    }, intervalTime);
 
     return () => clearInterval(interval);
   }, [isMoving]);
@@ -57,7 +58,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
     height: '100%',
     backgroundImage: `url(${src})`,
     backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
-    backgroundSize: `${spriteSize * 2}px ${spriteSize * 4}px`,
+    backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
   });
 
   return (
