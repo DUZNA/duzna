@@ -1,32 +1,56 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import bodySprite from '@/assets/body.png';
-import headSprite from '@/assets/head.png';
+import bodyIdle from '@/assets/body.png';
+import headIdle from '@/assets/head.png';
+import bodyWalk from '@/assets/walk.png';
+import bodyRun from '@/assets/run.png';
 
 interface GameCharacterProps {
   position: { x: number; y: number };
   direction: 'up' | 'down' | 'left' | 'right';
   isMoving: boolean;
+  isRunning: boolean;
 }
 
-const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMoving }) => {
+const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMoving, isRunning }) => {
   const [frame, setFrame] = useState(0);
   
-  // LPC idle/walk sheets usually have a specific number of frames.
-  // We'll assume a 2-frame animation for this specific asset set.
-  const totalFrames = 2;
+  // Determine which sprite sheet to use and its properties
+  const getAnimationConfig = () => {
+    if (!isMoving) {
+      return {
+        bodySrc: bodyIdle,
+        headSrc: headIdle,
+        totalFrames: 2,
+        interval: 400,
+      };
+    }
+    if (isRunning) {
+      return {
+        bodySrc: bodyRun,
+        headSrc: null, // Assuming run sheet includes head or we just use body for now
+        totalFrames: 8,
+        interval: 100,
+      };
+    }
+    return {
+      bodySrc: bodyWalk,
+      headSrc: null, // Assuming walk sheet includes head or we just use body for now
+      totalFrames: 9,
+      interval: 120,
+    };
+  };
+
+  const config = getAnimationConfig();
 
   useEffect(() => {
-    // Animate continuously for both idle and moving states
-    const intervalTime = isMoving ? 150 : 400; // Faster animation when moving
-    
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % totalFrames);
-    }, intervalTime);
+      setFrame((f) => (f + 1) % config.totalFrames);
+    }, config.interval);
 
     return () => clearInterval(interval);
-  }, [isMoving]);
+  }, [config.totalFrames, config.interval, isMoving, isRunning]);
 
   const getDirectionRow = () => {
     switch (direction) {
@@ -52,7 +76,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
     zIndex: 10,
   };
 
-  const layerStyle = (src: string): React.CSSProperties => ({
+  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => ({
     position: 'absolute',
     width: '100%',
     height: '100%',
@@ -63,8 +87,8 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(bodySprite)} />
-      <div style={layerStyle(headSprite)} />
+      <div style={layerStyle(config.bodySrc, config.totalFrames)} />
+      {config.headSrc && <div style={layerStyle(config.headSrc, config.totalFrames)} />}
     </div>
   );
 };
