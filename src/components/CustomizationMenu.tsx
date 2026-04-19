@@ -87,9 +87,9 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[90vw] w-full h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
-        <div className="flex h-full w-full items-stretch gap-8 p-8">
-          {/* Left Side: Selection Box - Strictly Fixed Width */}
-          <div className="w-[400px] flex-none flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+        <div className="grid grid-cols-[400px_1fr] h-full w-full gap-8 p-8">
+          {/* Left Side: Selection Box - Strictly Fixed Width via Grid */}
+          <div className="flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] overflow-hidden">
             <div className="space-y-2 mb-6">
               <h2 
                 className="text-4xl text-stone-900 uppercase tracking-wider"
@@ -172,7 +172,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
           </div>
 
           {/* Right Side: Zoomed Character Preview - Independent Container */}
-          <div className="flex-1 relative bg-stone-200/30 border-4 border-stone-800/10 rounded-xl overflow-hidden">
+          <div className="relative bg-stone-200/30 border-4 border-stone-800/10 rounded-xl overflow-hidden">
             {/* Fixed Preview Container */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="relative w-16 h-16 flex items-center justify-center">
