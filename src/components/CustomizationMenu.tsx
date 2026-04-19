@@ -38,13 +38,11 @@ import walnut from '@/assets/aprons/walnut.png';
 import white from '@/assets/aprons/white.png';
 
 // Configuration for spritesheet previews
-// This allows us to easily change which frame is shown for all items of a certain type
 const PREVIEW_OFFSETS = {
-  // Assuming 32x64 frames in a 128x256 sheet
-  // Row 0: Up (Back), Row 1: Right, Row 2: Down (Front), Row 3: Left
-  // We use -128px to show the 'Down' (Front) row
+  // Row 2 is Down (Front). With 64px frames, row 2 starts at -128px.
   CLOTHES_FRONT: '0px -128px',
-  SPRITE_SIZE: '128px 256px'
+  // 9 frames wide (9 * 64 = 576), 4 rows high (4 * 64 = 256)
+  SPRITE_SIZE: '576px 256px'
 };
 
 const APRONS = [
@@ -98,21 +96,14 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
       </DialogTrigger>
       <DialogContent className="max-w-[1000px] w-[90vw] h-[80vh] min-h-[80vh] max-h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
         <div className="flex h-full w-full gap-8 p-8 overflow-hidden">
-          {/* Left Side: Selection Box */}
           <div className="w-[400px] h-full flex-none flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] overflow-hidden">
             <div className="space-y-2 mb-6 flex-none">
-              <h2 
-                className="text-4xl text-stone-900 uppercase tracking-wider"
-                style={{ fontFamily: "'VT323', monospace" }}
-              >
-                Inventory
-              </h2>
+              <h2 className="text-4xl text-stone-900 uppercase tracking-wider" style={{ fontFamily: "'VT323', monospace" }}>Inventory</h2>
               <div className="h-1 w-full bg-stone-800" />
             </div>
 
             <ScrollArea className="flex-1 pr-2">
               <div className="space-y-3">
-                {/* Clothes Category */}
                 <button
                   onClick={() => setIsClothesOpen(!isClothesOpen)}
                   className={`w-full flex items-center justify-between p-3 border-2 border-stone-800 transition-colors ${isClothesOpen ? 'bg-stone-800 text-stone-100' : 'bg-stone-300 text-stone-800 hover:bg-stone-400'}`}
@@ -124,7 +115,6 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
 
                 {isClothesOpen && (
                   <div className="pl-4 space-y-2">
-                    {/* Aprons Sub-category */}
                     <button
                       onClick={() => setIsApronsOpen(!isApronsOpen)}
                       className={`w-full flex items-center justify-between p-2 border-2 border-stone-800 transition-colors ${isApronsOpen ? 'bg-stone-400 text-stone-900' : 'bg-stone-200 text-stone-700 hover:bg-stone-300'}`}
@@ -136,7 +126,6 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
 
                     {isApronsOpen && (
                       <div className="grid grid-cols-3 gap-y-8 gap-x-2 py-6">
-                        {/* Remove Option */}
                         <button
                           onClick={() => onSelectApron(null)}
                           className="flex flex-col items-center gap-2 group"
@@ -155,9 +144,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                             className="flex flex-col items-center gap-2 group"
                             style={{ fontFamily: "'VT323', monospace" }}
                           >
-                            <div 
-                              className={`w-16 h-16 transition-all flex items-center justify-center rounded-lg ${selectedApron === apron.src ? 'bg-stone-800/10 ring-2 ring-stone-800 scale-110' : 'group-hover:bg-stone-800/5'}`}
-                            >
+                            <div className={`w-16 h-16 transition-all flex items-center justify-center rounded-lg ${selectedApron === apron.src ? 'bg-stone-800/10 ring-2 ring-stone-800 scale-110' : 'group-hover:bg-stone-800/5'}`}>
                               <div 
                                 className="w-16 h-16"
                                 style={{ 
@@ -181,7 +168,6 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
             </ScrollArea>
           </div>
 
-          {/* Right Side: Zoomed Character Preview */}
           <div className="flex-1 h-full relative bg-stone-200/30 border-4 border-stone-800/10 rounded-xl overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="relative w-16 h-16 flex items-center justify-center">
@@ -197,11 +183,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                 </div>
               </div>
             </div>
-            
-            <div 
-              className="absolute bottom-8 left-0 right-0 text-center text-stone-800/40 tracking-widest uppercase text-2xl pointer-events-none"
-              style={{ fontFamily: "'VT323', monospace" }}
-            >
+            <div className="absolute bottom-8 left-0 right-0 text-center text-stone-800/40 tracking-widest uppercase text-2xl pointer-events-none" style={{ fontFamily: "'VT323', monospace" }}>
               Character Preview
             </div>
           </div>

@@ -102,9 +102,9 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       {apronSrc && (
         <div 
           style={{
-            ...layerStyle(apronSrc, 2),
-            backgroundPosition: `-${(frame % 2) * spriteSize}px -${row * spriteSize}px`,
-            backgroundSize: `${spriteSize * 2}px ${spriteSize * 4}px`,
+            ...layerStyle(apronSrc, 9), // Apron sheets are 9 frames wide
+            backgroundPosition: `-${(frame % 9) * spriteSize}px -${row * spriteSize}px`,
+            backgroundSize: `${spriteSize * 9}px ${spriteSize * 4}px`,
             zIndex: 11
           }} 
         />
