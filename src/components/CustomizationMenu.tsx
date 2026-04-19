@@ -88,8 +88,8 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
       </DialogTrigger>
       <DialogContent className="max-w-[90vw] w-full h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
         <div className="flex h-full w-full items-stretch gap-8 p-8">
-          {/* Left Side: Selection Box - Fixed Width */}
-          <div className="w-[400px] flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+          {/* Left Side: Selection Box - Strictly Fixed Width */}
+          <div className="w-[400px] flex-none flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
             <div className="space-y-2 mb-6">
               <h2 
                 className="text-4xl text-stone-900 uppercase tracking-wider"
