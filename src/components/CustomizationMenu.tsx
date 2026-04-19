@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import GameCharacter from './GameCharacter';
-import { Settings2, X } from 'lucide-react';
+import { Settings2, X, ChevronDown, ChevronRight } from 'lucide-react';
 
 // Import all apron assets
 import yellow from '@/assets/aprons/yellow.png';
@@ -70,6 +70,9 @@ interface CustomizationMenuProps {
 }
 
 const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, onSelectApron }) => {
+  const [isClothesOpen, setIsClothesOpen] = useState(true);
+  const [isApronsOpen, setIsApronsOpen] = useState(false);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -86,77 +89,104 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
       <DialogContent className="max-w-[90vw] w-full h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
         <div className="flex h-full w-full">
           {/* Left Side: Selection Box */}
-          <div className="w-1/3 border-r-4 border-stone-800 p-8 flex flex-col gap-6 bg-stone-200/50">
-            <div className="space-y-2">
+          <div className="w-1/3 border-r-4 border-stone-800 p-6 flex flex-col gap-4 bg-stone-200/50">
+            <div className="space-y-2 mb-4">
               <h2 
                 className="text-4xl text-stone-900 uppercase tracking-wider"
                 style={{ fontFamily: "'VT323', monospace" }}
               >
-                Clothes
+                Inventory
               </h2>
               <div className="h-1 w-full bg-stone-800" />
             </div>
 
-            <div className="flex-1 flex flex-col gap-4 overflow-hidden">
-              <h3 
-                className="text-2xl text-stone-700 uppercase"
-                style={{ fontFamily: "'VT323', monospace" }}
-              >
-                Aprons
-              </h3>
-              
-              <ScrollArea className="flex-1 pr-4">
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Remove Button */}
-                  <Button
-                    onClick={() => onSelectApron(null)}
-                    className={`h-auto py-4 rounded-none border-2 border-stone-800 bg-stone-300 hover:bg-red-200 text-stone-800 flex flex-col items-center gap-1 transition-colors ${!selectedApron ? 'ring-4 ring-stone-800 ring-inset' : ''}`}
-                    style={{ fontFamily: "'VT323', monospace" }}
-                  >
-                    <X size={20} />
-                    <span className="text-lg uppercase">Remove</span>
-                  </Button>
+            <ScrollArea className="flex-1 pr-2">
+              <div className="space-y-2">
+                {/* Clothes Category */}
+                <button
+                  onClick={() => setIsClothesOpen(!isClothesOpen)}
+                  className="w-full flex items-center justify-between p-3 bg-stone-300 border-2 border-stone-800 hover:bg-stone-400 transition-colors"
+                  style={{ fontFamily: "'VT323', monospace" }}
+                >
+                  <span className="text-2xl uppercase tracking-tight">Clothes</span>
+                  {isClothesOpen ? <ChevronDown size={24} /> : <ChevronRight size={24} />}
+                </button>
 
-                  {APRONS.map((apron) => (
-                    <Button
-                      key={apron.name}
-                      onClick={() => onSelectApron(apron.src)}
-                      className={`h-auto py-4 rounded-none border-2 border-stone-800 bg-white hover:bg-stone-100 text-stone-800 flex flex-col items-center gap-2 transition-all ${selectedApron === apron.src ? 'ring-4 ring-stone-800 ring-inset bg-stone-100' : ''}`}
+                {isClothesOpen && (
+                  <div className="pl-4 space-y-2 mt-2">
+                    {/* Aprons Sub-category */}
+                    <button
+                      onClick={() => setIsApronsOpen(!isApronsOpen)}
+                      className="w-full flex items-center justify-between p-2 bg-stone-200 border-2 border-stone-800 hover:bg-stone-300 transition-colors"
                       style={{ fontFamily: "'VT323', monospace" }}
                     >
-                      <div 
-                        className="w-8 h-8 border border-stone-300 shadow-sm"
-                        style={{ 
-                          backgroundImage: `url(${apron.src})`,
-                          backgroundPosition: '0 0',
-                          backgroundSize: '64px 128px',
-                          imageRendering: 'pixelated'
-                        }}
-                      />
-                      <span className="text-lg uppercase leading-none">{apron.name}</span>
-                    </Button>
-                  ))}
-                </div>
-              </ScrollArea>
-            </div>
+                      <span className="text-xl uppercase">Aprons</span>
+                      {isApronsOpen ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                    </button>
+
+                    {isApronsOpen && (
+                      <div className="grid grid-cols-3 gap-4 py-4">
+                        {/* Remove Option */}
+                        <button
+                          onClick={() => onSelectApron(null)}
+                          className="flex flex-col items-center gap-1 group"
+                          style={{ fontFamily: "'VT323', monospace" }}
+                        >
+                          <div className={`w-12 h-12 flex items-center justify-center border-2 ${!selectedApron ? 'border-stone-800 bg-stone-300' : 'border-transparent group-hover:border-stone-400'}`}>
+                            <X size={24} className="text-stone-600" />
+                          </div>
+                          <span className="text-sm uppercase text-stone-600">None</span>
+                        </button>
+
+                        {APRONS.map((apron) => (
+                          <button
+                            key={apron.name}
+                            onClick={() => onSelectApron(apron.src)}
+                            className="flex flex-col items-center gap-1 group"
+                            style={{ fontFamily: "'VT323', monospace" }}
+                          >
+                            <div 
+                              className={`w-12 h-12 border-2 transition-all ${selectedApron === apron.src ? 'border-stone-800 bg-stone-300 scale-110' : 'border-transparent group-hover:border-stone-400'}`}
+                              style={{ 
+                                backgroundImage: `url(${apron.src})`,
+                                backgroundPosition: '0 0',
+                                backgroundSize: '96px 192px', // Scaled for 48px display (12*4)
+                                imageRendering: 'pixelated'
+                              }}
+                            />
+                            <span className={`text-sm uppercase ${selectedApron === apron.src ? 'text-stone-900 font-bold' : 'text-stone-600'}`}>
+                              {apron.name}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
           </div>
 
           {/* Right Side: Zoomed Character Preview */}
-          <div className="flex-1 relative flex items-center justify-center bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent">
-            <div className="scale-[6] transform-gpu">
-              <GameCharacter 
-                position={{ x: -32, y: -32 }}
-                direction="down"
-                isMoving={false}
-                isRunning={false}
-                apronSrc={selectedApron}
-              />
+          <div className="flex-1 relative flex items-center justify-center bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent overflow-hidden">
+            {/* Fixed Preview Container */}
+            <div className="relative w-64 h-64 flex items-center justify-center">
+              <div className="scale-[4] transform-gpu origin-center">
+                <GameCharacter 
+                  position={{ x: -32, y: -32 }} // Centering the 64px sprite within the scaled transform
+                  direction="down"
+                  isMoving={false}
+                  isRunning={false}
+                  apronSrc={selectedApron}
+                />
+              </div>
             </div>
+            
             <div 
               className="absolute bottom-8 text-stone-800/40 tracking-widest uppercase text-2xl"
               style={{ fontFamily: "'VT323', monospace" }}
             >
-              Preview Mode
+              Character Preview
             </div>
           </div>
         </div>
