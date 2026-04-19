@@ -129,10 +129,10 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                         {/* Remove Option */}
                         <button
                           onClick={() => onSelectApron(null)}
-                          className="flex flex-col items-center gap-2 group"
+                          className="flex flex-col items-center gap-2 group relative"
                           style={{ fontFamily: "'VT323', monospace" }}
                         >
-                          <div className={`w-16 h-16 flex items-center justify-center transition-all rounded-md ${!selectedApron ? 'bg-stone-800/10 ring-2 ring-stone-800' : 'group-hover:bg-stone-800/5'}`}>
+                          <div className={`w-16 h-16 flex items-center justify-center transition-all ${!selectedApron ? 'bg-stone-800/10 scale-110' : 'group-hover:bg-stone-800/5'}`}>
                             <X size={32} className={`${!selectedApron ? 'text-stone-900' : 'text-stone-400'}`} />
                           </div>
                           <span className={`text-sm uppercase tracking-tighter ${!selectedApron ? 'text-stone-900 font-bold' : 'text-stone-500'}`}>None</span>
@@ -142,18 +142,18 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                           <button
                             key={apron.name}
                             onClick={() => onSelectApron(apron.src)}
-                            className="flex flex-col items-center gap-2 group"
+                            className="flex flex-col items-center gap-2 group relative"
                             style={{ fontFamily: "'VT323', monospace" }}
                           >
                             <div 
-                              className={`w-16 h-16 transition-all flex items-center justify-center rounded-md ${selectedApron === apron.src ? 'bg-stone-800/10 ring-2 ring-stone-800 scale-110' : 'group-hover:bg-stone-800/5'}`}
+                              className={`w-16 h-16 transition-all flex items-center justify-center ${selectedApron === apron.src ? 'bg-stone-800/10 scale-110' : 'group-hover:bg-stone-800/5'}`}
                             >
                               <div 
                                 className="w-16 h-16"
                                 style={{ 
                                   backgroundImage: `url(${apron.src})`,
-                                  backgroundPosition: '0 -128px', // Facing Down (Row 2)
-                                  backgroundSize: '128px 256px',
+                                  backgroundPosition: '0 0',
+                                  backgroundSize: '128px 256px', // 64px * 2 frames wide, 64px * 4 rows high
                                   imageRendering: 'pixelated'
                                 }}
                               />
@@ -173,12 +173,12 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
 
           {/* Right Side: Zoomed Character Preview */}
           <div className="flex-1 relative bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent overflow-hidden">
-            {/* Fixed Preview Container - Using absolute centering that is independent of flex shifts */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-              <div className="relative w-16 h-16">
-                <div className="scale-[6] transform-gpu origin-center">
+            {/* Fixed Preview Container - Using absolute centering with fixed dimensions */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="relative w-16 h-16 flex items-center justify-center">
+                <div className="scale-[6] transform-gpu">
                   <GameCharacter 
-                    position={{ x: 0, y: 0 }} 
+                    position={{ x: -32, y: -32 }} 
                     direction="down"
                     isMoving={false}
                     isRunning={false}
