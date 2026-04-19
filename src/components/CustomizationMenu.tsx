@@ -7,10 +7,69 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import GameCharacter from './GameCharacter';
-import { Settings2 } from 'lucide-react';
+import { Settings2, X } from 'lucide-react';
 
-const CustomizationMenu = () => {
+// Import all apron assets
+import yellow from '@/assets/aprons/yellow.png';
+import black from '@/assets/aprons/black.png';
+import blue from '@/assets/aprons/blue.png';
+import bluegray from '@/assets/aprons/bluegray.png';
+import brown from '@/assets/aprons/brown.png';
+import charcoal from '@/assets/aprons/charcoal.png';
+import forest from '@/assets/aprons/forest.png';
+import gray from '@/assets/aprons/gray.png';
+import green from '@/assets/aprons/green.png';
+import lavender from '@/assets/aprons/lavender.png';
+import leather from '@/assets/aprons/leather.png';
+import maroon from '@/assets/aprons/maroon.png';
+import navy from '@/assets/aprons/navy.png';
+import orange from '@/assets/aprons/orange.png';
+import pink from '@/assets/aprons/pink.png';
+import purple from '@/assets/aprons/purple.png';
+import red from '@/assets/aprons/red.png';
+import rose from '@/assets/aprons/rose.png';
+import sky from '@/assets/aprons/sky.png';
+import slate from '@/assets/aprons/slate.png';
+import tan from '@/assets/aprons/tan.png';
+import teal from '@/assets/aprons/teal.png';
+import walnut from '@/assets/aprons/walnut.png';
+import white from '@/assets/aprons/white.png';
+
+const APRONS = [
+  { name: 'Yellow', src: yellow },
+  { name: 'Black', src: black },
+  { name: 'Blue', src: blue },
+  { name: 'Blue Gray', src: bluegray },
+  { name: 'Brown', src: brown },
+  { name: 'Charcoal', src: charcoal },
+  { name: 'Forest', src: forest },
+  { name: 'Gray', src: gray },
+  { name: 'Green', src: green },
+  { name: 'Lavender', src: lavender },
+  { name: 'Leather', src: leather },
+  { name: 'Maroon', src: maroon },
+  { name: 'Navy', src: navy },
+  { name: 'Orange', src: orange },
+  { name: 'Pink', src: pink },
+  { name: 'Purple', src: purple },
+  { name: 'Red', src: red },
+  { name: 'Rose', src: rose },
+  { name: 'Sky', src: sky },
+  { name: 'Slate', src: slate },
+  { name: 'Tan', src: tan },
+  { name: 'Teal', src: teal },
+  { name: 'Walnut', src: walnut },
+  { name: 'White', src: white },
+];
+
+interface CustomizationMenuProps {
+  selectedApron: string | null;
+  onSelectApron: (src: string | null) => void;
+}
+
+const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, onSelectApron }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,14 +87,57 @@ const CustomizationMenu = () => {
         <div className="flex h-full w-full">
           {/* Left Side: Selection Box */}
           <div className="w-1/3 border-r-4 border-stone-800 p-8 flex flex-col gap-6 bg-stone-200/50">
-            <h2 
-              className="text-4xl text-stone-900 uppercase tracking-wider"
-              style={{ fontFamily: "'VT323', monospace" }}
-            >
-              Character Options
-            </h2>
-            <div className="flex-1 bg-stone-300/30 border-4 border-stone-800/20 flex items-center justify-center text-stone-600 text-xl italic p-4 text-center" style={{ fontFamily: "'VT323', monospace" }}>
-              Selection options will appear here...
+            <div className="space-y-2">
+              <h2 
+                className="text-4xl text-stone-900 uppercase tracking-wider"
+                style={{ fontFamily: "'VT323', monospace" }}
+              >
+                Clothes
+              </h2>
+              <div className="h-1 w-full bg-stone-800" />
+            </div>
+
+            <div className="flex-1 flex flex-col gap-4 overflow-hidden">
+              <h3 
+                className="text-2xl text-stone-700 uppercase"
+                style={{ fontFamily: "'VT323', monospace" }}
+              >
+                Aprons
+              </h3>
+              
+              <ScrollArea className="flex-1 pr-4">
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Remove Button */}
+                  <Button
+                    onClick={() => onSelectApron(null)}
+                    className={`h-auto py-4 rounded-none border-2 border-stone-800 bg-stone-300 hover:bg-red-200 text-stone-800 flex flex-col items-center gap-1 transition-colors ${!selectedApron ? 'ring-4 ring-stone-800 ring-inset' : ''}`}
+                    style={{ fontFamily: "'VT323', monospace" }}
+                  >
+                    <X size={20} />
+                    <span className="text-lg uppercase">Remove</span>
+                  </Button>
+
+                  {APRONS.map((apron) => (
+                    <Button
+                      key={apron.name}
+                      onClick={() => onSelectApron(apron.src)}
+                      className={`h-auto py-4 rounded-none border-2 border-stone-800 bg-white hover:bg-stone-100 text-stone-800 flex flex-col items-center gap-2 transition-all ${selectedApron === apron.src ? 'ring-4 ring-stone-800 ring-inset bg-stone-100' : ''}`}
+                      style={{ fontFamily: "'VT323', monospace" }}
+                    >
+                      <div 
+                        className="w-8 h-8 border border-stone-300 shadow-sm"
+                        style={{ 
+                          backgroundImage: `url(${apron.src})`,
+                          backgroundPosition: '0 0',
+                          backgroundSize: '64px 128px',
+                          imageRendering: 'pixelated'
+                        }}
+                      />
+                      <span className="text-lg uppercase leading-none">{apron.name}</span>
+                    </Button>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
           </div>
 
@@ -43,10 +145,11 @@ const CustomizationMenu = () => {
           <div className="flex-1 relative flex items-center justify-center bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent">
             <div className="scale-[6] transform-gpu">
               <GameCharacter 
-                position={{ x: -32, y: -32 }} // Centering the 64px sprite
+                position={{ x: -32, y: -32 }}
                 direction="down"
                 isMoving={false}
                 isRunning={false}
+                apronSrc={selectedApron}
               />
             </div>
             <div 

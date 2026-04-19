@@ -12,6 +12,9 @@ const GamePlayground = () => {
   const [isMoving, setIsMoving] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set());
+  
+  // Customization State
+  const [selectedApron, setSelectedApron] = useState<string | null>(null);
 
   const walkSpeed = 3;
   const runSpeed = 7;
@@ -92,7 +95,10 @@ const GamePlayground = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
-      <CustomizationMenu />
+      <CustomizationMenu 
+        selectedApron={selectedApron} 
+        onSelectApron={setSelectedApron} 
+      />
       
       <Card 
         className="relative overflow-hidden border-4 border-emerald-800/20 shadow-2xl"
@@ -114,6 +120,7 @@ const GamePlayground = () => {
           direction={direction} 
           isMoving={isMoving}
           isRunning={isRunning}
+          apronSrc={selectedApron}
         />
       </Card>
     </div>

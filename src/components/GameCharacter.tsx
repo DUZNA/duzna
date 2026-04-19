@@ -13,12 +13,12 @@ interface GameCharacterProps {
   direction: 'up' | 'down' | 'left' | 'right';
   isMoving: boolean;
   isRunning: boolean;
+  apronSrc?: string | null;
 }
 
-const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMoving, isRunning }) => {
+const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMoving, isRunning, apronSrc }) => {
   const [frame, setFrame] = useState(0);
   
-  // Determine which sprite sheet to use and its properties
   const getAnimationConfig = () => {
     if (!isMoving) {
       return {
@@ -91,6 +91,18 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
     <div style={spriteStyle}>
       <div style={layerStyle(config.bodySrc, config.totalFrames)} />
       {config.headSrc && <div style={layerStyle(config.headSrc, config.totalFrames)} />}
+      {/* Apron layer - Note: Apron assets provided are idle only (2 frames) */}
+      {apronSrc && (
+        <div 
+          style={{
+            ...layerStyle(apronSrc, 2),
+            // If character is moving/running, we still use the idle apron but sync frame
+            backgroundPosition: `-${(frame % 2) * spriteSize}px -${row * spriteSize}px`,
+            backgroundSize: `${spriteSize * 2}px ${spriteSize * 4}px`,
+            zIndex: 11
+          }} 
+        />
+      )}
     </div>
   );
 };
