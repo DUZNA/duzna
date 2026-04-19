@@ -37,6 +37,16 @@ import teal from '@/assets/aprons/teal.png';
 import walnut from '@/assets/aprons/walnut.png';
 import white from '@/assets/aprons/white.png';
 
+// Configuration for spritesheet previews
+// This allows us to easily change which frame is shown for all items of a certain type
+const PREVIEW_OFFSETS = {
+  // Assuming 32x64 frames in a 128x256 sheet
+  // Row 0: Up (Back), Row 1: Right, Row 2: Down (Front), Row 3: Left
+  // We use -128px to show the 'Down' (Front) row
+  CLOTHES_FRONT: '0px -128px',
+  SPRITE_SIZE: '128px 256px'
+};
+
 const APRONS = [
   { name: 'Yellow', src: yellow },
   { name: 'Black', src: black },
@@ -88,7 +98,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
       </DialogTrigger>
       <DialogContent className="max-w-[1000px] w-[90vw] h-[80vh] min-h-[80vh] max-h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
         <div className="flex h-full w-full gap-8 p-8 overflow-hidden">
-          {/* Left Side: Selection Box - Strictly Fixed Dimensions */}
+          {/* Left Side: Selection Box */}
           <div className="w-[400px] h-full flex-none flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] overflow-hidden">
             <div className="space-y-2 mb-6 flex-none">
               <h2 
@@ -152,8 +162,8 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                                 className="w-16 h-16"
                                 style={{ 
                                   backgroundImage: `url(${apron.src})`,
-                                  backgroundPosition: '0 0',
-                                  backgroundSize: '128px 256px',
+                                  backgroundPosition: PREVIEW_OFFSETS.CLOTHES_FRONT,
+                                  backgroundSize: PREVIEW_OFFSETS.SPRITE_SIZE,
                                   imageRendering: 'pixelated'
                                 }}
                               />
@@ -171,9 +181,8 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
             </ScrollArea>
           </div>
 
-          {/* Right Side: Zoomed Character Preview - Strictly Fixed Dimensions */}
+          {/* Right Side: Zoomed Character Preview */}
           <div className="flex-1 h-full relative bg-stone-200/30 border-4 border-stone-800/10 rounded-xl overflow-hidden">
-            {/* Fixed Preview Container */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="relative w-16 h-16 flex items-center justify-center">
                 <div className="scale-[6] transform-gpu">
