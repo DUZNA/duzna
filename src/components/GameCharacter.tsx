@@ -14,9 +14,17 @@ interface GameCharacterProps {
   isMoving: boolean;
   isRunning: boolean;
   apronSrc?: string | null;
+  noTransition?: boolean;
 }
 
-const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMoving, isRunning, apronSrc }) => {
+const GameCharacter: React.FC<GameCharacterProps> = ({ 
+  position, 
+  direction, 
+  isMoving, 
+  isRunning, 
+  apronSrc,
+  noTransition = false
+}) => {
   const [frame, setFrame] = useState(0);
   
   const getAnimationConfig = () => {
@@ -73,7 +81,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
     position: 'absolute',
     left: `${position.x}px`,
     top: `${position.y}px`,
-    transition: 'left 0.1s linear, top 0.1s linear',
+    transition: noTransition ? 'none' : 'left 0.1s linear, top 0.1s linear',
     imageRendering: 'pixelated',
     zIndex: 10,
   };
@@ -91,12 +99,10 @@ const GameCharacter: React.FC<GameCharacterProps> = ({ position, direction, isMo
     <div style={spriteStyle}>
       <div style={layerStyle(config.bodySrc, config.totalFrames)} />
       {config.headSrc && <div style={layerStyle(config.headSrc, config.totalFrames)} />}
-      {/* Apron layer - Note: Apron assets provided are idle only (2 frames) */}
       {apronSrc && (
         <div 
           style={{
             ...layerStyle(apronSrc, 2),
-            // If character is moving/running, we still use the idle apron but sync frame
             backgroundPosition: `-${(frame % 2) * spriteSize}px -${row * spriteSize}px`,
             backgroundSize: `${spriteSize * 2}px ${spriteSize * 4}px`,
             zIndex: 11

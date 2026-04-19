@@ -89,8 +89,8 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
       <DialogContent className="max-w-[90vw] w-full h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
         <div className="flex h-full w-full items-stretch">
           {/* Left Side: Selection Box */}
-          <div className="w-1/3 border-r-4 border-stone-800 p-6 flex flex-col gap-4 bg-stone-200/50">
-            <div className="space-y-2 mb-4">
+          <div className="w-1/3 border-r-4 border-stone-800 p-6 flex flex-col bg-stone-200/50">
+            <div className="space-y-2 mb-6">
               <h2 
                 className="text-4xl text-stone-900 uppercase tracking-wider"
                 style={{ fontFamily: "'VT323', monospace" }}
@@ -101,11 +101,11 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
             </div>
 
             <ScrollArea className="flex-1 pr-2">
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {/* Clothes Category */}
                 <button
                   onClick={() => setIsClothesOpen(!isClothesOpen)}
-                  className="w-full flex items-center justify-between p-3 bg-stone-300 border-2 border-stone-800 hover:bg-stone-400 transition-colors"
+                  className={`w-full flex items-center justify-between p-3 border-2 border-stone-800 transition-colors ${isClothesOpen ? 'bg-stone-800 text-stone-100' : 'bg-stone-300 text-stone-800 hover:bg-stone-400'}`}
                   style={{ fontFamily: "'VT323', monospace" }}
                 >
                   <span className="text-2xl uppercase tracking-tight">Clothes</span>
@@ -113,11 +113,11 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                 </button>
 
                 {isClothesOpen && (
-                  <div className="pl-4 space-y-2 mt-2">
+                  <div className="pl-4 space-y-2">
                     {/* Aprons Sub-category */}
                     <button
                       onClick={() => setIsApronsOpen(!isApronsOpen)}
-                      className="w-full flex items-center justify-between p-2 bg-stone-200 border-2 border-stone-800 hover:bg-stone-300 transition-colors"
+                      className={`w-full flex items-center justify-between p-2 border-2 border-stone-800 transition-colors ${isApronsOpen ? 'bg-stone-400 text-stone-900' : 'bg-stone-200 text-stone-700 hover:bg-stone-300'}`}
                       style={{ fontFamily: "'VT323', monospace" }}
                     >
                       <span className="text-xl uppercase">Aprons</span>
@@ -125,15 +125,15 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                     </button>
 
                     {isApronsOpen && (
-                      <div className="grid grid-cols-3 gap-y-6 gap-x-2 py-4">
+                      <div className="grid grid-cols-3 gap-y-8 gap-x-2 py-6">
                         {/* Remove Option */}
                         <button
                           onClick={() => onSelectApron(null)}
-                          className="flex flex-col items-center gap-2 group"
+                          className="flex flex-col items-center gap-2 group relative"
                           style={{ fontFamily: "'VT323', monospace" }}
                         >
-                          <div className={`w-14 h-14 flex items-center justify-center border-2 transition-all ${!selectedApron ? 'border-stone-800 bg-stone-300' : 'border-transparent group-hover:border-stone-400 bg-stone-200/50'}`}>
-                            <X size={28} className="text-stone-600" />
+                          <div className={`w-16 h-16 flex items-center justify-center transition-all ${!selectedApron ? 'bg-stone-800/10 scale-110' : 'group-hover:bg-stone-800/5'}`}>
+                            <X size={32} className={`${!selectedApron ? 'text-stone-900' : 'text-stone-400'}`} />
                           </div>
                           <span className={`text-sm uppercase tracking-tighter ${!selectedApron ? 'text-stone-900 font-bold' : 'text-stone-500'}`}>None</span>
                         </button>
@@ -142,18 +142,18 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                           <button
                             key={apron.name}
                             onClick={() => onSelectApron(apron.src)}
-                            className="flex flex-col items-center gap-2 group"
+                            className="flex flex-col items-center gap-2 group relative"
                             style={{ fontFamily: "'VT323', monospace" }}
                           >
                             <div 
-                              className={`w-14 h-14 border-2 transition-all flex items-center justify-center ${selectedApron === apron.src ? 'border-stone-800 bg-stone-300 scale-105' : 'border-transparent group-hover:border-stone-400 bg-stone-200/50'}`}
+                              className={`w-16 h-16 transition-all flex items-center justify-center ${selectedApron === apron.src ? 'bg-stone-800/10 scale-110' : 'group-hover:bg-stone-800/5'}`}
                             >
                               <div 
-                                className="w-12 h-12"
+                                className="w-16 h-16"
                                 style={{ 
                                   backgroundImage: `url(${apron.src})`,
                                   backgroundPosition: '0 0',
-                                  backgroundSize: '96px 192px', // Scaled for 48px display
+                                  backgroundSize: '128px 256px', // 64px * 2 frames wide, 64px * 4 rows high
                                   imageRendering: 'pixelated'
                                 }}
                               />
@@ -172,24 +172,25 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
           </div>
 
           {/* Right Side: Zoomed Character Preview */}
-          <div className="flex-1 relative flex items-center justify-center bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent overflow-hidden">
-            {/* Fixed Preview Container - Using absolute centering to prevent shifts */}
+          <div className="flex-1 relative bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent overflow-hidden">
+            {/* Fixed Preview Container - Using absolute centering with fixed dimensions */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="relative w-16 h-16"> {/* Base size of sprite */}
-                <div className="absolute inset-0 scale-[5] transform-gpu origin-center">
+              <div className="relative w-16 h-16 flex items-center justify-center">
+                <div className="scale-[6] transform-gpu">
                   <GameCharacter 
-                    position={{ x: 0, y: 0 }} 
+                    position={{ x: -32, y: -32 }} 
                     direction="down"
                     isMoving={false}
                     isRunning={false}
                     apronSrc={selectedApron}
+                    noTransition={true}
                   />
                 </div>
               </div>
             </div>
             
             <div 
-              className="absolute bottom-8 text-stone-800/40 tracking-widest uppercase text-2xl pointer-events-none"
+              className="absolute bottom-8 left-0 right-0 text-center text-stone-800/40 tracking-widest uppercase text-2xl pointer-events-none"
               style={{ fontFamily: "'VT323', monospace" }}
             >
               Character Preview
