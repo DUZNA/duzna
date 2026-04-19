@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import GameCharacter from './GameCharacter';
+import CustomizationMenu from './CustomizationMenu';
 import { Card } from '@/components/ui/card';
 import grassTile from '../assets/grass.png';
 
@@ -91,6 +92,8 @@ const GamePlayground = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
+      <CustomizationMenu />
+      
       <Card 
         className="relative overflow-hidden border-4 border-emerald-800/20 shadow-2xl"
         style={{ width: playgroundSize.width, height: playgroundSize.height }}
