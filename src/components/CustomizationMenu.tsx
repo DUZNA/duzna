@@ -8,73 +8,97 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import GameCharacter from './GameCharacter';
+import GameCharacter, { ApronSet } from './GameCharacter';
 import { Settings2, X, ChevronDown, ChevronRight } from 'lucide-react';
 
-// Import all apron assets
-import yellow from '@/assets/aprons/yellow.png';
-import black from '@/assets/aprons/black.png';
-import blue from '@/assets/aprons/blue.png';
-import bluegray from '@/assets/aprons/bluegray.png';
-import brown from '@/assets/aprons/brown.png';
-import charcoal from '@/assets/aprons/charcoal.png';
-import forest from '@/assets/aprons/forest.png';
-import gray from '@/assets/aprons/gray.png';
-import green from '@/assets/aprons/green.png';
-import lavender from '@/assets/aprons/lavender.png';
-import leather from '@/assets/aprons/leather.png';
-import maroon from '@/assets/aprons/maroon.png';
-import navy from '@/assets/aprons/navy.png';
-import orange from '@/assets/aprons/orange.png';
-import pink from '@/assets/aprons/pink.png';
-import purple from '@/assets/aprons/purple.png';
-import red from '@/assets/aprons/red.png';
-import rose from '@/assets/aprons/rose.png';
-import sky from '@/assets/aprons/sky.png';
-import slate from '@/assets/aprons/slate.png';
-import tan from '@/assets/aprons/tan.png';
-import teal from '@/assets/aprons/teal.png';
-import walnut from '@/assets/aprons/walnut.png';
-import white from '@/assets/aprons/white.png';
+// Import all apron assets (Idle)
+import yellowIdle from '@/assets/aprons/idle/yellow.png';
+import blackIdle from '@/assets/aprons/idle/black.png';
+import blueIdle from '@/assets/aprons/idle/blue.png';
+import bluegrayIdle from '@/assets/aprons/idle/bluegray.png';
+import brownIdle from '@/assets/aprons/idle/brown.png';
+import charcoalIdle from '@/assets/aprons/idle/charcoal.png';
+import forestIdle from '@/assets/aprons/idle/forest.png';
+import grayIdle from '@/assets/aprons/idle/gray.png';
+import greenIdle from '@/assets/aprons/idle/green.png';
+import lavenderIdle from '@/assets/aprons/idle/lavender.png';
+import leatherIdle from '@/assets/aprons/idle/leather.png';
+import maroonIdle from '@/assets/aprons/idle/maroon.png';
+import navyIdle from '@/assets/aprons/idle/navy.png';
+import orangeIdle from '@/assets/aprons/idle/orange.png';
+import pinkIdle from '@/assets/aprons/idle/pink.png';
+import purpleIdle from '@/assets/aprons/idle/purple.png';
+import redIdle from '@/assets/aprons/idle/red.png';
+import roseIdle from '@/assets/aprons/idle/rose.png';
+import skyIdle from '@/assets/aprons/idle/sky.png';
+import slateIdle from '@/assets/aprons/idle/slate.png';
+import tanIdle from '@/assets/aprons/idle/tan.png';
+import tealIdle from '@/assets/aprons/idle/teal.png';
+import walnutIdle from '@/assets/aprons/idle/walnut.png';
+import whiteIdle from '@/assets/aprons/idle/white.png';
 
-// Configuration for spritesheet previews
+// Import all apron assets (Walk)
+import yellowWalk from '@/assets/aprons/walk/yellow.png';
+import blackWalk from '@/assets/aprons/walk/black.png';
+import blueWalk from '@/assets/aprons/walk/blue.png';
+import bluegrayWalk from '@/assets/aprons/walk/bluegray.png';
+import brownWalk from '@/assets/aprons/walk/brown.png';
+import charcoalWalk from '@/assets/aprons/walk/charcoal.png';
+import forestWalk from '@/assets/aprons/walk/forest.png';
+import grayWalk from '@/assets/aprons/walk/gray.png';
+import greenWalk from '@/assets/aprons/walk/green.png';
+import lavenderWalk from '@/assets/aprons/walk/lavender.png';
+import leatherWalk from '@/assets/aprons/walk/leather.png';
+import maroonWalk from '@/assets/aprons/walk/maroon.png';
+import navyWalk from '@/assets/aprons/walk/navy.png';
+import orangeWalk from '@/assets/aprons/walk/orange.png';
+import pinkWalk from '@/assets/aprons/walk/pink.png';
+import purpleWalk from '@/assets/aprons/walk/purple.png';
+import redWalk from '@/assets/aprons/walk/red.png';
+import roseWalk from '@/assets/aprons/walk/rose.png';
+import skyWalk from '@/assets/aprons/walk/sky.png';
+import slateWalk from '@/assets/aprons/walk/slate.png';
+import tanWalk from '@/assets/aprons/walk/tan.png';
+import tealWalk from '@/assets/aprons/walk/teal.png';
+import walnutWalk from '@/assets/aprons/walk/walnut.png';
+import whiteWalk from '@/assets/aprons/walk/white.png';
+
 const PREVIEW_OFFSETS = {
-  // Row 2 is Down (Front). With 64px frames, row 2 starts at -128px.
   CLOTHES_FRONT: '0px -128px',
-  // 9 frames wide (9 * 64 = 576), 4 rows high (4 * 64 = 256)
-  SPRITE_SIZE: '576px 256px'
+  // Idle sheets are 2 frames wide (2 * 64 = 128)
+  SPRITE_SIZE: '128px 256px'
 };
 
-const APRONS = [
-  { name: 'Yellow', src: yellow },
-  { name: 'Black', src: black },
-  { name: 'Blue', src: blue },
-  { name: 'Blue Gray', src: bluegray },
-  { name: 'Brown', src: brown },
-  { name: 'Charcoal', src: charcoal },
-  { name: 'Forest', src: forest },
-  { name: 'Gray', src: gray },
-  { name: 'Green', src: green },
-  { name: 'Lavender', src: lavender },
-  { name: 'Leather', src: leather },
-  { name: 'Maroon', src: maroon },
-  { name: 'Navy', src: navy },
-  { name: 'Orange', src: orange },
-  { name: 'Pink', src: pink },
-  { name: 'Purple', src: purple },
-  { name: 'Red', src: red },
-  { name: 'Rose', src: rose },
-  { name: 'Sky', src: sky },
-  { name: 'Slate', src: slate },
-  { name: 'Tan', src: tan },
-  { name: 'Teal', src: teal },
-  { name: 'Walnut', src: walnut },
-  { name: 'White', src: white },
+const APRONS: { name: string; set: ApronSet }[] = [
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk } },
 ];
 
 interface CustomizationMenuProps {
-  selectedApron: string | null;
-  onSelectApron: (src: string | null) => void;
+  selectedApron: ApronSet | null;
+  onSelectApron: (set: ApronSet | null) => void;
 }
 
 const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, onSelectApron }) => {
@@ -140,22 +164,22 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                         {APRONS.map((apron) => (
                           <button
                             key={apron.name}
-                            onClick={() => onSelectApron(apron.src)}
+                            onClick={() => onSelectApron(apron.set)}
                             className="flex flex-col items-center gap-2 group"
                             style={{ fontFamily: "'VT323', monospace" }}
                           >
-                            <div className={`w-16 h-16 transition-all flex items-center justify-center rounded-lg ${selectedApron === apron.src ? 'bg-stone-800/10 ring-2 ring-stone-800 scale-110' : 'group-hover:bg-stone-800/5'}`}>
+                            <div className={`w-16 h-16 transition-all flex items-center justify-center rounded-lg ${selectedApron === apron.set ? 'bg-stone-800/10 ring-2 ring-stone-800 scale-110' : 'group-hover:bg-stone-800/5'}`}>
                               <div 
                                 className="w-16 h-16"
                                 style={{ 
-                                  backgroundImage: `url(${apron.src})`,
+                                  backgroundImage: `url(${apron.set.idle})`,
                                   backgroundPosition: PREVIEW_OFFSETS.CLOTHES_FRONT,
                                   backgroundSize: PREVIEW_OFFSETS.SPRITE_SIZE,
                                   imageRendering: 'pixelated'
                                 }}
                               />
                             </div>
-                            <span className={`text-sm uppercase tracking-tighter text-center leading-none ${selectedApron === apron.src ? 'text-stone-900 font-bold' : 'text-stone-500'}`}>
+                            <span className={`text-sm uppercase tracking-tighter text-center leading-none ${selectedApron === apron.set ? 'text-stone-900 font-bold' : 'text-stone-500'}`}>
                               {apron.name}
                             </span>
                           </button>
@@ -177,7 +201,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                     direction="down"
                     isMoving={false}
                     isRunning={false}
-                    apronSrc={selectedApron}
+                    apron={selectedApron}
                     noTransition={true}
                   />
                 </div>

@@ -8,12 +8,17 @@ import bodyRun from '@/assets/run.png';
 import headWalk from '@/assets/head_walk.png';
 import headRun from '@/assets/head_run.png';
 
+export interface ApronSet {
+  idle: string;
+  walk: string;
+}
+
 interface GameCharacterProps {
   position: { x: number; y: number };
   direction: 'up' | 'down' | 'left' | 'right';
   isMoving: boolean;
   isRunning: boolean;
-  apronSrc?: string | null;
+  apron?: ApronSet | null;
   noTransition?: boolean;
 }
 
@@ -22,7 +27,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   direction, 
   isMoving, 
   isRunning, 
-  apronSrc,
+  apron,
   noTransition = false
 }) => {
   const [frame, setFrame] = useState(0);
@@ -32,7 +37,9 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       return {
         bodySrc: bodyIdle,
         headSrc: headIdle,
+        apronSrc: apron?.idle,
         totalFrames: 2,
+        apronFrames: 2,
         interval: 400,
       };
     }
@@ -40,14 +47,18 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       return {
         bodySrc: bodyRun,
         headSrc: headRun,
+        apronSrc: apron?.walk, // Fallback to walk for run if no run sheet
         totalFrames: 8,
+        apronFrames: 9,
         interval: 100,
       };
     }
     return {
       bodySrc: bodyWalk,
       headSrc: headWalk,
+      apronSrc: apron?.walk,
       totalFrames: 9,
+      apronFrames: 9,
       interval: 120,
     };
   };
@@ -86,25 +97,23 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => ({
+  const layerStyle = (src: string, totalFrames: number, currentFrame: number): React.CSSProperties => ({
     position: 'absolute',
     width: '100%',
     height: '100%',
     backgroundImage: `url(${src})`,
-    backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
+    backgroundPosition: `-${(currentFrame % totalFrames) * spriteSize}px -${row * spriteSize}px`,
     backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
   });
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.bodySrc, config.totalFrames)} />
-      {config.headSrc && <div style={layerStyle(config.headSrc, config.totalFrames)} />}
-      {apronSrc && (
+      <div style={layerStyle(config.bodySrc, config.totalFrames, frame)} />
+      {config.headSrc && <div style={layerStyle(config.headSrc, config.totalFrames, frame)} />}
+      {config.apronSrc && (
         <div 
           style={{
-            ...layerStyle(apronSrc, 9), // Apron sheets are 9 frames wide
-            backgroundPosition: `-${(frame % 9) * spriteSize}px -${row * spriteSize}px`,
-            backgroundSize: `${spriteSize * 9}px ${spriteSize * 4}px`,
+            ...layerStyle(config.apronSrc, config.apronFrames, frame),
             zIndex: 11
           }} 
         />

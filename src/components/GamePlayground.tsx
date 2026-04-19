@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
-import GameCharacter from './GameCharacter';
+import GameCharacter, { ApronSet } from './GameCharacter';
 import CustomizationMenu from './CustomizationMenu';
 import { Card } from '@/components/ui/card';
 import grassTile from '../assets/grass.png';
@@ -14,7 +14,7 @@ const GamePlayground = () => {
   const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set());
   
   // Customization State
-  const [selectedApron, setSelectedApron] = useState<string | null>(null);
+  const [selectedApron, setSelectedApron] = useState<ApronSet | null>(null);
 
   const walkSpeed = 3;
   const runSpeed = 7;
@@ -120,7 +120,7 @@ const GamePlayground = () => {
           direction={direction} 
           isMoving={isMoving}
           isRunning={isRunning}
-          apronSrc={selectedApron}
+          apron={selectedApron}
         />
       </Card>
     </div>
