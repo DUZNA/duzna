@@ -87,9 +87,9 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[90vw] w-full h-[80vh] p-0 overflow-hidden bg-stone-100 border-4 border-stone-800 rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">
-        <div className="flex h-full w-full items-stretch">
-          {/* Left Side: Selection Box */}
-          <div className="w-1/3 border-r-4 border-stone-800 p-6 flex flex-col bg-stone-200/50">
+        <div className="flex h-full w-full items-stretch gap-8 p-8">
+          {/* Left Side: Selection Box - Fixed Width */}
+          <div className="w-[400px] flex flex-col bg-stone-200/50 border-4 border-stone-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
             <div className="space-y-2 mb-6">
               <h2 
                 className="text-4xl text-stone-900 uppercase tracking-wider"
@@ -129,10 +129,10 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                         {/* Remove Option */}
                         <button
                           onClick={() => onSelectApron(null)}
-                          className="flex flex-col items-center gap-2 group relative"
+                          className="flex flex-col items-center gap-2 group"
                           style={{ fontFamily: "'VT323', monospace" }}
                         >
-                          <div className={`w-16 h-16 flex items-center justify-center transition-all ${!selectedApron ? 'bg-stone-800/10 scale-110' : 'group-hover:bg-stone-800/5'}`}>
+                          <div className={`w-16 h-16 flex items-center justify-center transition-all rounded-lg ${!selectedApron ? 'bg-stone-800/10 ring-2 ring-stone-800' : 'group-hover:bg-stone-800/5'}`}>
                             <X size={32} className={`${!selectedApron ? 'text-stone-900' : 'text-stone-400'}`} />
                           </div>
                           <span className={`text-sm uppercase tracking-tighter ${!selectedApron ? 'text-stone-900 font-bold' : 'text-stone-500'}`}>None</span>
@@ -142,18 +142,18 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                           <button
                             key={apron.name}
                             onClick={() => onSelectApron(apron.src)}
-                            className="flex flex-col items-center gap-2 group relative"
+                            className="flex flex-col items-center gap-2 group"
                             style={{ fontFamily: "'VT323', monospace" }}
                           >
                             <div 
-                              className={`w-16 h-16 transition-all flex items-center justify-center ${selectedApron === apron.src ? 'bg-stone-800/10 scale-110' : 'group-hover:bg-stone-800/5'}`}
+                              className={`w-16 h-16 transition-all flex items-center justify-center rounded-lg ${selectedApron === apron.src ? 'bg-stone-800/10 ring-2 ring-stone-800 scale-110' : 'group-hover:bg-stone-800/5'}`}
                             >
                               <div 
                                 className="w-16 h-16"
                                 style={{ 
                                   backgroundImage: `url(${apron.src})`,
                                   backgroundPosition: '0 0',
-                                  backgroundSize: '128px 256px', // 64px * 2 frames wide, 64px * 4 rows high
+                                  backgroundSize: '128px 256px',
                                   imageRendering: 'pixelated'
                                 }}
                               />
@@ -171,9 +171,9 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
             </ScrollArea>
           </div>
 
-          {/* Right Side: Zoomed Character Preview */}
-          <div className="flex-1 relative bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-stone-300/50 to-transparent overflow-hidden">
-            {/* Fixed Preview Container - Using absolute centering with fixed dimensions */}
+          {/* Right Side: Zoomed Character Preview - Independent Container */}
+          <div className="flex-1 relative bg-stone-200/30 border-4 border-stone-800/10 rounded-xl overflow-hidden">
+            {/* Fixed Preview Container */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="relative w-16 h-16 flex items-center justify-center">
                 <div className="scale-[6] transform-gpu">
