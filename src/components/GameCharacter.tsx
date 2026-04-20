@@ -2,8 +2,11 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import bodyIdle from '@/assets/body.png';
+import headIdle from '@/assets/head.png';
 import bodyWalk from '@/assets/walk.png';
 import bodyRun from '@/assets/run.png';
+import headWalk from '@/assets/head_walk.png';
+import headRun from '@/assets/head_run.png';
 
 // Action Body Assets
 import bodyBackslash from '@/assets/actions/body/backslash.png';
@@ -18,23 +21,6 @@ import bodySit from '@/assets/actions/body/sit.png';
 import bodySlash from '@/assets/actions/body/slash.png';
 import bodySpellcast from '@/assets/actions/body/spellcast.png';
 import bodyThrust from '@/assets/actions/body/thrust.png';
-
-// Action Head Assets
-import headIdle from '@/assets/actions/head/idle.png';
-import headWalk from '@/assets/actions/head/walk.png';
-import headRun from '@/assets/actions/head/run.png';
-import headBackslash from '@/assets/actions/head/backslash.png';
-import headClimb from '@/assets/actions/head/climb.png';
-import headCombatIdle from '@/assets/actions/head/combat_idle.png';
-import headEmote from '@/assets/actions/head/emote.png';
-import headHalfslash from '@/assets/actions/head/halfslash.png';
-import headHurt from '@/assets/actions/head/hurt.png';
-import headJump from '@/assets/actions/head/jump.png';
-import headShoot from '@/assets/actions/head/shoot.png';
-import headSit from '@/assets/actions/head/sit.png';
-import headSlash from '@/assets/actions/head/slash.png';
-import headSpellcast from '@/assets/actions/head/spellcast.png';
-import headThrust from '@/assets/actions/head/thrust.png';
 
 export type CharacterAction = 
   | 'idle' | 'walk' | 'run' | 'backslash' | 'climb' 
@@ -72,29 +58,29 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'run':
         return { body: bodyRun, head: headRun, frames: 8, interval: 100, loop: true };
       case 'backslash':
-        return { body: bodyBackslash, head: headBackslash, frames: 13, interval: 80, loop: false };
+        return { body: bodyBackslash, head: headIdle, frames: 13, interval: 80, loop: false };
       case 'climb':
-        return { body: bodyClimb, head: headClimb, frames: 6, interval: 120, loop: true };
+        return { body: bodyClimb, head: null, frames: 6, interval: 120, loop: true };
       case 'combat_idle':
-        return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, loop: true };
+        return { body: bodyCombatIdle, head: headIdle, frames: 2, interval: 400, loop: true };
       case 'emote':
-        return { body: bodyEmote, head: headEmote, frames: 3, interval: 200, loop: false };
+        return { body: bodyEmote, head: headIdle, frames: 3, interval: 200, loop: false };
       case 'halfslash':
-        return { body: bodyHalfslash, head: headHalfslash, frames: 6, interval: 80, loop: false };
+        return { body: bodyHalfslash, head: headIdle, frames: 6, interval: 80, loop: false };
       case 'hurt':
-        return { body: bodyHurt, head: headHurt, frames: 6, interval: 100, loop: false };
+        return { body: bodyHurt, head: headIdle, frames: 6, interval: 100, loop: false };
       case 'jump':
-        return { body: bodyJump, head: headJump, frames: 5, interval: 100, loop: false };
+        return { body: bodyJump, head: headIdle, frames: 5, interval: 100, loop: false };
       case 'shoot':
-        return { body: bodyShoot, head: headShoot, frames: 13, interval: 80, loop: false };
+        return { body: bodyShoot, head: headIdle, frames: 13, interval: 80, loop: false };
       case 'sit':
-        return { body: bodySit, head: headSit, frames: 3, interval: 200, loop: false };
+        return { body: bodySit, head: headIdle, frames: 3, interval: 200, loop: false };
       case 'slash':
-        return { body: bodySlash, head: headSlash, frames: 6, interval: 80, loop: false };
+        return { body: bodySlash, head: headIdle, frames: 6, interval: 80, loop: false };
       case 'spellcast':
-        return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, loop: false };
+        return { body: bodySpellcast, head: headIdle, frames: 7, interval: 100, loop: false };
       case 'thrust':
-        return { body: bodyThrust, head: headThrust, frames: 8, interval: 80, loop: false };
+        return { body: bodyThrust, head: headIdle, frames: 8, interval: 80, loop: false };
       default:
         return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, loop: true };
     }
@@ -156,7 +142,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   return (
     <div style={spriteStyle}>
       <div style={layerStyle(config.body, config.frames)} />
-      {config.head && <div style={layerStyle(config.head, config.frames)} />}
+      {config.head && <div style={layerStyle(config.head, action === 'idle' ? 2 : config.frames)} />}
       {apron && (action === 'idle' || action === 'walk' || action === 'run') && (
         <div 
           style={{
