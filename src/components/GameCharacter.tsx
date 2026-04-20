@@ -46,6 +46,12 @@ export type CharacterAction =
   | 'backslash' | 'thrust' | 'shoot' | 'spellcast' 
   | 'jump' | 'sit' | 'emote' | 'hurt' | 'climb' | 'combat_idle';
 
+interface LayerConfig {
+  src: string | null | undefined;
+  frames: number;
+  singleRow?: boolean;
+}
+
 interface GameCharacterProps {
   position: { x: number; y: number };
   direction: 'up' | 'down' | 'left' | 'right';
@@ -63,126 +69,102 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
 }) => {
   const [frame, setFrame] = useState(0);
   
-  // Preload all assets to prevent flickering
-  useEffect(() => {
-    const assets = [
-      bodyIdle, headIdle, bodyWalk, bodyRun, headWalk, headRun,
-      bodySlash, bodyHalfslash, bodyBackslash, bodyThrust, bodyShoot,
-      bodySpellcast, bodyJump, bodySit, bodyEmote, bodyHurt, bodyClimb, bodyCombatIdle,
-      headSlash, headHalfslash, headBackslash, headThrust, headShoot,
-      headSpellcast, headJump, headSit, headEmote, headHurt, headClimb, headCombatIdle
-    ];
-    assets.forEach(src => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
-
   const config = useMemo(() => {
+    const defaultInterval = 100;
+    
     switch (action) {
       case 'walk':
         return { 
-          body: bodyWalk, bodyFrames: 9,
-          head: headWalk, headFrames: 9,
-          apron: apron?.walk, apronFrames: 9,
+          body: { src: bodyWalk, frames: 9 },
+          head: { src: headWalk, frames: 9 },
+          apron: { src: apron?.walk, frames: 9 },
           interval: 100 
         };
       case 'run':
         return { 
-          body: bodyRun, bodyFrames: 8,
-          head: headRun, headFrames: 8,
-          apron: apron?.walk, apronFrames: 9,
+          body: { src: bodyRun, frames: 8 },
+          head: { src: headRun, frames: 8 },
+          apron: { src: apron?.walk, frames: 9 },
           interval: 80 
         };
       case 'slash':
         return { 
-          body: bodySlash, bodyFrames: 6,
-          head: headSlash, headFrames: 6,
-          apron: null, apronFrames: 0,
+          body: { src: bodySlash, frames: 6 },
+          head: { src: headSlash, frames: 6 },
           interval: 80 
         };
       case 'halfslash':
         return { 
-          body: bodyHalfslash, bodyFrames: 6,
-          head: headHalfslash, headFrames: 6,
-          apron: null, apronFrames: 0,
+          body: { src: bodyHalfslash, frames: 6 },
+          head: { src: headHalfslash, frames: 6 },
           interval: 80 
         };
       case 'backslash':
         return { 
-          body: bodyBackslash, bodyFrames: 6,
-          head: headBackslash, headFrames: 6,
-          apron: null, apronFrames: 0,
+          body: { src: bodyBackslash, frames: 6 },
+          head: { src: headBackslash, frames: 6 },
           interval: 80 
         };
       case 'thrust':
         return { 
-          body: bodyThrust, bodyFrames: 8,
-          head: headThrust, headFrames: 8,
-          apron: null, apronFrames: 0,
+          body: { src: bodyThrust, frames: 8 },
+          head: { src: headThrust, frames: 8 },
           interval: 80 
         };
       case 'shoot':
         return { 
-          body: bodyShoot, bodyFrames: 13,
-          head: headShoot, headFrames: 13,
-          apron: null, apronFrames: 0,
+          body: { src: bodyShoot, frames: 13 },
+          head: { src: headShoot, frames: 13 },
           interval: 60 
         };
       case 'spellcast':
         return { 
-          body: bodySpellcast, bodyFrames: 7,
-          head: headSpellcast, headFrames: 7,
-          apron: null, apronFrames: 0,
+          body: { src: bodySpellcast, frames: 7 },
+          head: { src: headSpellcast, frames: 7 },
           interval: 100 
         };
       case 'jump':
         return { 
-          body: bodyJump, bodyFrames: 7,
-          head: headJump, headFrames: 7,
-          apron: null, apronFrames: 0,
+          body: { src: bodyJump, frames: 7 },
+          head: { src: headJump, frames: 7 },
           interval: 100 
         };
       case 'sit':
         return { 
-          body: bodySit, bodyFrames: 3,
-          head: headSit, headFrames: 3,
-          apron: null, apronFrames: 0,
+          body: { src: bodySit, frames: 3 },
+          head: { src: headSit, frames: 3 },
           interval: 120 
         };
       case 'emote':
         return { 
-          body: bodyEmote, bodyFrames: 6,
-          head: headEmote, headFrames: 6,
-          apron: apron?.idle, apronFrames: 2,
+          body: { src: bodyEmote, frames: 3 },
+          head: { src: headEmote, frames: 3 },
+          apron: { src: apron?.idle, frames: 2 },
           interval: 200 
         };
       case 'hurt':
         return { 
-          body: bodyHurt, bodyFrames: 6,
-          head: headHurt, headFrames: 6,
-          apron: null, apronFrames: 0,
+          body: { src: bodyHurt, frames: 6, singleRow: true },
+          head: { src: headHurt, frames: 6, singleRow: true },
           interval: 100 
         };
       case 'climb':
         return { 
-          body: bodyClimb, bodyFrames: 6,
-          head: headClimb, headFrames: 6,
-          apron: null, apronFrames: 0,
+          body: { src: bodyClimb, frames: 6, singleRow: true },
+          head: { src: headClimb, frames: 6, singleRow: true },
           interval: 120 
         };
       case 'combat_idle':
         return { 
-          body: bodyCombatIdle, bodyFrames: 2,
-          head: headCombatIdle, headFrames: 2,
-          apron: null, apronFrames: 0,
+          body: { src: bodyCombatIdle, frames: 2 },
+          head: { src: headCombatIdle, frames: 2 },
           interval: 400 
         };
       default: // idle
         return { 
-          body: bodyIdle, bodyFrames: 2,
-          head: headIdle, headFrames: 2,
-          apron: apron?.idle, apronFrames: 2,
+          body: { src: bodyIdle, frames: 2 },
+          head: { src: headIdle, frames: 2 },
+          apron: { src: apron?.idle, frames: 2 },
           interval: 400 
         };
     }
@@ -193,7 +175,11 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   }, [action]);
 
   useEffect(() => {
-    const maxFrames = Math.max(config.bodyFrames || 0, config.headFrames || 0, config.apronFrames || 0);
+    const maxFrames = Math.max(
+      config.body?.frames || 0, 
+      config.head?.frames || 0, 
+      (config as any).apron?.frames || 0
+    );
     if (maxFrames <= 1) return;
     
     const interval = setInterval(() => {
@@ -201,7 +187,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     }, config.interval);
 
     return () => clearInterval(interval);
-  }, [config.bodyFrames, config.headFrames, config.apronFrames, config.interval]);
+  }, [config]);
 
   const getDirectionRow = () => {
     switch (direction) {
@@ -227,27 +213,28 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => {
-    if (!src || totalFrames === 0) return { display: 'none' };
-    const safeFrame = frame % totalFrames;
+  const layerStyle = (layer: LayerConfig | undefined): React.CSSProperties => {
+    if (!layer || !layer.src || layer.frames === 0) return { display: 'none' };
+    const safeFrame = frame % layer.frames;
+    const currentRow = layer.singleRow ? 0 : row;
     return {
       position: 'absolute',
       width: '100%',
       height: '100%',
-      backgroundImage: `url(${src})`,
-      backgroundPosition: `-${safeFrame * spriteSize}px -${row * spriteSize}px`,
+      backgroundImage: `url(${layer.src})`,
+      backgroundPosition: `-${safeFrame * spriteSize}px -${currentRow * spriteSize}px`,
       backgroundRepeat: 'no-repeat',
     };
   };
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.body, config.bodyFrames)} />
-      {config.head && <div style={layerStyle(config.head, config.headFrames)} />}
-      {config.apron && (
+      <div style={layerStyle(config.body)} />
+      <div style={layerStyle(config.head)} />
+      {(config as any).apron && (
         <div 
           style={{
-            ...layerStyle(config.apron, config.apronFrames),
+            ...layerStyle((config as any).apron),
             zIndex: 11
           }} 
         />
