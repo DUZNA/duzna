@@ -17,7 +17,6 @@ import bodyShoot from '@/assets/shoot.png';
 import bodySpellcast from '@/assets/spellcast.png';
 import bodyJump from '@/assets/jump.png';
 import bodySit from '@/assets/sit.png';
-import bodyEmote from '@/assets/emote.png';
 import bodyHurt from '@/assets/hurt.png';
 import bodyClimb from '@/assets/climb.png';
 import bodyCombatIdle from '@/assets/combat_idle.png';
@@ -75,7 +74,8 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'sit':
         return { body: bodySit, head: null, frames: 3, interval: 120, apron: null };
       case 'emote':
-        return { body: bodyEmote, head: null, frames: 6, interval: 200, apron: null };
+        // Fallback to idle body for emote since asset is missing
+        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
       case 'hurt':
         return { body: bodyHurt, head: null, frames: 6, interval: 100, apron: null };
       case 'climb':
