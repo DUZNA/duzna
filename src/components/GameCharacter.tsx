@@ -22,7 +22,7 @@ import bodyClimb from '@/assets/climb.png';
 import bodyCombatIdle from '@/assets/combat_idle.png';
 
 // Head Action Assets (Only those that exist)
-import headJump from '@/assets/head_jump.png';
+// headJump is currently missing, so we'll use null for now
 
 export interface ApronSet {
   idle: string;
@@ -70,7 +70,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'spellcast':
         return { body: bodySpellcast, head: null, frames: 7, interval: 100, apron: null };
       case 'jump':
-        return { body: bodyJump, head: headJump, frames: 7, interval: 100, apron: null };
+        return { body: bodyJump, head: null, frames: 7, interval: 100, apron: null };
       case 'sit':
         return { body: bodySit, head: null, frames: 3, interval: 120, apron: null };
       case 'emote':
