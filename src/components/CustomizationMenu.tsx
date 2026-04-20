@@ -63,37 +63,62 @@ import tealWalk from '@/assets/aprons/walk/teal.png';
 import walnutWalk from '@/assets/aprons/walk/walnut.png';
 import whiteWalk from '@/assets/aprons/walk/white.png';
 
+// Import all apron assets (Thrust)
+import yellowThrust from '@/assets/aprons/thrust/yellow.png';
+import blackThrust from '@/assets/aprons/thrust/black.png';
+import blueThrust from '@/assets/aprons/thrust/blue.png';
+import bluegrayThrust from '@/assets/aprons/thrust/bluegray.png';
+import brownThrust from '@/assets/aprons/thrust/brown.png';
+import charcoalThrust from '@/assets/aprons/thrust/charcoal.png';
+import forestThrust from '@/assets/aprons/thrust/forest.png';
+import grayThrust from '@/assets/aprons/thrust/gray.png';
+import greenThrust from '@/assets/aprons/thrust/green.png';
+import lavenderThrust from '@/assets/aprons/thrust/lavender.png';
+import leatherThrust from '@/assets/aprons/thrust/leather.png';
+import maroonThrust from '@/assets/aprons/thrust/maroon.png';
+import navyThrust from '@/assets/aprons/thrust/navy.png';
+import orangeThrust from '@/assets/aprons/thrust/orange.png';
+import pinkThrust from '@/assets/aprons/thrust/pink.png';
+import purpleThrust from '@/assets/aprons/thrust/purple.png';
+import redThrust from '@/assets/aprons/thrust/red.png';
+import roseThrust from '@/assets/aprons/thrust/rose.png';
+import skyThrust from '@/assets/aprons/thrust/sky.png';
+import slateThrust from '@/assets/aprons/thrust/slate.png';
+import tanThrust from '@/assets/aprons/thrust/tan.png';
+import tealThrust from '@/assets/aprons/thrust/teal.png';
+import walnutThrust from '@/assets/aprons/thrust/walnut.png';
+import whiteThrust from '@/assets/aprons/thrust/white.png';
+
 const PREVIEW_OFFSETS = {
   CLOTHES_FRONT: '0px -128px',
-  // Idle sheets are 2 frames wide (2 * 64 = 128)
   SPRITE_SIZE: '128px 256px'
 };
 
 const APRONS: { name: string; set: ApronSet }[] = [
-  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk } },
-  { name: 'Black', set: { idle: blackIdle, walk: blackWalk } },
-  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk } },
-  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk } },
-  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk } },
-  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk } },
-  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk } },
-  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk } },
-  { name: 'Green', set: { idle: greenIdle, walk: greenWalk } },
-  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk } },
-  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk } },
-  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk } },
-  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk } },
-  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk } },
-  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk } },
-  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk } },
-  { name: 'Red', set: { idle: redIdle, walk: redWalk } },
-  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk } },
-  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk } },
-  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk } },
-  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk } },
-  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk } },
-  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk } },
-  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk } },
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, thrust: yellowThrust } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, thrust: blackThrust } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, thrust: blueThrust } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, thrust: bluegrayThrust } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, thrust: brownThrust } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, thrust: charcoalThrust } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, thrust: forestThrust } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, thrust: grayThrust } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, thrust: greenThrust } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, thrust: lavenderThrust } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, thrust: leatherThrust } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, thrust: maroonThrust } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, thrust: navyThrust } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, thrust: orangeThrust } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, thrust: pinkThrust } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, thrust: purpleThrust } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk, thrust: redThrust } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, thrust: roseThrust } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, thrust: skyThrust } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, thrust: slateThrust } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, thrust: tanThrust } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, thrust: tealThrust } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, thrust: walnutThrust } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, thrust: whiteThrust } },
 ];
 
 interface CustomizationMenuProps {
@@ -199,8 +224,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                   <GameCharacter 
                     position={{ x: -32, y: -32 }} 
                     direction="down"
-                    isMoving={false}
-                    isRunning={false}
+                    action="idle"
                     apron={selectedApron}
                     noTransition={true}
                   />
