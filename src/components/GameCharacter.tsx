@@ -8,16 +8,34 @@ import bodyRun from '@/assets/run.png';
 import headWalk from '@/assets/head_walk.png';
 import headRun from '@/assets/head_run.png';
 
+// New Action Assets
+import bodySlash from '@/assets/slash.png';
+import bodyHalfslash from '@/assets/halfslash.png';
+import bodyBackslash from '@/assets/backslash.png';
+import bodyThrust from '@/assets/thrust.png';
+import bodyShoot from '@/assets/shoot.png';
+import bodySpellcast from '@/assets/spellcast.png';
+import bodyJump from '@/assets/jump.png';
+import bodySit from '@/assets/sit.png';
+import bodyEmote from '@/assets/emote.png';
+import bodyHurt from '@/assets/hurt.png';
+import bodyClimb from '@/assets/climb.png';
+import bodyCombatIdle from '@/assets/combat_idle.png';
+
 export interface ApronSet {
   idle: string;
   walk: string;
 }
 
+export type CharacterAction = 
+  | 'idle' | 'walk' | 'run' | 'slash' | 'halfslash' 
+  | 'backslash' | 'thrust' | 'shoot' | 'spellcast' 
+  | 'jump' | 'sit' | 'emote' | 'hurt' | 'climb' | 'combat_idle';
+
 interface GameCharacterProps {
   position: { x: number; y: number };
   direction: 'up' | 'down' | 'left' | 'right';
-  isMoving: boolean;
-  isRunning: boolean;
+  action: CharacterAction;
   apron?: ApronSet | null;
   noTransition?: boolean;
 }
@@ -25,53 +43,62 @@ interface GameCharacterProps {
 const GameCharacter: React.FC<GameCharacterProps> = ({ 
   position, 
   direction, 
-  isMoving, 
-  isRunning, 
+  action,
   apron,
   noTransition = false
 }) => {
   const [frame, setFrame] = useState(0);
   
   const getAnimationConfig = () => {
-    if (!isMoving) {
-      return {
-        bodySrc: bodyIdle,
-        headSrc: headIdle,
-        apronSrc: apron?.idle,
-        totalFrames: 2,
-        apronFrames: 2,
-        interval: 400,
-      };
+    switch (action) {
+      case 'walk':
+        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, apron: apron?.walk };
+      case 'run':
+        return { body: bodyRun, head: headRun, frames: 8, interval: 100, apron: apron?.walk };
+      case 'slash':
+        return { body: bodySlash, head: null, frames: 6, interval: 80, apron: null };
+      case 'halfslash':
+        return { body: bodyHalfslash, head: null, frames: 6, interval: 80, apron: null };
+      case 'backslash':
+        return { body: bodyBackslash, head: null, frames: 6, interval: 80, apron: null };
+      case 'thrust':
+        return { body: bodyThrust, head: null, frames: 8, interval: 80, apron: null };
+      case 'shoot':
+        return { body: bodyShoot, head: null, frames: 13, interval: 60, apron: null };
+      case 'spellcast':
+        return { body: bodySpellcast, head: null, frames: 7, interval: 100, apron: null };
+      case 'jump':
+        return { body: bodyJump, head: null, frames: 1, interval: 100, apron: null };
+      case 'sit':
+        return { body: bodySit, head: null, frames: 1, interval: 100, apron: null };
+      case 'emote':
+        return { body: bodyEmote, head: null, frames: 3, interval: 200, apron: null };
+      case 'hurt':
+        return { body: bodyHurt, head: null, frames: 6, interval: 100, apron: null };
+      case 'climb':
+        return { body: bodyClimb, head: null, frames: 6, interval: 120, apron: null };
+      case 'combat_idle':
+        return { body: bodyCombatIdle, head: null, frames: 2, interval: 400, apron: null };
+      default: // idle
+        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
     }
-    if (isRunning) {
-      return {
-        bodySrc: bodyRun,
-        headSrc: headRun,
-        apronSrc: apron?.walk, // Fallback to walk for run if no run sheet
-        totalFrames: 8,
-        apronFrames: 9,
-        interval: 100,
-      };
-    }
-    return {
-      bodySrc: bodyWalk,
-      headSrc: headWalk,
-      apronSrc: apron?.walk,
-      totalFrames: 9,
-      apronFrames: 9,
-      interval: 120,
-    };
   };
 
   const config = getAnimationConfig();
 
   useEffect(() => {
+    setFrame(0); // Reset frame when action changes
+  }, [action]);
+
+  useEffect(() => {
+    if (config.frames <= 1) return;
+    
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % config.totalFrames);
+      setFrame((f) => (f + 1) % config.frames);
     }, config.interval);
 
     return () => clearInterval(interval);
-  }, [config.totalFrames, config.interval, isMoving, isRunning]);
+  }, [config.frames, config.interval, action]);
 
   const getDirectionRow = () => {
     switch (direction) {
@@ -97,23 +124,23 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (src: string, totalFrames: number, currentFrame: number): React.CSSProperties => ({
+  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => ({
     position: 'absolute',
     width: '100%',
     height: '100%',
     backgroundImage: `url(${src})`,
-    backgroundPosition: `-${(currentFrame % totalFrames) * spriteSize}px -${row * spriteSize}px`,
+    backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
     backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
   });
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.bodySrc, config.totalFrames, frame)} />
-      {config.headSrc && <div style={layerStyle(config.headSrc, config.totalFrames, frame)} />}
-      {config.apronSrc && (
+      <div style={layerStyle(config.body, config.frames)} />
+      {config.head && <div style={layerStyle(config.head, config.frames)} />}
+      {config.apron && (
         <div 
           style={{
-            ...layerStyle(config.apronSrc, config.apronFrames, frame),
+            ...layerStyle(config.apron, action === 'idle' ? 2 : 9),
             zIndex: 11
           }} 
         />
