@@ -66,9 +66,9 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   const getAnimationConfig = () => {
     switch (action) {
       case 'walk':
-        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, apron: apron?.walk, apronFrames: 9 };
+        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, apron: apron?.walk };
       case 'run':
-        return { body: bodyRun, head: headRun, frames: 8, interval: 100, apron: apron?.walk, apronFrames: 9 };
+        return { body: bodyRun, head: headRun, frames: 8, interval: 100, apron: apron?.walk };
       case 'slash':
         return { body: bodySlash, head: headSlash, frames: 6, interval: 80, apron: null };
       case 'halfslash':
@@ -82,10 +82,8 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'spellcast':
         return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, apron: null };
       case 'jump':
-        // Jump sheets typically have 6 frames in this set
         return { body: bodyJump, head: headJump, frames: 6, interval: 100, apron: null };
       case 'sit':
-        // Sit sheets typically have 6 frames
         return { body: bodySit, head: headSit, frames: 6, interval: 100, apron: null };
       case 'emote':
         return { body: bodyEmote, head: headEmote, frames: 3, interval: 200, apron: null };
@@ -96,7 +94,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'combat_idle':
         return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, apron: null };
       default: // idle
-        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle, apronFrames: 2 };
+        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
     }
   };
 
@@ -140,23 +138,25 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => ({
+  const layerStyle = (src: string): React.CSSProperties => ({
     position: 'absolute',
     width: '100%',
     height: '100%',
     backgroundImage: `url(${src})`,
-    backgroundPosition: `-${(frame % totalFrames) * spriteSize}px -${row * spriteSize}px`,
-    backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
+    backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
+    backgroundRepeat: 'no-repeat',
+    // Removed backgroundSize to prevent distortion. 
+    // The 64x64 container will naturally crop the correct frame.
   });
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.body, config.frames)} />
-      {config.head && <div style={layerStyle(config.head, config.frames)} />}
+      <div style={layerStyle(config.body)} />
+      {config.head && <div style={layerStyle(config.head)} />}
       {config.apron && (
         <div 
           style={{
-            ...layerStyle(config.apron, config.apronFrames || config.frames),
+            ...layerStyle(config.apron),
             zIndex: 11
           }} 
         />
