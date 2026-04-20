@@ -193,11 +193,11 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   }, [action]);
 
   useEffect(() => {
-    const maxFrames = Math.max(config.bodyFrames, config.headFrames, config.apronFrames);
+    const maxFrames = Math.max(config.bodyFrames || 0, config.headFrames || 0, config.apronFrames || 0);
     if (maxFrames <= 1) return;
     
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % 120); // High common multiple to keep layers in sync
+      setFrame((f) => (f + 1) % 120);
     }, config.interval);
 
     return () => clearInterval(interval);

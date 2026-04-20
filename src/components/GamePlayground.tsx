@@ -7,17 +7,17 @@ import { Card } from '@/components/ui/card';
 import grassTile from '../assets/grass.png';
 
 const ACTION_DURATIONS: Record<string, number> = {
-  slash: 480, // 6 frames * 80ms
-  halfslash: 480,
-  backslash: 480,
-  thrust: 640, // 8 frames * 80ms
-  shoot: 780, // 13 frames * 60ms
-  spellcast: 700, // 7 frames * 100ms
-  jump: 700, // 7 frames * 100ms
-  sit: 360, // 3 frames * 120ms
-  emote: 1200, // 6 frames * 200ms
-  hurt: 600, // 6 frames * 100ms
-  climb: 720, // 6 frames * 120ms
+  slash: 550, // 6 frames * 80ms + buffer
+  halfslash: 550,
+  backslash: 550,
+  thrust: 750, // 8 frames * 80ms + buffer
+  shoot: 850, // 13 frames * 60ms + buffer
+  spellcast: 800, // 7 frames * 100ms + buffer
+  jump: 800, // 7 frames * 100ms + buffer
+  sit: 450, // 3 frames * 120ms + buffer
+  emote: 1300, // 6 frames * 200ms + buffer
+  hurt: 700, // 6 frames * 100ms + buffer
+  climb: 820, // 6 frames * 120ms + buffer
 };
 
 const GamePlayground = () => {
@@ -73,11 +73,13 @@ const GamePlayground = () => {
     const duration = ACTION_DURATIONS[newAction] || 500;
     setTimeout(() => {
       actionLockRef.current = false;
+      // After the lock is released, the next moveInterval tick will handle resetting to idle/walk
     }, duration);
   };
 
   useEffect(() => {
     const moveInterval = setInterval(() => {
+      // Priority actions (Combat/Special)
       if (keysPressed.has('j')) { triggerLockedAction('slash'); return; }
       if (keysPressed.has('k')) { triggerLockedAction('halfslash'); return; }
       if (keysPressed.has('l')) { triggerLockedAction('backslash'); return; }
@@ -90,6 +92,7 @@ const GamePlayground = () => {
       if (keysPressed.has('h')) { triggerLockedAction('hurt'); return; }
       if (keysPressed.has('c')) { triggerLockedAction('climb'); return; }
       
+      // If an action is currently locked, don't allow movement or idle state changes
       if (actionLockRef.current) return;
 
       if (keysPressed.has('z')) { 
