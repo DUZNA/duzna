@@ -66,9 +66,9 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   const getAnimationConfig = () => {
     switch (action) {
       case 'walk':
-        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, apron: apron?.walk };
+        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, apron: apron?.walk, apronFrames: 9 };
       case 'run':
-        return { body: bodyRun, head: headRun, frames: 8, interval: 100, apron: apron?.walk };
+        return { body: bodyRun, head: headRun, frames: 8, interval: 100, apron: apron?.walk, apronFrames: 9 };
       case 'slash':
         return { body: bodySlash, head: headSlash, frames: 6, interval: 80, apron: null };
       case 'halfslash':
@@ -82,9 +82,11 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'spellcast':
         return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, apron: null };
       case 'jump':
-        return { body: bodyJump, head: headJump, frames: 1, interval: 100, apron: null };
+        // Jump sheets typically have 6 frames in this set
+        return { body: bodyJump, head: headJump, frames: 6, interval: 100, apron: null };
       case 'sit':
-        return { body: bodySit, head: headSit, frames: 1, interval: 100, apron: null };
+        // Sit sheets typically have 6 frames
+        return { body: bodySit, head: headSit, frames: 6, interval: 100, apron: null };
       case 'emote':
         return { body: bodyEmote, head: headEmote, frames: 3, interval: 200, apron: null };
       case 'hurt':
@@ -94,14 +96,14 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'combat_idle':
         return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, apron: null };
       default: // idle
-        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
+        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle, apronFrames: 2 };
     }
   };
 
   const config = getAnimationConfig();
 
   useEffect(() => {
-    setFrame(0); // Reset frame when action changes
+    setFrame(0);
   }, [action]);
 
   useEffect(() => {
@@ -143,7 +145,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     width: '100%',
     height: '100%',
     backgroundImage: `url(${src})`,
-    backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
+    backgroundPosition: `-${(frame % totalFrames) * spriteSize}px -${row * spriteSize}px`,
     backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
   });
 
@@ -154,7 +156,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       {config.apron && (
         <div 
           style={{
-            ...layerStyle(config.apron, action === 'idle' ? 2 : 9),
+            ...layerStyle(config.apron, config.apronFrames || config.frames),
             zIndex: 11
           }} 
         />
