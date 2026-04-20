@@ -17,12 +17,24 @@ import bodyShoot from '@/assets/shoot.png';
 import bodySpellcast from '@/assets/spellcast.png';
 import bodyJump from '@/assets/jump.png';
 import bodySit from '@/assets/sit.png';
+import bodyEmote from '@/assets/emote.png';
 import bodyHurt from '@/assets/hurt.png';
 import bodyClimb from '@/assets/climb.png';
 import bodyCombatIdle from '@/assets/combat_idle.png';
 
-// Head Action Assets (Only those that exist)
-// headJump is currently missing, so we'll use null for now
+// Head Action Assets
+import headSlash from '@/assets/head_slash.png';
+import headHalfslash from '@/assets/head_halfslash.png';
+import headBackslash from '@/assets/head_backslash.png';
+import headThrust from '@/assets/head_thrust.png';
+import headShoot from '@/assets/head_shoot.png';
+import headSpellcast from '@/assets/head_spellcast.png';
+import headJump from '@/assets/head_jump.png';
+import headSit from '@/assets/head_sit.png';
+import headEmote from '@/assets/head_emote.png';
+import headHurt from '@/assets/head_hurt.png';
+import headClimb from '@/assets/head_climb.png';
+import headCombatIdle from '@/assets/head_combat_idle.png';
 
 export interface ApronSet {
   idle: string;
@@ -58,30 +70,29 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'run':
         return { body: bodyRun, head: headRun, frames: 8, interval: 80, apron: apron?.walk };
       case 'slash':
-        return { body: bodySlash, head: null, frames: 6, interval: 80, apron: null };
+        return { body: bodySlash, head: headSlash, frames: 6, interval: 80, apron: null };
       case 'halfslash':
-        return { body: bodyHalfslash, head: null, frames: 6, interval: 80, apron: null };
+        return { body: bodyHalfslash, head: headHalfslash, frames: 6, interval: 80, apron: null };
       case 'backslash':
-        return { body: bodyBackslash, head: null, frames: 6, interval: 80, apron: null };
+        return { body: bodyBackslash, head: headBackslash, frames: 6, interval: 80, apron: null };
       case 'thrust':
-        return { body: bodyThrust, head: null, frames: 8, interval: 80, apron: null };
+        return { body: bodyThrust, head: headThrust, frames: 8, interval: 80, apron: null };
       case 'shoot':
-        return { body: bodyShoot, head: null, frames: 13, interval: 60, apron: null };
+        return { body: bodyShoot, head: headShoot, frames: 13, interval: 60, apron: null };
       case 'spellcast':
-        return { body: bodySpellcast, head: null, frames: 7, interval: 100, apron: null };
+        return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, apron: null };
       case 'jump':
-        return { body: bodyJump, head: null, frames: 7, interval: 100, apron: null };
+        return { body: bodyJump, head: headJump, frames: 7, interval: 100, apron: null };
       case 'sit':
-        return { body: bodySit, head: null, frames: 3, interval: 120, apron: null };
+        return { body: bodySit, head: headSit, frames: 3, interval: 120, apron: null };
       case 'emote':
-        // Fallback to idle body for emote since asset is missing
-        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
+        return { body: bodyEmote, head: headEmote, frames: 6, interval: 200, apron: null };
       case 'hurt':
-        return { body: bodyHurt, head: null, frames: 6, interval: 100, apron: null };
+        return { body: bodyHurt, head: headHurt, frames: 6, interval: 100, apron: null };
       case 'climb':
-        return { body: bodyClimb, head: null, frames: 6, interval: 120, apron: null };
+        return { body: bodyClimb, head: headClimb, frames: 6, interval: 120, apron: null };
       case 'combat_idle':
-        return { body: bodyCombatIdle, head: null, frames: 2, interval: 400, apron: null };
+        return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, apron: null };
       default: // idle
         return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
     }
