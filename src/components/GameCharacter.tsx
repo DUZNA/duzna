@@ -68,34 +68,33 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   const config = useMemo(() => {
     switch (action) {
       case 'walk':
-        return { body: bodyWalk, head: headWalk, frames: 9, interval: 100, loop: true };
+        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, loop: true };
       case 'run':
-        return { body: bodyRun, head: headRun, frames: 8, interval: 80, loop: true };
+        return { body: bodyRun, head: headRun, frames: 8, interval: 100, loop: true };
       case 'backslash':
-        return { body: bodyBackslash, head: headBackslash, frames: 13, interval: 60, loop: false };
+        return { body: bodyBackslash, head: headBackslash, frames: 13, interval: 80, loop: false };
       case 'climb':
-        return { body: bodyClimb, head: headClimb, frames: 6, interval: 100, loop: true };
+        return { body: bodyClimb, head: headClimb, frames: 6, interval: 120, loop: true };
       case 'combat_idle':
-        return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 350, loop: true };
+        return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, loop: true };
       case 'emote':
-        return { body: bodyEmote, head: headEmote, frames: 3, interval: 180, loop: false };
+        return { body: bodyEmote, head: headEmote, frames: 3, interval: 200, loop: false };
       case 'halfslash':
-        return { body: bodyHalfslash, head: headHalfslash, frames: 6, interval: 70, loop: false };
+        return { body: bodyHalfslash, head: headHalfslash, frames: 6, interval: 80, loop: false };
       case 'hurt':
-        return { body: bodyHurt, head: headHurt, frames: 6, interval: 90, loop: false };
+        return { body: bodyHurt, head: headHurt, frames: 6, interval: 100, loop: false };
       case 'jump':
-        return { body: bodyJump, head: headJump, frames: 5, interval: 90, loop: false };
+        return { body: bodyJump, head: headJump, frames: 5, interval: 100, loop: false };
       case 'shoot':
-        return { body: bodyShoot, head: headShoot, frames: 13, interval: 70, loop: false };
+        return { body: bodyShoot, head: headShoot, frames: 13, interval: 80, loop: false };
       case 'sit':
-        // Sit stays on the last frame until toggled off
-        return { body: bodySit, head: headSit, frames: 3, interval: 150, loop: false, holdLastFrame: true };
+        return { body: bodySit, head: headSit, frames: 3, interval: 200, loop: false };
       case 'slash':
-        return { body: bodySlash, head: headSlash, frames: 6, interval: 70, loop: false };
+        return { body: bodySlash, head: headSlash, frames: 6, interval: 80, loop: false };
       case 'spellcast':
-        return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 90, loop: false };
+        return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, loop: false };
       case 'thrust':
-        return { body: bodyThrust, head: headThrust, frames: 8, interval: 70, loop: false };
+        return { body: bodyThrust, head: headThrust, frames: 8, interval: 80, loop: false };
       default:
         return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, loop: true };
     }
@@ -107,18 +106,12 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       setFrame((f) => {
         const nextFrame = f + 1;
         if (nextFrame >= config.frames) {
-          if (config.loop) return 0;
-          
-          // If we should hold the last frame (like sitting)
-          if ('holdLastFrame' in config && config.holdLastFrame) {
+          if (!config.loop) {
             clearInterval(interval);
+            onActionComplete?.();
             return f;
           }
-
-          // Otherwise complete the action
-          clearInterval(interval);
-          onActionComplete?.();
-          return f;
+          return 0;
         }
         return nextFrame;
       });
@@ -137,27 +130,16 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     }
   };
 
-  // Calculate vertical offset for jump
-  const getYOffset = () => {
-    if (action === 'jump') {
-      // 5 frames of jump: 0, 1, 2, 3, 4
-      const jumpOffsets = [0, -25, -50, -25, 0];
-      return jumpOffsets[frame] || 0;
-    }
-    return 0;
-  };
-
   const row = getDirectionRow();
   const spriteSize = 64;
-  const yOffset = getYOffset();
   
   const spriteStyle: React.CSSProperties = {
     width: `${spriteSize}px`,
     height: `${spriteSize}px`,
     position: 'absolute',
     left: `${position.x}px`,
-    top: `${position.y + yOffset}px`,
-    transition: noTransition ? 'none' : 'left 0.1s linear, top 0.1s ease-out',
+    top: `${position.y}px`,
+    transition: noTransition ? 'none' : 'left 0.1s linear, top 0.1s linear',
     imageRendering: 'pixelated',
     zIndex: 10,
   };

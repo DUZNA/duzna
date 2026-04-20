@@ -22,22 +22,16 @@ const GamePlayground = () => {
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     const key = e.key.toLowerCase();
-    
-    // Handle Sit Toggle separately
-    if (key === 'c') {
-      setCurrentAction(prev => prev === 'sit' ? 'idle' : 'sit');
-      return;
-    }
-
     setKeysPressed((prev) => new Set(prev).add(key));
 
-    // Trigger one-shot actions (only if not sitting)
-    if (currentAction !== 'sit') {
+    // Trigger one-shot actions
+    if (currentAction === 'idle' || currentAction === 'walk' || currentAction === 'run') {
       if (key === ' ') setCurrentAction('jump');
       else if (key === 'f') setCurrentAction('slash');
       else if (key === 'e') setCurrentAction('emote');
       else if (key === 'q') setCurrentAction('spellcast');
       else if (key === 'r') setCurrentAction('thrust');
+      else if (key === 'c') setCurrentAction('sit');
     }
   }, [currentAction]);
 
@@ -60,7 +54,7 @@ const GamePlayground = () => {
 
   useEffect(() => {
     const moveInterval = setInterval(() => {
-      // Don't move if sitting or performing a static action
+      // Don't move if performing a static action
       const staticActions: CharacterAction[] = ['jump', 'slash', 'emote', 'spellcast', 'thrust', 'sit', 'hurt'];
       if (staticActions.includes(currentAction)) return;
 
@@ -140,10 +134,7 @@ const GamePlayground = () => {
           direction={direction} 
           action={currentAction}
           apron={selectedApron}
-          onActionComplete={() => {
-            // Only return to idle if we're not in a persistent state like sitting
-            if (currentAction !== 'sit') setCurrentAction('idle');
-          }}
+          onActionComplete={() => setCurrentAction('idle')}
         />
 
         {/* Controls Hint */}
@@ -157,7 +148,7 @@ const GamePlayground = () => {
             <span>E</span> <span>Emote</span>
             <span>Q</span> <span>Spell</span>
             <span>R</span> <span>Thrust</span>
-            <span>C</span> <span>Sit/Stand</span>
+            <span>C</span> <span>Sit</span>
           </div>
         </div>
       </Card>
