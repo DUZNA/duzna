@@ -63,38 +63,128 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
 }) => {
   const [frame, setFrame] = useState(0);
   
+  // Preload all assets to prevent flickering
+  useEffect(() => {
+    const assets = [
+      bodyIdle, headIdle, bodyWalk, bodyRun, headWalk, headRun,
+      bodySlash, bodyHalfslash, bodyBackslash, bodyThrust, bodyShoot,
+      bodySpellcast, bodyJump, bodySit, bodyEmote, bodyHurt, bodyClimb, bodyCombatIdle,
+      headSlash, headHalfslash, headBackslash, headThrust, headShoot,
+      headSpellcast, headJump, headSit, headEmote, headHurt, headClimb, headCombatIdle
+    ];
+    assets.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   const config = useMemo(() => {
     switch (action) {
       case 'walk':
-        return { body: bodyWalk, head: headWalk, frames: 9, interval: 100, apron: apron?.walk, apronFrames: 9 };
+        return { 
+          body: bodyWalk, bodyFrames: 9,
+          head: headWalk, headFrames: 9,
+          apron: apron?.walk, apronFrames: 9,
+          interval: 100 
+        };
       case 'run':
-        return { body: bodyRun, head: headRun, frames: 8, interval: 80, apron: apron?.walk, apronFrames: 9 };
+        return { 
+          body: bodyRun, bodyFrames: 8,
+          head: headRun, headFrames: 8,
+          apron: apron?.walk, apronFrames: 9,
+          interval: 80 
+        };
       case 'slash':
-        return { body: bodySlash, head: headSlash, frames: 6, interval: 80, apron: null };
+        return { 
+          body: bodySlash, bodyFrames: 6,
+          head: headSlash, headFrames: 6,
+          apron: null, apronFrames: 0,
+          interval: 80 
+        };
       case 'halfslash':
-        return { body: bodyHalfslash, head: headHalfslash, frames: 6, interval: 80, apron: null };
+        return { 
+          body: bodyHalfslash, bodyFrames: 6,
+          head: headHalfslash, headFrames: 6,
+          apron: null, apronFrames: 0,
+          interval: 80 
+        };
       case 'backslash':
-        return { body: bodyBackslash, head: headBackslash, frames: 6, interval: 80, apron: null };
+        return { 
+          body: bodyBackslash, bodyFrames: 6,
+          head: headBackslash, headFrames: 6,
+          apron: null, apronFrames: 0,
+          interval: 80 
+        };
       case 'thrust':
-        return { body: bodyThrust, head: headThrust, frames: 8, interval: 80, apron: null };
+        return { 
+          body: bodyThrust, bodyFrames: 8,
+          head: headThrust, headFrames: 8,
+          apron: null, apronFrames: 0,
+          interval: 80 
+        };
       case 'shoot':
-        return { body: bodyShoot, head: headShoot, frames: 13, interval: 60, apron: null };
+        return { 
+          body: bodyShoot, bodyFrames: 13,
+          head: headShoot, headFrames: 13,
+          apron: null, apronFrames: 0,
+          interval: 60 
+        };
       case 'spellcast':
-        return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, apron: null };
+        return { 
+          body: bodySpellcast, bodyFrames: 7,
+          head: headSpellcast, headFrames: 7,
+          apron: null, apronFrames: 0,
+          interval: 100 
+        };
       case 'jump':
-        return { body: bodyJump, head: headJump, frames: 7, interval: 100, apron: null };
+        return { 
+          body: bodyJump, bodyFrames: 7,
+          head: headJump, headFrames: 7,
+          apron: null, apronFrames: 0,
+          interval: 100 
+        };
       case 'sit':
-        return { body: bodySit, head: headSit, frames: 3, interval: 120, apron: null };
+        return { 
+          body: bodySit, bodyFrames: 3,
+          head: headSit, headFrames: 3,
+          apron: null, apronFrames: 0,
+          interval: 120 
+        };
       case 'emote':
-        return { body: bodyEmote, head: headEmote, frames: 6, interval: 200, apron: apron?.idle, apronFrames: 2 };
+        return { 
+          body: bodyEmote, bodyFrames: 6,
+          head: headEmote, headFrames: 6,
+          apron: apron?.idle, apronFrames: 2,
+          interval: 200 
+        };
       case 'hurt':
-        return { body: bodyHurt, head: headHurt, frames: 6, interval: 100, apron: null };
+        return { 
+          body: bodyHurt, bodyFrames: 6,
+          head: headHurt, headFrames: 6,
+          apron: null, apronFrames: 0,
+          interval: 100 
+        };
       case 'climb':
-        return { body: bodyClimb, head: headClimb, frames: 6, interval: 120, apron: null };
+        return { 
+          body: bodyClimb, bodyFrames: 6,
+          head: headClimb, headFrames: 6,
+          apron: null, apronFrames: 0,
+          interval: 120 
+        };
       case 'combat_idle':
-        return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, apron: null };
+        return { 
+          body: bodyCombatIdle, bodyFrames: 2,
+          head: headCombatIdle, headFrames: 2,
+          apron: null, apronFrames: 0,
+          interval: 400 
+        };
       default: // idle
-        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle, apronFrames: 2 };
+        return { 
+          body: bodyIdle, bodyFrames: 2,
+          head: headIdle, headFrames: 2,
+          apron: apron?.idle, apronFrames: 2,
+          interval: 400 
+        };
     }
   }, [action, apron]);
 
@@ -103,15 +193,15 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   }, [action]);
 
   useEffect(() => {
-    const maxFrames = Math.max(config.frames, config.bodyFrames || 0, config.apronFrames || 0);
+    const maxFrames = Math.max(config.bodyFrames, config.headFrames, config.apronFrames);
     if (maxFrames <= 1) return;
     
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % 120);
+      setFrame((f) => (f + 1) % 120); // High common multiple to keep layers in sync
     }, config.interval);
 
     return () => clearInterval(interval);
-  }, [config.frames, config.bodyFrames, config.apronFrames, config.interval]);
+  }, [config.bodyFrames, config.headFrames, config.apronFrames, config.interval]);
 
   const getDirectionRow = () => {
     switch (direction) {
@@ -132,12 +222,13 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     position: 'absolute',
     left: `${position.x}px`,
     top: `${position.y}px`,
-    transition: noTransition ? 'none' : 'left 0.1s linear, top 0.1s linear',
+    transition: (noTransition || (action !== 'walk' && action !== 'run')) ? 'none' : 'left 0.1s linear, top 0.1s linear',
     imageRendering: 'pixelated',
     zIndex: 10,
   };
 
   const layerStyle = (src: string, totalFrames: number): React.CSSProperties => {
+    if (!src || totalFrames === 0) return { display: 'none' };
     const safeFrame = frame % totalFrames;
     return {
       position: 'absolute',
@@ -151,12 +242,12 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.body, config.bodyFrames || config.frames)} />
-      {config.head && <div style={layerStyle(config.head, config.frames)} />}
+      <div style={layerStyle(config.body, config.bodyFrames)} />
+      {config.head && <div style={layerStyle(config.head, config.headFrames)} />}
       {config.apron && (
         <div 
           style={{
-            ...layerStyle(config.apron, config.apronFrames || config.frames),
+            ...layerStyle(config.apron, config.apronFrames),
             zIndex: 11
           }} 
         />
