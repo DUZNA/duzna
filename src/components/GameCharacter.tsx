@@ -19,7 +19,7 @@ import bodyJump from '@/assets/jump.png';
 import bodySit from '@/assets/sit.png';
 import bodyHurt from '@/assets/hurt.png';
 import bodyClimb from '@/assets/climb.png';
-import bodyCombatIdle from '@/assets/combat_idle.pngimport bodyCombatIdle from '@/assets/combat_idle.png';
+import bodyCombatIdle from '@/assets/combat_idle.png';
 
 // Head Action Assets
 import headSlash from '@/assets/head_slash.png';
@@ -146,7 +146,6 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       backgroundImage: `url(${src})`,
       backgroundPosition: `-${safeFrame * spriteSize}px -${row * spriteSize}px`,
       backgroundRepeat: 'no-repeat',
-      // Removed backgroundSize to prevent distortion
     };
   };
 
