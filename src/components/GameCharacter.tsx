@@ -17,6 +17,7 @@ import bodyShoot from '@/assets/shoot.png';
 import bodySpellcast from '@/assets/spellcast.png';
 import bodyJump from '@/assets/jump.png';
 import bodySit from '@/assets/sit.png';
+import bodyEmote from '@/assets/emote.png';
 import bodyHurt from '@/assets/hurt.png';
 import bodyClimb from '@/assets/climb.png';
 import bodyCombatIdle from '@/assets/combat_idle.png';
@@ -85,8 +86,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'sit':
         return { body: bodySit, head: headSit, frames: 3, interval: 120, apron: null };
       case 'emote':
-        // Body is idle (2 frames), Head is emote (6 frames)
-        return { body: bodyIdle, bodyFrames: 2, head: headEmote, frames: 6, interval: 200, apron: apron?.idle, apronFrames: 2 };
+        return { body: bodyEmote, head: headEmote, frames: 6, interval: 200, apron: apron?.idle, apronFrames: 2 };
       case 'hurt':
         return { body: bodyHurt, head: headHurt, frames: 6, interval: 100, apron: null };
       case 'climb':
@@ -107,7 +107,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     if (maxFrames <= 1) return;
     
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % 120); // Use a large common multiple or just a high number
+      setFrame((f) => (f + 1) % 120);
     }, config.interval);
 
     return () => clearInterval(interval);
