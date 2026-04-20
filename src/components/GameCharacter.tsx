@@ -82,7 +82,6 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'spellcast':
         return { body: bodySpellcast, head: headSpellcast, frames: 7, interval: 100, apron: null };
       case 'jump':
-        // Updated to 5 frames based on new assets
         return { body: bodyJump, head: headJump, frames: 5, interval: 100, apron: null };
       case 'sit':
         return { body: bodySit, head: headSit, frames: 6, interval: 120, apron: null };
@@ -157,35 +156,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       {config.apron && (
         <div 
           style={{
-            ...layerStyle(think
-The previous response was cut off in the middle of a `dyad-write` block for `src/components/GameCharacter.tsx`. I need to complete the file content and close the tag, then provide the chat summary.
-
-The cut-off point was:
-`...layerStyle(`
-
-I need to finish the `apron` layer style, close the `div`, close the `GameCharacter` component, and close the `dyad-write` tag.
-
-Looking at the previous code:
-```tsx
-      {config.apron && (
-        <div 
-          style={{
             ...layerStyle(config.apron, action === 'idle' ? 2 : 9),
-            zIndex: 11
-          }} 
-        />
-      )}
-    </div>
-  );
-};
-
-export default GameCharacter;
-```
-
-Wait, I should check the `apron` frame logic. In `idle` it's 2 frames, in `walk`/`run` it's 9 frames. For other actions, it's usually null or follows the body frames if it were to exist.
-
-Let's complete the file.
-config.apron, action === 'idle' ? 2 : 9),
             zIndex: 11
           }} 
         />
