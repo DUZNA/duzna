@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import bodyIdle from '@/assets/body.png';
 import headIdle from '@/assets/head.png';
 import bodyWalk from '@/assets/walk.png';
@@ -63,12 +63,12 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
 }) => {
   const [frame, setFrame] = useState(0);
   
-  const getAnimationConfig = () => {
+  const config = useMemo(() => {
     switch (action) {
       case 'walk':
-        return { body: bodyWalk, head: headWalk, frames: 9, interval: 120, apron: apron?.walk };
+        return { body: bodyWalk, head: headWalk, frames: 9, interval: 100, apron: apron?.walk };
       case 'run':
-        return { body: bodyRun, head: headRun, frames: 8, interval: 100, apron: apron?.walk };
+        return { body: bodyRun, head: headRun, frames: 8, interval: 80, apron: apron?.walk };
       case 'slash':
         return { body: bodySlash, head: headSlash, frames: 6, interval: 80, apron: null };
       case 'halfslash':
@@ -84,7 +84,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'jump':
         return { body: bodyJump, head: headJump, frames: 6, interval: 100, apron: null };
       case 'sit':
-        return { body: bodySit, head: headSit, frames: 6, interval: 100, apron: null };
+        return { body: bodySit, head: headSit, frames: 6, interval: 120, apron: null };
       case 'emote':
         return { body: bodyEmote, head: headEmote, frames: 3, interval: 200, apron: null };
       case 'hurt':
@@ -96,9 +96,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       default: // idle
         return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
     }
-  };
-
-  const config = getAnimationConfig();
+  }, [action, apron]);
 
   useEffect(() => {
     setFrame(0);
@@ -112,9 +110,10 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     }, config.interval);
 
     return () => clearInterval(interval);
-  }, [config.frames, config.interval, action]);
+  }, [config.frames, config.interval]);
 
   const getDirectionRow = () => {
+    // Climbing usually uses the same 4-direction layout
     switch (direction) {
       case 'up': return 0;
       case 'left': return 1;
@@ -138,25 +137,28 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (src: string): React.CSSProperties => ({
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url(${src})`,
-    backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
-    backgroundRepeat: 'no-repeat',
-    // Removed backgroundSize to prevent distortion. 
-    // The 64x64 container will naturally crop the correct frame.
-  });
+  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => {
+    // Safety check: ensure frame is within bounds for the current sheet
+    const safeFrame = frame % totalFrames;
+    return {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backgroundImage: `url(${src})`,
+      backgroundPosition: `-${safeFrame * spriteSize}px -${row * spriteSize}px`,
+      backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
+      backgroundRepeat: 'no-repeat',
+    };
+  };
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.body)} />
-      {config.head && <div style={layerStyle(config.head)} />}
+      <div style={layerStyle(config.body, config.frames)} />
+      {config.head && <div style={layerStyle(config.head, config.frames)} />}
       {config.apron && (
         <div 
           style={{
-            ...layerStyle(config.apron),
+            ...layerStyle(config.apron, action === 'idle' ? 2 : 9),
             zIndex: 11
           }} 
         />
