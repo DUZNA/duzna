@@ -144,32 +144,23 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (src: string, totalFrames: number, currentFrame: number): React.CSSProperties => ({
+  const layerStyle = (src: string, totalFrames: number): React.CSSProperties => ({
     position: 'absolute',
     width: '100%',
     height: '100%',
     backgroundImage: `url(${src})`,
-    backgroundPosition: `-${(currentFrame % totalFrames) * spriteSize}px -${row * spriteSize}px`,
+    backgroundPosition: `-${frame * spriteSize}px -${row * spriteSize}px`,
     backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
   });
 
   return (
     <div style={spriteStyle}>
-      {/* Body Layer */}
-      <div style={layerStyle(config.body, config.frames, frame)} />
-      
-      {/* Head Layer */}
-      {config.head && <div style={layerStyle(config.head, config.frames, frame)} />}
-      
-      {/* Apron Layer (Only for Idle, Walk, Run) */}
+      <div style={layerStyle(config.body, config.frames)} />
+      {config.head && <div style={layerStyle(config.head, config.frames)} />}
       {apron && (action === 'idle' || action === 'walk' || action === 'run') && (
         <div 
           style={{
-            ...layerStyle(
-              action === 'idle' ? apron.idle : apron.walk, 
-              action === 'idle' ? 2 : 9,
-              frame
-            ),
+            ...layerStyle(action === 'idle' ? apron.idle : apron.walk, action === 'idle' ? 2 : 9),
             zIndex: 11
           }} 
         />
