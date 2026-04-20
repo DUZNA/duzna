@@ -19,7 +19,7 @@ import bodyJump from '@/assets/jump.png';
 import bodySit from '@/assets/sit.png';
 import bodyHurt from '@/assets/hurt.png';
 import bodyClimb from '@/assets/climb.png';
-import bodyCombatIdle from '@/assets/combat_idle.png';
+import bodyCombatIdle from '@/assets/combat_idle.pngimport bodyCombatIdle from '@/assets/combat_idle.png';
 
 // Head Action Assets
 import headSlash from '@/assets/head_slash.png';
@@ -65,9 +65,9 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   const config = useMemo(() => {
     switch (action) {
       case 'walk':
-        return { body: bodyWalk, head: headWalk, frames: 9, interval: 100, apron: apron?.walk };
+        return { body: bodyWalk, head: headWalk, frames: 9, interval: 100, apron: apron?.walk, apronFrames: 9 };
       case 'run':
-        return { body: bodyRun, head: headRun, frames: 8, interval: 80, apron: apron?.walk };
+        return { body: bodyRun, head: headRun, frames: 8, interval: 80, apron: apron?.walk, apronFrames: 9 };
       case 'slash':
         return { body: bodySlash, head: headSlash, frames: 6, interval: 80, apron: null };
       case 'halfslash':
@@ -85,8 +85,8 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'sit':
         return { body: bodySit, head: headSit, frames: 3, interval: 120, apron: null };
       case 'emote':
-        // Fallback to idle body since bodyEmote asset is missing, but use the new headEmote
-        return { body: bodyIdle, head: headEmote, frames: 6, interval: 200, apron: apron?.idle };
+        // Body is idle (2 frames), Head is emote (6 frames)
+        return { body: bodyIdle, bodyFrames: 2, head: headEmote, frames: 6, interval: 200, apron: apron?.idle, apronFrames: 2 };
       case 'hurt':
         return { body: bodyHurt, head: headHurt, frames: 6, interval: 100, apron: null };
       case 'climb':
@@ -94,7 +94,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'combat_idle':
         return { body: bodyCombatIdle, head: headCombatIdle, frames: 2, interval: 400, apron: null };
       default: // idle
-        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle };
+        return { body: bodyIdle, head: headIdle, frames: 2, interval: 400, apron: apron?.idle, apronFrames: 2 };
     }
   }, [action, apron]);
 
@@ -103,14 +103,15 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   }, [action]);
 
   useEffect(() => {
-    if (config.frames <= 1) return;
+    const maxFrames = Math.max(config.frames, config.bodyFrames || 0, config.apronFrames || 0);
+    if (maxFrames <= 1) return;
     
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % config.frames);
+      setFrame((f) => (f + 1) % 120); // Use a large common multiple or just a high number
     }, config.interval);
 
     return () => clearInterval(interval);
-  }, [config.frames, config.interval]);
+  }, [config.frames, config.bodyFrames, config.apronFrames, config.interval]);
 
   const getDirectionRow = () => {
     switch (direction) {
@@ -144,19 +145,19 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       height: '100%',
       backgroundImage: `url(${src})`,
       backgroundPosition: `-${safeFrame * spriteSize}px -${row * spriteSize}px`,
-      backgroundSize: `${spriteSize * totalFrames}px ${spriteSize * 4}px`,
       backgroundRepeat: 'no-repeat',
+      // Removed backgroundSize to prevent distortion
     };
   };
 
   return (
     <div style={spriteStyle}>
-      <div style={layerStyle(config.body, config.frames)} />
+      <div style={layerStyle(config.body, config.bodyFrames || config.frames)} />
       {config.head && <div style={layerStyle(config.head, config.frames)} />}
       {config.apron && (
         <div 
           style={{
-            ...layerStyle(config.apron, action === 'idle' ? 2 : 9),
+            ...layerStyle(config.apron, config.apronFrames || config.frames),
             zIndex: 11
           }} 
         />
