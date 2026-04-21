@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import bodyIdle from '@/assets/body.png';
-import headIdle from '@/assets/head.png';
+headIdle from '@/assets/head.png';
 import bodyWalk from '@/assets/walk.png';
 import bodyRun from '@/assets/run.png';
 import headWalk from '@/assets/head_walk.png';
@@ -39,6 +39,7 @@ import headCombatIdle from '@/assets/head_combat_idle.png';
 export interface ApronSet {
   idle: string;
   walk: string;
+  run?: string;
   backlash?: string;
   climb?: string;
   combat_idle?: string;
@@ -89,7 +90,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyRun, frames: 8 },
           head: { src: headRun, frames: 8 },
-          apron: { src: apron?.walk, frames: 9 },
+          apron: { src: apron?.run || apron?.walk, frames: 8 },
           interval: 80 
         };
       case 'slash':
