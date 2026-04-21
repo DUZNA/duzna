@@ -297,36 +297,62 @@ import tealShoot from '@/assets/aprons/shoot/teal.png';
 import walnutShoot from '@/assets/aprons/shoot/walnut.png';
 import whiteShoot from '@/assets/aprons/shoot/white.png';
 
+// Import all apron assets (Sit)
+import yellowSit from '@/assets/aprons/sit/yellow.png';
+import blackSit from '@/assets/aprons/sit/black.png';
+import blueSit from '@/assets/aprons/sit/blue.png';
+import bluegraySit from '@/assets/aprons/sit/bluegray.png';
+import brownSit from '@/assets/aprons/sit/brown.png';
+import charcoalSit from '@/assets/aprons/sit/charcoal.png';
+import forestSit from '@/assets/aprons/sit/forest.png';
+import graySit from '@/assets/aprons/sit/gray.png';
+import greenSit from '@/assets/aprons/sit/green.png';
+import lavenderSit from '@/assets/aprons/sit/lavender.png';
+import leatherSit from '@/assets/aprons/sit/leather.png';
+import maroonSit from '@/assets/aprons/sit/maroon.png';
+import navySit from '@/assets/aprons/sit/navy.png';
+import orangeSit from '@/assets/aprons/sit/orange.png';
+import pinkSit from '@/assets/aprons/sit/pink.png';
+import purpleSit from '@/assets/aprons/sit/purple.png';
+import redSit from '@/assets/aprons/sit/red.png';
+import roseSit from '@/assets/aprons/sit/rose.png';
+import skySit from '@/assets/aprons/sit/sky.png';
+import slateSit from '@/assets/aprons/sit/slate.png';
+import tanSit from '@/assets/aprons/sit/tan.png';
+import tealSit from '@/assets/aprons/sit/teal.png';
+import walnutSit from '@/assets/aprons/sit/walnut.png';
+import whiteSit from '@/assets/aprons/sit/white.png';
+
 const PREVIEW_OFFSETS = {
   CLOTHES_FRONT: '0px -128px',
   SPRITE_SIZE: '128px 256px'
 };
 
 const APRONS: { name: string; set: ApronSet }[] = [
-  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, run: yellowRun, backlash: yellowBacklash, climb: yellowClimb, combat_idle: yellowCombatIdle, emote: yellowEmote, halfslash: yellowHalfslash, hurt: yellowHurt, jump: yellowJump, shoot: yellowShoot } },
-  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, run: blackRun, backlash: blackBacklash, climb: blackClimb, combat_idle: blackCombatIdle, emote: blackEmote, halfslash: blackHalfslash, hurt: blackHurt, jump: blackJump, shoot: blackShoot } },
-  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, run: blueRun, backlash: blueBacklash, climb: blueClimb, combat_idle: blueCombatIdle, emote: blueEmote, halfslash: blueHalfslash, hurt: blueHurt, jump: blueJump, shoot: blueShoot } },
-  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, run: bluegrayRun, backlash: bluegrayBacklash, climb: bluegrayClimb, combat_idle: bluegrayCombatIdle, emote: bluegrayEmote, halfslash: bluegrayHalfslash, hurt: bluegrayHurt, jump: bluegrayJump, shoot: bluegrayShoot } },
-  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, run: brownRun, backlash: brownBacklash, climb: brownClimb, combat_idle: brownCombatIdle, emote: brownEmote, halfslash: brownHalfslash, hurt: brownHurt, jump: brownJump, shoot: brownShoot } },
-  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, run: charcoalRun, backlash: charcoalBacklash, climb: charcoalClimb, combat_idle: charcoalCombatIdle, emote: charcoalEmote, halfslash: charcoalHalfslash, hurt: charcoalHurt, jump: charcoalJump, shoot: charcoalShoot } },
-  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, run: forestRun, backlash: forestBacklash, climb: forestClimb, combat_idle: forestCombatIdle, emote: forestEmote, halfslash: forestHalfslash, hurt: forestHurt, jump: forestJump, shoot: forestShoot } },
-  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, run: grayRun, backlash: grayBacklash, climb: grayClimb, combat_idle: grayCombatIdle, emote: grayEmote, halfslash: grayHalfslash, hurt: grayHurt, jump: grayJump, shoot: grayShoot } },
-  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, run: greenRun, backlash: greenBacklash, climb: greenClimb, combat_idle: greenCombatIdle, emote: greenEmote, halfslash: greenHalfslash, hurt: greenHurt, jump: greenJump, shoot: greenShoot } },
-  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, run: lavenderRun, backlash: lavenderBacklash, climb: lavenderClimb, combat_idle: lavenderCombatIdle, emote: lavenderEmote, halfslash: lavenderHalfslash, hurt: lavenderHurt, jump: lavenderJump, shoot: lavenderShoot } },
-  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, run: leatherRun, backlash: leatherBacklash, climb: leatherClimb, combat_idle: leatherCombatIdle, emote: leatherEmote, halfslash: leatherHalfslash, hurt: leatherHurt, jump: leatherJump, shoot: leatherShoot } },
-  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, run: maroonRun, backlash: maroonBacklash, climb: maroonClimb, combat_idle: maroonCombatIdle, emote: maroonEmote, halfslash: maroonHalfslash, hurt: maroonHurt, jump: maroonJump, shoot: maroonShoot } },
-  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, run: navyRun, backlash: navyBacklash, climb: navyClimb, combat_idle: navyCombatIdle, emote: navyEmote, halfslash: navyHalfslash, hurt: navyHurt, jump: navyJump, shoot: navyShoot } },
-  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, run: orangeRun, backlash: orangeBacklash, climb: orangeClimb, combat_idle: orangeCombatIdle, emote: orangeEmote, halfslash: orangeHalfslash, hurt: orangeHurt, jump: orangeJump, shoot: orangeShoot } },
-  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, run: pinkRun, backlash: pinkBacklash, climb: pinkClimb, combat_idle: pinkCombatIdle, emote: pinkEmote, halfslash: pinkHalfslash, hurt: pinkHurt, jump: pinkJump, shoot: pinkShoot } },
-  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, run: purpleRun, backlash: purpleBacklash, climb: purpleClimb, combat_idle: purpleCombatIdle, emote: purpleEmote, halfslash: purpleHalfslash, hurt: purpleHurt, jump: purpleJump, shoot: purpleShoot } },
-  { name: 'Red', set: { idle: redIdle, walk: redWalk, run: redRun, backlash: redBacklash, climb: redClimb, combat_idle: redCombatIdle, emote: redEmote, halfslash: redHalfslash, hurt: redHurt, jump: redJump, shoot: redShoot } },
-  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, run: roseRun, backlash: roseBacklash, climb: roseClimb, combat_idle: roseCombatIdle, emote: roseEmote, halfslash: roseHalfslash, hurt: roseHurt, jump: roseJump, shoot: roseShoot } },
-  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, run: skyRun, backlash: skyBacklash, climb: skyClimb, combat_idle: skyCombatIdle, emote: skyEmote, halfslash: skyHalfslash, hurt: skyHurt, jump: skyJump, shoot: skyShoot } },
-  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, run: slateRun, backlash: slateBacklash, climb: slateClimb, combat_idle: slateCombatIdle, emote: slateEmote, halfslash: slateHalfslash, hurt: slateHurt, jump: slateJump, shoot: slateShoot } },
-  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, run: tanRun, backlash: tanBacklash, climb: tanClimb, combat_idle: tanCombatIdle, emote: tanEmote, halfslash: tanHalfslash, hurt: tanHurt, jump: tanJump, shoot: tanShoot } },
-  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, run: tealRun, backlash: tealBacklash, climb: tealClimb, combat_idle: tealCombatIdle, emote: tealEmote, halfslash: tealHalfslash, hurt: tealHurt, jump: tealJump, shoot: tealShoot } },
-  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, run: walnutRun, backlash: walnutBacklash, climb: walnutClimb, combat_idle: walnutCombatIdle, emote: walnutEmote, halfslash: walnutHalfslash, hurt: walnutHurt, jump: walnutJump, shoot: walnutShoot } },
-  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, run: whiteRun, backlash: whiteBacklash, climb: whiteClimb, combat_idle: whiteCombatIdle, emote: whiteEmote, halfslash: whiteHalfslash, hurt: whiteHurt, jump: whiteJump, shoot: whiteShoot } },
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, run: yellowRun, backlash: yellowBacklash, climb: yellowClimb, combat_idle: yellowCombatIdle, emote: yellowEmote, halfslash: yellowHalfslash, hurt: yellowHurt, jump: yellowJump, shoot: yellowShoot, sit: yellowSit } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, run: blackRun, backlash: blackBacklash, climb: blackClimb, combat_idle: blackCombatIdle, emote: blackEmote, halfslash: blackHalfslash, hurt: blackHurt, jump: blackJump, shoot: blackShoot, sit: blackSit } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, run: blueRun, backlash: blueBacklash, climb: blueClimb, combat_idle: blueCombatIdle, emote: blueEmote, halfslash: blueHalfslash, hurt: blueHurt, jump: blueJump, shoot: blueShoot, sit: blueSit } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, run: bluegrayRun, backlash: bluegrayBacklash, climb: bluegrayClimb, combat_idle: bluegrayCombatIdle, emote: bluegrayEmote, halfslash: bluegrayHalfslash, hurt: bluegrayHurt, jump: bluegrayJump, shoot: bluegrayShoot, sit: bluegraySit } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, run: brownRun, backlash: brownBacklash, climb: brownClimb, combat_idle: brownCombatIdle, emote: brownEmote, halfslash: brownHalfslash, hurt: brownHurt, jump: brownJump, shoot: brownShoot, sit: brownSit } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, run: charcoalRun, backlash: charcoalBacklash, climb: charcoalClimb, combat_idle: charcoalCombatIdle, emote: charcoalEmote, halfslash: charcoalHalfslash, hurt: charcoalHurt, jump: charcoalJump, shoot: charcoalShoot, sit: charcoalSit } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, run: forestRun, backlash: forestBacklash, climb: forestClimb, combat_idle: forestCombatIdle, emote: forestEmote, halfslash: forestHalfslash, hurt: forestHurt, jump: forestJump, shoot: forestShoot, sit: forestSit } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, run: grayRun, backlash: grayBacklash, climb: grayClimb, combat_idle: grayCombatIdle, emote: grayEmote, halfslash: grayHalfslash, hurt: grayHurt, jump: grayJump, shoot: grayShoot, sit: graySit } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, run: greenRun, backlash: greenBacklash, climb: greenClimb, combat_idle: greenCombatIdle, emote: greenEmote, halfslash: greenHalfslash, hurt: greenHurt, jump: greenJump, shoot: greenShoot, sit: greenSit } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, run: lavenderRun, backlash: lavenderBacklash, climb: lavenderClimb, combat_idle: lavenderCombatIdle, emote: lavenderEmote, halfslash: lavenderHalfslash, hurt: lavenderHurt, jump: lavenderJump, shoot: lavenderShoot, sit: lavenderSit } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, run: leatherRun, backlash: leatherBacklash, climb: leatherClimb, combat_idle: leatherCombatIdle, emote: leatherEmote, halfslash: leatherHalfslash, hurt: leatherHurt, jump: leatherJump, shoot: leatherShoot, sit: leatherSit } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, run: maroonRun, backlash: maroonBacklash, climb: maroonClimb, combat_idle: maroonCombatIdle, emote: maroonEmote, halfslash: maroonHalfslash, hurt: maroonHurt, jump: maroonJump, shoot: maroonShoot, sit: maroonSit } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, run: navyRun, backlash: navyBacklash, climb: navyClimb, combat_idle: navyCombatIdle, emote: navyEmote, halfslash: navyHalfslash, hurt: navyHurt, jump: navyJump, shoot: navyShoot, sit: navySit } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, run: orangeRun, backlash: orangeBacklash, climb: orangeClimb, combat_idle: orangeCombatIdle, emote: orangeEmote, halfslash: orangeHalfslash, hurt: orangeHurt, jump: orangeJump, shoot: orangeShoot, sit: orangeSit } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, run: pinkRun, backlash: pinkBacklash, climb: pinkClimb, combat_idle: pinkCombatIdle, emote: pinkEmote, halfslash: pinkHalfslash, hurt: pinkHurt, jump: pinkJump, shoot: pinkShoot, sit: pinkSit } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, run: purpleRun, backlash: purpleBacklash, climb: purpleClimb, combat_idle: purpleCombatIdle, emote: purpleEmote, halfslash: purpleHalfslash, hurt: purpleHurt, jump: purpleJump, shoot: purpleShoot, sit: purpleSit } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk, run: redRun, backlash: redBacklash, climb: redClimb, combat_idle: redCombatIdle, emote: redEmote, halfslash: redHalfslash, hurt: redHurt, jump: redJump, shoot: redShoot, sit: redSit } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, run: roseRun, backlash: roseBacklash, climb: roseClimb, combat_idle: roseCombatIdle, emote: roseEmote, halfslash: roseHalfslash, hurt: roseHurt, jump: roseJump, shoot: roseShoot, sit: roseSit } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, run: skyRun, backlash: skyBacklash, climb: skyClimb, combat_idle: skyCombatIdle, emote: skyEmote, halfslash: skyHalfslash, hurt: skyHurt, jump: skyJump, shoot: skyShoot, sit: skySit } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, run: slateRun, backlash: slateBacklash, climb: slateClimb, combat_idle: slateCombatIdle, emote: slateEmote, halfslash: slateHalfslash, hurt: slateHurt, jump: slateJump, shoot: slateShoot, sit: slateSit } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, run: tanRun, backlash: tanBacklash, climb: tanClimb, combat_idle: tanCombatIdle, emote: tanEmote, halfslash: tanHalfslash, hurt: tanHurt, jump: tanJump, shoot: tanShoot, sit: tanSit } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, run: tealRun, backlash: tealBacklash, climb: tealClimb, combat_idle: tealCombatIdle, emote: tealEmote, halfslash: tealHalfslash, hurt: tealHurt, jump: tealJump, shoot: tealShoot, sit: tealSit } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, run: walnutRun, backlash: walnutBacklash, climb: walnutClimb, combat_idle: walnutCombatIdle, emote: walnutEmote, halfslash: walnutHalfslash, hurt: walnutHurt, jump: walnutJump, shoot: walnutShoot, sit: walnutSit } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, run: whiteRun, backlash: whiteBacklash, climb: whiteClimb, combat_idle: whiteCombatIdle, emote: whiteEmote, halfslash: whiteHalfslash, hurt: whiteHurt, jump: whiteJump, shoot: whiteShoot, sit: whiteSit } },
 ];
 
 interface CustomizationMenuProps {
