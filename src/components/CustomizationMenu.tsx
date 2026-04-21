@@ -141,62 +141,36 @@ import tealSlash from '@/assets/aprons/slash/teal.png';
 import walnutSlash from '@/assets/aprons/slash/walnut.png';
 import whiteSlash from '@/assets/aprons/slash/white.png';
 
-// Import all apron assets (Shoot)
-import yellowShoot from '@/assets/aprons/shoot/yellow.png';
-import blackShoot from '@/assets/aprons/shoot/black.png';
-import blueShoot from '@/assets/aprons/shoot/blue.png';
-import bluegrayShoot from '@/assets/aprons/shoot/bluegray.png';
-import brownShoot from '@/assets/aprons/shoot/brown.png';
-import charcoalShoot from '@/assets/aprons/shoot/charcoal.png';
-import forestShoot from '@/assets/aprons/shoot/forest.png';
-import grayShoot from '@/assets/aprons/shoot/gray.png';
-import greenShoot from '@/assets/aprons/shoot/green.png';
-import lavenderShoot from '@/assets/aprons/shoot/lavender.png';
-import leatherShoot from '@/assets/aprons/shoot/leather.png';
-import maroonShoot from '@/assets/aprons/shoot/maroon.png';
-import navyShoot from '@/assets/aprons/shoot/navy.png';
-import orangeShoot from '@/assets/aprons/shoot/orange.png';
-import pinkShoot from '@/assets/aprons/shoot/pink.png';
-import purpleShoot from '@/assets/aprons/shoot/purple.png';
-import redShoot from '@/assets/aprons/shoot/red.png';
-import roseShoot from '@/assets/aprons/shoot/rose.png';
-import skyShoot from '@/assets/aprons/shoot/sky.png';
-import slateShoot from '@/assets/aprons/shoot/slate.png';
-import tanShoot from '@/assets/aprons/shoot/tan.png';
-import tealShoot from '@/assets/aprons/shoot/teal.png';
-import walnutShoot from '@/assets/aprons/shoot/walnut.png';
-import whiteShoot from '@/assets/aprons/shoot/white.png';
-
 const PREVIEW_OFFSETS = {
   CLOTHES_FRONT: '0px -128px',
   SPRITE_SIZE: '128px 256px'
 };
 
 const APRONS: { name: string; set: ApronSet }[] = [
-  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, thrust: yellowThrust, spellcast: yellowSpellcast, slash: yellowSlash, shoot: yellowShoot } },
-  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, thrust: blackThrust, spellcast: blackSpellcast, slash: blackSlash, shoot: blackShoot } },
-  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, thrust: blueThrust, spellcast: blueSpellcast, slash: blueSlash, shoot: blueShoot } },
-  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, thrust: bluegrayThrust, spellcast: bluegraySpellcast, slash: bluegraySlash, shoot: bluegrayShoot } },
-  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, thrust: brownThrust, spellcast: brownSpellcast, slash: brownSlash, shoot: brownShoot } },
-  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, thrust: charcoalThrust, spellcast: charcoalSpellcast, slash: charcoalSlash, shoot: charcoalShoot } },
-  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, thrust: forestThrust, spellcast: forestSpellcast, slash: forestSlash, shoot: forestShoot } },
-  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, thrust: grayThrust, spellcast: graySpellcast, slash: graySlash, shoot: grayShoot } },
-  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, thrust: greenThrust, spellcast: greenSpellcast, slash: greenSlash, shoot: greenShoot } },
-  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, thrust: lavenderThrust, spellcast: lavenderSpellcast, slash: lavenderSlash, shoot: lavenderShoot } },
-  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, thrust: leatherThrust, spellcast: leatherSpellcast, slash: leatherSlash, shoot: leatherShoot } },
-  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, thrust: maroonThrust, spellcast: maroonSpellcast, slash: maroonSlash, shoot: maroonShoot } },
-  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, thrust: navyThrust, spellcast: navySpellcast, slash: navySlash, shoot: navyShoot } },
-  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, thrust: orangeThrust, spellcast: orangeSpellcast, slash: orangeSlash, shoot: orangeShoot } },
-  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, thrust: pinkThrust, spellcast: pinkSpellcast, slash: pinkSlash, shoot: pinkShoot } },
-  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, thrust: purpleThrust, spellcast: purpleSpellcast, slash: purpleSlash, shoot: purpleShoot } },
-  { name: 'Red', set: { idle: redIdle, walk: redWalk, thrust: redThrust, spellcast: redSpellcast, slash: redSlash, shoot: redShoot } },
-  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, thrust: roseThrust, spellcast: roseSpellcast, slash: roseSlash, shoot: roseShoot } },
-  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, thrust: skyThrust, spellcast: skySpellcast, slash: skySlash, shoot: skyShoot } },
-  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, thrust: slateThrust, spellcast: slateSpellcast, slash: slateSlash, shoot: slateShoot } },
-  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, thrust: tanThrust, spellcast: tanSpellcast, slash: tanSlash, shoot: tanShoot } },
-  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, thrust: tealThrust, spellcast: tealSpellcast, slash: tealSlash, shoot: tealShoot } },
-  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, thrust: walnutThrust, spellcast: walnutSpellcast, slash: walnutSlash, shoot: walnutShoot } },
-  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, thrust: whiteThrust, spellcast: whiteSpellcast, slash: whiteSlash, shoot: whiteShoot } },
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, thrust: yellowThrust, spellcast: yellowSpellcast, slash: yellowSlash } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, thrust: blackThrust, spellcast: blackSpellcast, slash: blackSlash } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, thrust: blueThrust, spellcast: blueSpellcast, slash: blueSlash } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, thrust: bluegrayThrust, spellcast: bluegraySpellcast, slash: bluegraySlash } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, thrust: brownThrust, spellcast: brownSpellcast, slash: brownSlash } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, thrust: charcoalThrust, spellcast: charcoalSpellcast, slash: charcoalSlash } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, thrust: forestThrust, spellcast: forestSpellcast, slash: forestSlash } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, thrust: grayThrust, spellcast: graySpellcast, slash: graySlash } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, thrust: greenThrust, spellcast: greenSpellcast, slash: greenSlash } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, thrust: lavenderThrust, spellcast: lavenderSpellcast, slash: lavenderSlash } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, thrust: leatherThrust, spellcast: leatherSpellcast, slash: leatherSlash } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, thrust: maroonThrust, spellcast: maroonSpellcast, slash: maroonSlash } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, thrust: navyThrust, spellcast: navySpellcast, slash: navySlash } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, thrust: orangeThrust, spellcast: orangeSpellcast, slash: orangeSlash } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, thrust: pinkThrust, spellcast: pinkSpellcast, slash: pinkSlash } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, thrust: purpleThrust, spellcast: purpleSpellcast, slash: purpleSlash } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk, thrust: redThrust, spellcast: redSpellcast, slash: redSlash } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, thrust: roseThrust, spellcast: roseSpellcast, slash: roseSlash } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, thrust: skyThrust, spellcast: skySpellcast, slash: skySlash } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, thrust: slateThrust, spellcast: slateSpellcast, slash: slateSlash } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, thrust: tanThrust, spellcast: tanSpellcast, slash: tanSlash } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, thrust: tealThrust, spellcast: tealSpellcast, slash: tealSlash } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, thrust: walnutThrust, spellcast: walnutSpellcast, slash: walnutSlash } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, thrust: whiteThrust, spellcast: whiteSpellcast, slash: whiteSlash } },
 ];
 
 interface CustomizationMenuProps {
