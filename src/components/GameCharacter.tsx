@@ -44,6 +44,7 @@ export interface ApronSet {
   combat_idle?: string;
   emote?: string;
   halfslash?: string;
+  hurt?: string;
 }
 
 export type CharacterAction = 
@@ -151,6 +152,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyHurt, frames: 6, singleRow: true },
           head: { src: headHurt, frames: 6, singleRow: true },
+          apron: { src: apron?.hurt, frames: 6, singleRow: true },
           interval: 100 
         };
       case 'climb':
