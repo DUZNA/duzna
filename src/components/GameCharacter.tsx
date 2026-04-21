@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import bodyIdle from '@/assets/body.png';
-headIdle from '@/assets/head.png';
+import headIdle from '@/assets/head.png';
 import bodyWalk from '@/assets/walk.png';
 import bodyRun from '@/assets/run.png';
 import headWalk from '@/assets/head_walk.png';
