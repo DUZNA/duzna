@@ -40,6 +40,7 @@ export interface ApronSet {
   idle: string;
   walk: string;
   backlash?: string;
+  climb?: string;
 }
 
 export type CharacterAction = 
@@ -108,7 +109,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       case 'thrust':
         return { 
           body: { src: bodyThrust, frames: 8 },
-          head: { src: headThrust, frames: 8 },
+          head: { headThrust, frames: 8 },
           interval: 80 
         };
       case 'shoot':
@@ -152,6 +153,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyClimb, frames: 6, singleRow: true },
           head: { src: headClimb, frames: 6, singleRow: true },
+          apron: { src: apron?.climb, frames: 6, singleRow: true },
           interval: 120 
         };
       case 'combat_idle':
