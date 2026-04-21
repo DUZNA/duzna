@@ -43,6 +43,7 @@ export interface ApronSet {
   climb?: string;
   combat_idle?: string;
   emote?: string;
+  halfslash?: string;
 }
 
 export type CharacterAction = 
@@ -99,6 +100,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyHalfslash, frames: 6 },
           head: { src: headHalfslash, frames: 6 },
+          apron: { src: apron?.halfslash, frames: 6 },
           interval: 80 
         };
       case 'backslash':
