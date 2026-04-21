@@ -63,37 +63,62 @@ import tealWalk from '@/assets/aprons/walk/teal.png';
 import walnutWalk from '@/assets/aprons/walk/walnut.png';
 import whiteWalk from '@/assets/aprons/walk/white.png';
 
+// Import all apron assets (Backlash)
+import yellowBacklash from '@/assets/aprons/backlash/yellow.png';
+import blackBacklash from '@/assets/aprons/backlash/black.png';
+import blueBacklash from '@/assets/aprons/backlash/blue.png';
+import bluegrayBacklash from '@/assets/aprons/backlash/bluegray.png';
+import brownBacklash from '@/assets/aprons/backlash/brown.png';
+import charcoalBacklash from '@/assets/aprons/backlash/charcoal.png';
+import forestBacklash from '@/assets/aprons/backlash/forest.png';
+import grayBacklash from '@/assets/aprons/backlash/gray.png';
+import greenBacklash from '@/assets/aprons/backlash/green.png';
+import lavenderBacklash from '@/assets/aprons/backlash/lavender.png';
+import leatherBacklash from '@/assets/aprons/backlash/leather.png';
+import maroonBacklash from '@/assets/aprons/backlash/maroon.png';
+import navyBacklash from '@/assets/aprons/backlash/navy.png';
+import orangeBacklash from '@/assets/aprons/backlash/orange.png';
+import pinkBacklash from '@/assets/aprons/backlash/pink.png';
+import purpleBacklash from '@/assets/aprons/backlash/purple.png';
+import redBacklash from '@/assets/aprons/backlash/red.png';
+import roseBacklash from '@/assets/aprons/backlash/rose.png';
+import skyBacklash from '@/assets/aprons/backlash/sky.png';
+import slateBacklash from '@/assets/aprons/backlash/slate.png';
+import tanBacklash from '@/assets/aprons/backlash/tan.png';
+import tealBacklash from '@/assets/aprons/backlash/teal.png';
+import walnutBacklash from '@/assets/aprons/backlash/walnut.png';
+import whiteBacklash from '@/assets/aprons/backlash/white.png';
+
 const PREVIEW_OFFSETS = {
   CLOTHES_FRONT: '0px -128px',
-  // Idle sheets are 2 frames wide (2 * 64 = 128)
   SPRITE_SIZE: '128px 256px'
 };
 
 const APRONS: { name: string; set: ApronSet }[] = [
-  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk } },
-  { name: 'Black', set: { idle: blackIdle, walk: blackWalk } },
-  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk } },
-  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk } },
-  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk } },
-  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk } },
-  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk } },
-  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk } },
-  { name: 'Green', set: { idle: greenIdle, walk: greenWalk } },
-  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk } },
-  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk } },
-  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk } },
-  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk } },
-  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk } },
-  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk } },
-  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk } },
-  { name: 'Red', set: { idle: redIdle, walk: redWalk } },
-  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk } },
-  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk } },
-  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk } },
-  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk } },
-  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk } },
-  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk } },
-  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk } },
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, backlash: yellowBacklash } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, backlash: blackBacklash } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, backlash: blueBacklash } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, backlash: bluegrayBacklash } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, backlash: brownBacklash } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, backlash: charcoalBacklash } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, backlash: forestBacklash } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, backlash: grayBacklash } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, backlash: greenBacklash } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, backlash: lavenderBacklash } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, backlash: leatherBacklash } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, backlash: maroonBacklash } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, backlash: navyBacklash } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, backlash: orangeBacklash } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, backlash: pinkBacklash } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, backlash: purpleBacklash } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk, backlash: redBacklash } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, backlash: roseBacklash } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, backlash: skyBacklash } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, backlash: slateBacklash } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, backlash: tanBacklash } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, backlash: tealBacklash } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, backlash: walnutBacklash } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, backlash: whiteBacklash } },
 ];
 
 interface CustomizationMenuProps {
@@ -199,8 +224,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                   <GameCharacter 
                     position={{ x: -32, y: -32 }} 
                     direction="down"
-                    isMoving={false}
-                    isRunning={false}
+                    action="idle"
                     apron={selectedApron}
                     noTransition={true}
                   />

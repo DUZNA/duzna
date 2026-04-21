@@ -39,6 +39,7 @@ import headCombatIdle from '@/assets/head_combat_idle.png';
 export interface ApronSet {
   idle: string;
   walk: string;
+  backlash?: string;
 }
 
 export type CharacterAction = 
@@ -70,8 +71,6 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   const [frame, setFrame] = useState(0);
   
   const config = useMemo(() => {
-    const defaultInterval = 100;
-    
     switch (action) {
       case 'walk':
         return { 
@@ -103,6 +102,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyBackslash, frames: 6 },
           head: { src: headBackslash, frames: 6 },
+          apron: { src: apron?.backlash, frames: 6 },
           interval: 80 
         };
       case 'thrust':
