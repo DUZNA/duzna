@@ -63,114 +63,37 @@ import tealWalk from '@/assets/aprons/walk/teal.png';
 import walnutWalk from '@/assets/aprons/walk/walnut.png';
 import whiteWalk from '@/assets/aprons/walk/white.png';
 
-// Import all apron assets (Thrust)
-import yellowThrust from '@/assets/aprons/thrust/yellow.png';
-import blackThrust from '@/assets/aprons/thrust/black.png';
-import blueThrust from '@/assets/aprons/thrust/blue.png';
-import bluegrayThrust from '@/assets/aprons/thrust/bluegray.png';
-import brownThrust from '@/assets/aprons/thrust/brown.png';
-import charcoalThrust from '@/assets/aprons/thrust/charcoal.png';
-import forestThrust from '@/assets/aprons/thrust/forest.png';
-import grayThrust from '@/assets/aprons/thrust/gray.png';
-import greenThrust from '@/assets/aprons/thrust/green.png';
-import lavenderThrust from '@/assets/aprons/thrust/lavender.png';
-import leatherThrust from '@/assets/aprons/thrust/leather.png';
-import maroonThrust from '@/assets/aprons/thrust/maroon.png';
-import navyThrust from '@/assets/aprons/thrust/navy.png';
-import orangeThrust from '@/assets/aprons/thrust/orange.png';
-import pinkThrust from '@/assets/aprons/thrust/pink.png';
-import purpleThrust from '@/assets/aprons/thrust/purple.png';
-import redThrust from '@/assets/aprons/thrust/red.png';
-import roseThrust from '@/assets/aprons/thrust/rose.png';
-import skyThrust from '@/assets/aprons/thrust/sky.png';
-import slateThrust from '@/assets/aprons/thrust/slate.png';
-import tanThrust from '@/assets/aprons/thrust/tan.png';
-import tealThrust from '@/assets/aprons/thrust/teal.png';
-import walnutThrust from '@/assets/aprons/thrust/walnut.png';
-import whiteThrust from '@/assets/aprons/thrust/white.png';
-
-// Import all apron assets (Spellcast)
-import yellowSpellcast from '@/assets/aprons/spellcast/yellow.png';
-import blackSpellcast from '@/assets/aprons/spellcast/black.png';
-import blueSpellcast from '@/assets/aprons/spellcast/blue.png';
-import bluegraySpellcast from '@/assets/aprons/spellcast/bluegray.png';
-import brownSpellcast from '@/assets/aprons/spellcast/brown.png';
-import charcoalSpellcast from '@/assets/aprons/spellcast/charcoal.png';
-import forestSpellcast from '@/assets/aprons/spellcast/forest.png';
-import graySpellcast from '@/assets/aprons/spellcast/gray.png';
-import greenSpellcast from '@/assets/aprons/spellcast/green.png';
-import lavenderSpellcast from '@/assets/aprons/spellcast/lavender.png';
-import leatherSpellcast from '@/assets/aprons/spellcast/leather.png';
-import maroonSpellcast from '@/assets/aprons/spellcast/maroon.png';
-import navySpellcast from '@/assets/aprons/spellcast/navy.png';
-import orangeSpellcast from '@/assets/aprons/spellcast/orange.png';
-import pinkSpellcast from '@/assets/aprons/spellcast/pink.png';
-import purpleSpellcast from '@/assets/aprons/spellcast/purple.png';
-import redSpellcast from '@/assets/aprons/spellcast/red.png';
-import roseSpellcast from '@/assets/aprons/spellcast/rose.png';
-import skySpellcast from '@/assets/aprons/spellcast/sky.png';
-import slateSpellcast from '@/assets/aprons/spellcast/slate.png';
-import tanSpellcast from '@/assets/aprons/spellcast/tan.png';
-import tealSpellcast from '@/assets/aprons/spellcast/teal.png';
-import walnutSpellcast from '@/assets/aprons/spellcast/walnut.png';
-import whiteSpellcast from '@/assets/aprons/spellcast/white.png';
-
-// Import all apron assets (Slash)
-import yellowSlash from '@/assets/aprons/slash/yellow.png';
-import blackSlash from '@/assets/aprons/slash/black.png';
-import blueSlash from '@/assets/aprons/slash/blue.png';
-import bluegraySlash from '@/assets/aprons/slash/bluegray.png';
-import brownSlash from '@/assets/aprons/slash/brown.png';
-import charcoalSlash from '@/assets/aprons/slash/charcoal.png';
-import forestSlash from '@/assets/aprons/slash/forest.png';
-import graySlash from '@/assets/aprons/slash/gray.png';
-import greenSlash from '@/assets/aprons/slash/green.png';
-import lavenderSlash from '@/assets/aprons/slash/lavender.png';
-import leatherSlash from '@/assets/aprons/slash/leather.png';
-import maroonSlash from '@/assets/aprons/slash/maroon.png';
-import navySlash from '@/assets/aprons/slash/navy.png';
-import orangeSlash from '@/assets/aprons/slash/orange.png';
-import pinkSlash from '@/assets/aprons/slash/pink.png';
-import purpleSlash from '@/assets/aprons/slash/purple.png';
-import redSlash from '@/assets/aprons/slash/red.png';
-import roseSlash from '@/assets/aprons/slash/rose.png';
-import skySlash from '@/assets/aprons/slash/sky.png';
-import slateSlash from '@/assets/aprons/slash/slate.png';
-import tanSlash from '@/assets/aprons/slash/tan.png';
-import tealSlash from '@/assets/aprons/slash/teal.png';
-import walnutSlash from '@/assets/aprons/slash/walnut.png';
-import whiteSlash from '@/assets/aprons/slash/white.png';
-
 const PREVIEW_OFFSETS = {
   CLOTHES_FRONT: '0px -128px',
+  // Idle sheets are 2 frames wide (2 * 64 = 128)
   SPRITE_SIZE: '128px 256px'
 };
 
 const APRONS: { name: string; set: ApronSet }[] = [
-  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, thrust: yellowThrust, spellcast: yellowSpellcast, slash: yellowSlash } },
-  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, thrust: blackThrust, spellcast: blackSpellcast, slash: blackSlash } },
-  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, thrust: blueThrust, spellcast: blueSpellcast, slash: blueSlash } },
-  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, thrust: bluegrayThrust, spellcast: bluegraySpellcast, slash: bluegraySlash } },
-  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, thrust: brownThrust, spellcast: brownSpellcast, slash: brownSlash } },
-  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, thrust: charcoalThrust, spellcast: charcoalSpellcast, slash: charcoalSlash } },
-  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, thrust: forestThrust, spellcast: forestSpellcast, slash: forestSlash } },
-  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, thrust: grayThrust, spellcast: graySpellcast, slash: graySlash } },
-  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, thrust: greenThrust, spellcast: greenSpellcast, slash: greenSlash } },
-  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, thrust: lavenderThrust, spellcast: lavenderSpellcast, slash: lavenderSlash } },
-  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, thrust: leatherThrust, spellcast: leatherSpellcast, slash: leatherSlash } },
-  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, thrust: maroonThrust, spellcast: maroonSpellcast, slash: maroonSlash } },
-  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, thrust: navyThrust, spellcast: navySpellcast, slash: navySlash } },
-  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, thrust: orangeThrust, spellcast: orangeSpellcast, slash: orangeSlash } },
-  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, thrust: pinkThrust, spellcast: pinkSpellcast, slash: pinkSlash } },
-  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, thrust: purpleThrust, spellcast: purpleSpellcast, slash: purpleSlash } },
-  { name: 'Red', set: { idle: redIdle, walk: redWalk, thrust: redThrust, spellcast: redSpellcast, slash: redSlash } },
-  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, thrust: roseThrust, spellcast: roseSpellcast, slash: roseSlash } },
-  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, thrust: skyThrust, spellcast: skySpellcast, slash: skySlash } },
-  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, thrust: slateThrust, spellcast: slateSpellcast, slash: slateSlash } },
-  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, thrust: tanThrust, spellcast: tanSpellcast, slash: tanSlash } },
-  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, thrust: tealThrust, spellcast: tealSpellcast, slash: tealSlash } },
-  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, thrust: walnutThrust, spellcast: walnutSpellcast, slash: walnutSlash } },
-  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, thrust: whiteThrust, spellcast: whiteSpellcast, slash: whiteSlash } },
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk } },
 ];
 
 interface CustomizationMenuProps {
@@ -276,7 +199,8 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                   <GameCharacter 
                     position={{ x: -32, y: -32 }} 
                     direction="down"
-                    action="idle"
+                    isMoving={false}
+                    isRunning={false}
                     apron={selectedApron}
                     noTransition={true}
                   />
