@@ -45,6 +45,7 @@ export interface ApronSet {
   emote?: string;
   halfslash?: string;
   hurt?: string;
+  jump?: string;
 }
 
 export type CharacterAction = 
@@ -133,6 +134,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyJump, frames: 7 },
           head: { src: headJump, frames: 7 },
+          apron: { src: apron?.jump, frames: 7 },
           interval: 100 
         };
       case 'sit':
