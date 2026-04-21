@@ -213,7 +213,7 @@ import purpleHalfslash from '@/assets/aprons/halfslash/purple.png';
 import redHalfslash from '@/assets/aprons/halfslash/red.png';
 import roseHalfslash from '@/assets/aprons/halfslash/rose.png';
 import skyHalfslash from '@/assets/aprons/halfslash/sky.png';
-import slateHalfslash from '@/assets/halfslash/slate.png';
+import slateHalfslash from '@/assets/aprons/halfslash/slate.png';
 import tanHalfslash from '@/assets/aprons/halfslash/tan.png';
 import tealHalfslash from '@/assets/aprons/halfslash/teal.png';
 import walnutHalfslash from '@/assets/aprons/halfslash/walnut.png';
