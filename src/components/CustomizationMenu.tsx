@@ -115,36 +115,62 @@ import tealClimb from '@/assets/aprons/climb/teal.png';
 import walnutClimb from '@/assets/aprons/climb/walnut.png';
 import whiteClimb from '@/assets/aprons/climb/white.png';
 
+// Import all apron assets (Combat Idle)
+import yellowCombatIdle from '@/assets/aprons/combat_idle/yellow.png';
+import blackCombatIdle from '@/assets/aprons/combat_idle/black.png';
+import blueCombatIdle from '@/assets/aprons/combat_idle/blue.png';
+import bluegrayCombatIdle from '@/assets/aprons/combat_idle/bluegray.png';
+import brownCombatIdle from '@/assets/aprons/combat_idle/brown.png';
+import charcoalCombatIdle from '@/assets/aprons/combat_idle/charcoal.png';
+import forestCombatIdle from '@/assets/aprons/combat_idle/forest.png';
+import grayCombatIdle from '@/assets/aprons/combat_idle/gray.png';
+import greenCombatIdle from '@/assets/aprons/combat_idle/green.png';
+import lavenderCombatIdle from '@/assets/aprons/combat_idle/lavender.png';
+import leatherCombatIdle from '@/assets/aprons/combat_idle/leather.png';
+import maroonCombatIdle from '@/assets/aprons/combat_idle/maroon.png';
+import navyCombatIdle from '@/assets/aprons/combat_idle/navy.png';
+import orangeCombatIdle from '@/assets/aprons/combat_idle/orange.png';
+import pinkCombatIdle from '@/assets/aprons/combat_idle/pink.png';
+import purpleCombatIdle from '@/assets/aprons/combat_idle/purple.png';
+import redCombatIdle from '@/assets/aprons/combat_idle/red.png';
+import roseCombatIdle from '@/assets/aprons/combat_idle/rose.png';
+import skyCombatIdle from '@/assets/aprons/combat_idle/sky.png';
+import slateCombatIdle from '@/assets/aprons/combat_idle/slate.png';
+import tanCombatIdle from '@/assets/aprons/combat_idle/tan.png';
+import tealCombatIdle from '@/assets/aprons/combat_idle/teal.png';
+import walnutCombatIdle from '@/assets/aprons/combat_idle/walnut.png';
+import whiteCombatIdle from '@/assets/aprons/combat_idle/white.png';
+
 const PREVIEW_OFFSETS = {
   CLOTHES_FRONT: '0px -128px',
   SPRITE_SIZE: '128px 256px'
 };
 
 const APRONS: { name: string; set: ApronSet }[] = [
-  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, backlash: yellowBacklash, climb: yellowClimb } },
-  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, backlash: blackBacklash, climb: blackClimb } },
-  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, backlash: blueBacklash, climb: blueClimb } },
-  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, backlash: bluegrayBacklash, climb: bluegrayClimb } },
-  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, backlash: brownBacklash, climb: brownClimb } },
-  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, backlash: charcoalBacklash, climb: charcoalClimb } },
-  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, backlash: forestBacklash, climb: forestClimb } },
-  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, backlash: grayBacklash, climb: grayClimb } },
-  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, backlash: greenBacklash, climb: greenClimb } },
-  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, backlash: lavenderBacklash, climb: lavenderClimb } },
-  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, backlash: leatherBacklash, climb: leatherClimb } },
-  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, backlash: maroonBacklash, climb: maroonClimb } },
-  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, backlash: navyBacklash, climb: navyClimb } },
-  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, backlash: orangeBacklash, climb: orangeClimb } },
-  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, backlash: pinkBacklash, climb: pinkClimb } },
-  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, backlash: purpleBacklash, climb: purpleClimb } },
-  { name: 'Red', set: { idle: redIdle, walk: redWalk, backlash: redBacklash, climb: redClimb } },
-  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, backlash: roseBacklash, climb: roseClimb } },
-  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, backlash: skyBacklash, climb: skyClimb } },
-  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, backlash: slateBacklash, climb: slateClimb } },
-  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, backlash: tanBacklash, climb: tanClimb } },
-  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, backlash: tealBacklash, climb: tealClimb } },
-  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, backlash: walnutBacklash, climb: walnutClimb } },
-  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, backlash: whiteBacklash, climb: whiteClimb } },
+  { name: 'Yellow', set: { idle: yellowIdle, walk: yellowWalk, backlash: yellowBacklash, climb: yellowClimb, combat_idle: yellowCombatIdle } },
+  { name: 'Black', set: { idle: blackIdle, walk: blackWalk, backlash: blackBacklash, climb: blackClimb, combat_idle: blackCombatIdle } },
+  { name: 'Blue', set: { idle: blueIdle, walk: blueWalk, backlash: blueBacklash, climb: blueClimb, combat_idle: blueCombatIdle } },
+  { name: 'Blue Gray', set: { idle: bluegrayIdle, walk: bluegrayWalk, backlash: bluegrayBacklash, climb: bluegrayClimb, combat_idle: bluegrayCombatIdle } },
+  { name: 'Brown', set: { idle: brownIdle, walk: brownWalk, backlash: brownBacklash, climb: brownClimb, combat_idle: brownCombatIdle } },
+  { name: 'Charcoal', set: { idle: charcoalIdle, walk: charcoalWalk, backlash: charcoalBacklash, climb: charcoalClimb, combat_idle: charcoalCombatIdle } },
+  { name: 'Forest', set: { idle: forestIdle, walk: forestWalk, backlash: forestBacklash, climb: forestClimb, combat_idle: forestCombatIdle } },
+  { name: 'Gray', set: { idle: grayIdle, walk: grayWalk, backlash: grayBacklash, climb: grayClimb, combat_idle: grayCombatIdle } },
+  { name: 'Green', set: { idle: greenIdle, walk: greenWalk, backlash: greenBacklash, climb: greenClimb, combat_idle: greenCombatIdle } },
+  { name: 'Lavender', set: { idle: lavenderIdle, walk: lavenderWalk, backlash: lavenderBacklash, climb: lavenderClimb, combat_idle: lavenderCombatIdle } },
+  { name: 'Leather', set: { idle: leatherIdle, walk: leatherWalk, backlash: leatherBacklash, climb: leatherClimb, combat_idle: leatherCombatIdle } },
+  { name: 'Maroon', set: { idle: maroonIdle, walk: maroonWalk, backlash: maroonBacklash, climb: maroonClimb, combat_idle: maroonCombatIdle } },
+  { name: 'Navy', set: { idle: navyIdle, walk: navyWalk, backlash: navyBacklash, climb: navyClimb, combat_idle: navyCombatIdle } },
+  { name: 'Orange', set: { idle: orangeIdle, walk: orangeWalk, backlash: orangeBacklash, climb: orangeClimb, combat_idle: orangeCombatIdle } },
+  { name: 'Pink', set: { idle: pinkIdle, walk: pinkWalk, backlash: pinkBacklash, climb: pinkClimb, combat_idle: pinkCombatIdle } },
+  { name: 'Purple', set: { idle: purpleIdle, walk: purpleWalk, backlash: purpleBacklash, climb: purpleClimb, combat_idle: purpleCombatIdle } },
+  { name: 'Red', set: { idle: redIdle, walk: redWalk, backlash: redBacklash, climb: redClimb, combat_idle: redCombatIdle } },
+  { name: 'Rose', set: { idle: roseIdle, walk: roseWalk, backlash: roseBacklash, climb: roseClimb, combat_idle: roseCombatIdle } },
+  { name: 'Sky', set: { idle: skyIdle, walk: skyWalk, backlash: skyBacklash, climb: skyClimb, combat_idle: skyCombatIdle } },
+  { name: 'Slate', set: { idle: slateIdle, walk: slateWalk, backlash: slateBacklash, climb: slateClimb, combat_idle: slateCombatIdle } },
+  { name: 'Tan', set: { idle: tanIdle, walk: tanWalk, backlash: tanBacklash, climb: tanClimb, combat_idle: tanCombatIdle } },
+  { name: 'Teal', set: { idle: tealIdle, walk: tealWalk, backlash: tealBacklash, climb: tealClimb, combat_idle: tealCombatIdle } },
+  { name: 'Walnut', set: { idle: walnutIdle, walk: walnutWalk, backlash: walnutBacklash, climb: walnutClimb, combat_idle: walnutCombatIdle } },
+  { name: 'White', set: { idle: whiteIdle, walk: whiteWalk, backlash: whiteBacklash, climb: whiteClimb, combat_idle: whiteCombatIdle } },
 ];
 
 interface CustomizationMenuProps {
