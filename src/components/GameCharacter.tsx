@@ -51,6 +51,7 @@ export interface ApronSet {
   sit?: string;
   slash?: string;
   spellcast?: string;
+  thrust?: string;
 }
 
 export type CharacterAction = 
@@ -122,6 +123,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyThrust, frames: 8 },
           head: { src: headThrust, frames: 8 },
+          apron: { src: apron?.thrust, frames: 8 },
           interval: 80 
         };
       case 'shoot':
