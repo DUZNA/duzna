@@ -40,7 +40,7 @@ export interface ApronSet {
   idle: string;
   walk: string;
   run?: string;
-  backlash?: string;
+  backlash: string; // Changed from 'backslash' to 'backlash'
   climb?: string;
   combat_idle?: string;
   emote?: string;
@@ -116,7 +116,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyBackslash, frames: 6 },
           head: { src: headBackslash, frames: 6 },
-          apron: { src: apron?.backslash, frames: 6 },
+          apron: { src: apron?.backlash, frames: 6 }, // Fixed: Changed 'backslash' to 'backlash'
           interval: 80 
         };
       case 'thrust':
