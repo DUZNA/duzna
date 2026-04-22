@@ -107,6 +107,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyRun, frames: 8 },
           head: { src: headRun, frames: 8 },
           apron: { src: apron?.run || apron?.walk, frames: 8 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow for run
           interval: 80 
         };
       case 'slash':
@@ -122,6 +123,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyHalfslash, frames: 6 },
           head: { src: headHalfslash, frames: 6 },
           apron: { src: apron?.halfslash, frames: 6 },
+          shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow
           interval: 80 
         };
       case 'backslash':
@@ -129,6 +131,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyBackslash, frames: 6 },
           head: { src: headBackslash, frames: 6 },
           apron: { src: apron?.backslash, frames: 6 },
+          shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow
           interval: 80 
         };
       case 'thrust':
@@ -160,6 +163,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyJump, frames: 7 },
           head: { src: headJump, frames: 7 },
           apron: { src: apron?.jump, frames: 7 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow for jump
           interval: 100 
         };
       case 'sit':
@@ -167,6 +171,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodySit, frames: 3 },
           head: { src: headSit, frames: 3 },
           apron: { src: apron?.sit, frames: 3 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow frame 0
           interval: 120 
         };
       case 'emote':
@@ -174,6 +179,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyEmote, frames: 3 },
           head: { src: headEmote, frames: 3 },
           apron: { src: apron?.emote, frames: 3 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow frame 0
           interval: 200 
         };
       case 'hurt':
@@ -189,6 +195,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyClimb, frames: 6, singleRow: true },
           head: { src: headClimb, frames: 6, singleRow: true },
           apron: { src: apron?.climb, frames: 6, singleRow: true },
+          shadow: { src: shadowHurt, frames: 6, singleRow: true }, // Use hurt shadow for climb
           interval: 120 
         };
       case 'combat_idle':
@@ -196,6 +203,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyCombatIdle, frames: 2 },
           head: { src: headCombatIdle, frames: 2 },
           apron: { src: apron?.combat_idle, frames: 2 },
+          shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow frame 0
           interval: 400 
         };
       default: // idle
@@ -203,6 +211,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyIdle, frames: 2 },
           head: { src: headIdle, frames: 2 },
           apron: { src: apron?.idle, frames: 2 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow frame 0
           interval: 400 
         };
     }
