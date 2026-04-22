@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import GameCharacter, { ApronSet, CharacterAction } from './GameCharacter';
 import CustomizationMenu from './CustomizationMenu';
+import AssetPreloader from './AssetPreloader';
 import { Card } from '@/components/ui/card';
 import grassTile from '../assets/grass.png';
 
@@ -15,9 +16,9 @@ const ACTION_DURATIONS: Record<string, number> = {
   spellcast: 800,
   jump: 800,
   sit: 450,
-  emote: 700, // 3 frames * 200ms + buffer
-  hurt: 700, // 6 frames * 100ms + buffer
-  climb: 820, // 6 frames * 120ms + buffer
+  emote: 700,
+  hurt: 700,
+  climb: 820,
 };
 
 const GamePlayground = () => {
@@ -139,6 +140,7 @@ const GamePlayground = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
+      <AssetPreloader />
       <CustomizationMenu 
         selectedApron={selectedApron} 
         onSelectApron={setSelectedApron} 
