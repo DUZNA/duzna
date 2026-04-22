@@ -39,6 +39,7 @@ import headCombatIdle from '@/assets/head_combat_idle.png';
 // Shadow Assets
 import shadowHurt from '@/assets/shadow.png';
 import shadowSlash from '@/assets/shadow_slash.png';
+import shadowShoot from '@/assets/shadow_shoot.png';
 
 export interface ApronSet {
   idle: string;
@@ -138,6 +139,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyShoot, frames: 13 },
           head: { src: headShoot, frames: 13 },
           apron: { src: apron?.shoot, frames: 13 },
+          shadow: { src: shadowShoot, frames: 13 },
           interval: 60 
         };
       case 'spellcast':
