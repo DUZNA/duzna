@@ -42,6 +42,7 @@ import shadowSlash from '@/assets/shadow_slash.png';
 import shadowShoot from '@/assets/shadow_shoot.png';
 import shadowSpellcast from '@/assets/shadow_spellcast.png';
 import shadowThrust from '@/assets/shadow_thrust.png';
+import shadowWalk from '@/assets/shadow_walk.png';
 
 export interface ApronSet {
   idle: string;
@@ -98,6 +99,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyWalk, frames: 9 },
           head: { src: headWalk, frames: 9 },
           apron: { src: apron?.walk, frames: 9 },
+          shadow: { src: shadowWalk, frames: 9 },
           interval: 100 
         };
       case 'run':

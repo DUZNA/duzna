@@ -37,6 +37,7 @@ import shadowSlash from '@/assets/shadow_slash.png';
 import shadowShoot from '@/assets/shadow_shoot.png';
 import shadowSpellcast from '@/assets/shadow_spellcast.png';
 import shadowThrust from '@/assets/shadow_thrust.png';
+import shadowWalk from '@/assets/shadow_walk.png';
 
 export const BASE_ASSETS = [
   bodyIdle, headIdle, bodyWalk, bodyRun, headWalk, headRun,
@@ -45,5 +46,5 @@ export const BASE_ASSETS = [
   bodyCombatIdle, headSlash, headHalfslash, headBackslash, headThrust,
   headShoot, headSpellcast, headJump, headSit, headEmote, headHurt,
   headClimb, headCombatIdle, grassTile, shadowHurt, shadowSlash, shadowShoot,
-  shadowSpellcast, shadowThrust
+  shadowSpellcast, shadowThrust, shadowWalk
 ];
