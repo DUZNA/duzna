@@ -38,6 +38,7 @@ import headCombatIdle from '@/assets/head_combat_idle.png';
 
 // Shadow Assets
 import shadowHurt from '@/assets/shadow.png';
+import shadowSlash from '@/assets/shadow_slash.png';
 
 export interface ApronSet {
   idle: string;
@@ -108,6 +109,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodySlash, frames: 6 },
           head: { src: headSlash, frames: 6 },
           apron: { src: apron?.slash, frames: 6 },
+          shadow: { src: shadowSlash, frames: 6 },
           interval: 80 
         };
       case 'halfslash':
