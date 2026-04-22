@@ -41,6 +41,7 @@ import shadowHurt from '@/assets/shadow.png';
 import shadowSlash from '@/assets/shadow_slash.png';
 import shadowShoot from '@/assets/shadow_shoot.png';
 import shadowSpellcast from '@/assets/shadow_spellcast.png';
+import shadowThrust from '@/assets/shadow_thrust.png';
 
 export interface ApronSet {
   idle: string;
@@ -133,6 +134,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyThrust, frames: 8 },
           head: { src: headThrust, frames: 8 },
           apron: { src: apron?.thrust, frames: 8 },
+          shadow: { src: shadowThrust, frames: 8 },
           interval: 80 
         };
       case 'shoot':
