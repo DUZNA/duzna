@@ -32,6 +32,7 @@ import headHurt from '@/assets/head_hurt.png';
 import headClimb from '@/assets/head_climb.png';
 import headCombatIdle from '@/assets/head_combat_idle.png';
 import grassTile from '@/assets/grass.png';
+import shadowHurt from '@/assets/shadow.png';
 
 export const BASE_ASSETS = [
   bodyIdle, headIdle, bodyWalk, bodyRun, headWalk, headRun,
@@ -39,8 +40,5 @@ export const BASE_ASSETS = [
   bodySpellcast, bodyJump, bodySit, bodyEmote, bodyHurt, bodyClimb,
   bodyCombatIdle, headSlash, headHalfslash, headBackslash, headThrust,
   headShoot, headSpellcast, headJump, headSit, headEmote, headHurt,
-  headClimb, headCombatIdle, grassTile
+  headClimb, headCombatIdle, grassTile, shadowHurt
 ];
-
-// We'll dynamically collect apron assets in the preloader to keep this file manageable
-// but for now, these are the core ones that cause the most "pop-in"

@@ -36,6 +36,9 @@ import headHurt from '@/assets/head_hurt.png';
 import headClimb from '@/assets/head_climb.png';
 import headCombatIdle from '@/assets/head_combat_idle.png';
 
+// Shadow Assets
+import shadowHurt from '@/assets/shadow.png';
+
 export interface ApronSet {
   idle: string;
   walk: string;
@@ -118,7 +121,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyBackslash, frames: 6 },
           head: { src: headBackslash, frames: 6 },
-          apron: { src: apron?.backlash, frames: 6 },
+          apron: { src: apron?.backslash, frames: 6 },
           interval: 80 
         };
       case 'thrust':
@@ -168,6 +171,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
           body: { src: bodyHurt, frames: 6, singleRow: true },
           head: { src: headHurt, frames: 6, singleRow: true },
           apron: { src: apron?.hurt, frames: 6, singleRow: true },
+          shadow: { src: shadowHurt, frames: 6, singleRow: true },
           interval: 100 
         };
       case 'climb':
@@ -206,7 +210,8 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     const maxFrames = Math.max(
       config.body?.frames || 0, 
       config.head?.frames || 0, 
-      (config as any).apron?.frames || 0
+      (config as any).apron?.frames || 0,
+      (config as any).shadow?.frames || 0
     );
     if (maxFrames <= 1) return;
     if (action === 'sit' && pose !== undefined) return; // Don't animate if pose is fixed
@@ -266,6 +271,14 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
 
   return (
     <div style={spriteStyle}>
+      {(config as any).shadow && (
+        <div 
+          style={{
+            ...layerStyle((config as any).shadow),
+            zIndex: 9
+          }} 
+        />
+      )}
       <div style={layerStyle(config.body)} />
       <div style={layerStyle(config.head)} />
       {(config as any).apron && (
