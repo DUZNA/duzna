@@ -265,7 +265,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
     zIndex: 10,
   };
 
-  const layerStyle = (layer: LayerConfig | undefined): React.CSSProperties => {
+  const layerStyle = (layer: LayerConfig | undefined, zIndex: number): React.CSSProperties => {
     if (!layer || !layer.src || layer.frames === 0) return { display: 'none' };
     const safeFrame = frame % layer.frames;
     const currentRow = layer.singleRow ? 0 : row;
@@ -276,28 +276,19 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       backgroundImage: `url(${layer.src})`,
       backgroundPosition: `-${safeFrame * spriteSize}px -${currentRow * spriteSize}px`,
       backgroundRepeat: 'no-repeat',
+      zIndex,
     };
   };
 
   return (
     <div style={spriteStyle}>
       {(config as any).shadow && (
-        <div 
-          style={{
-            ...layerStyle((config as any).shadow),
-            zIndex: 9
-          }} 
-        />
+        <div style={layerStyle((config as any).shadow, 1)} />
       )}
-      <div style={layerStyle(config.body)} />
-      <div style={layerStyle(config.head)} />
+      <div style={layerStyle(config.body, 2)} />
+      <div style={layerStyle(config.head, 3)} />
       {(config as any).apron && (
-        <div 
-          style={{
-            ...layerStyle((config as any).apron),
-            zIndex: 11
-          }} 
-        />
+        <div style={layerStyle((config as any).apron, 4)} />
       )}
     </div>
   );
