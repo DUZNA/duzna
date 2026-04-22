@@ -40,7 +40,7 @@ export interface ApronSet {
   idle: string;
   walk: string;
   run?: string;
-  backlash: string; // Changed from 'backslash' to 'backlash'
+  backlash: string;
   climb?: string;
   combat_idle?: string;
   emote?: string;
@@ -71,6 +71,7 @@ interface GameCharacterProps {
   action: CharacterAction;
   apron?: ApronSet | null;
   noTransition?: boolean;
+  pose?: number; // Added to support fixed frames (like sitting poses)
 }
 
 const GameCharacter: React.FC<GameCharacterProps> = ({ 
@@ -78,7 +79,8 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   direction, 
   action,
   apron,
-  noTransition = false
+  noTransition = false,
+  pose
 }) => {
   const [frame, setFrame] = useState(0);
   
@@ -116,7 +118,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyBackslash, frames: 6 },
           head: { src: headBackslash, frames: 6 },
-          apron: { src: apron?.backlash, frames: 6 }, // Fixed: Changed 'backslash' to 'backlash'
+          apron: { src: apron?.backlash, frames: 6 },
           interval: 80 
         };
       case 'thrust':
@@ -193,8 +195,12 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   }, [action, apron]);
 
   useEffect(() => {
-    setFrame(0);
-  }, [action]);
+    if (action === 'sit' && pose !== undefined) {
+      setFrame(pose);
+    } else {
+      setFrame(0);
+    }
+  }, [action, pose]);
 
   useEffect(() => {
     const maxFrames = Math.max(
@@ -203,13 +209,22 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       (config as any).apron?.frames || 0
     );
     if (maxFrames <= 1) return;
+    if (action === 'sit' && pose !== undefined) return; // Don't animate if pose is fixed
     
+    const isLooping = ['idle', 'walk', 'run', 'climb', 'combat_idle'].includes(action);
+
     const interval = setInterval(() => {
-      setFrame((f) => (f + 1) % 120);
+      setFrame((f) => {
+        const nextFrame = f + 1;
+        if (nextFrame >= maxFrames) {
+          return isLooping ? 0 : maxFrames - 1; // Stay on last frame for non-looping actions
+        }
+        return nextFrame;
+      });
     }, config.interval);
 
     return () => clearInterval(interval);
-  }, [config]);
+  }, [config, action, pose]);
 
   const getDirectionRow = () => {
     switch (direction) {

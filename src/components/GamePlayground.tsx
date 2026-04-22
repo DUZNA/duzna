@@ -15,9 +15,8 @@ const ACTION_DURATIONS: Record<string, number> = {
   shoot: 850,
   spellcast: 800,
   jump: 800,
-  sit: 450,
   emote: 700,
-  hurt: 700,
+  hurt: 2700, // 700ms animation + 2000ms pause
   climb: 820,
 };
 
@@ -28,6 +27,7 @@ const GamePlayground = () => {
   const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set());
   const [isCombatMode, setIsCombatMode] = useState(false);
   const [selectedApron, setSelectedApron] = useState<ApronSet | null>(null);
+  const [sitLevel, setSitLevel] = useState(0); // 0: none, 1: chair, 2: ground
   
   const actionLockRef = useRef<boolean>(false);
   const currentActionRef = useRef<CharacterAction>('idle');
@@ -38,7 +38,16 @@ const GamePlayground = () => {
   const charSize = 64;
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    setKeysPressed((prev) => new Set(prev).add(e.key.toLowerCase()));
+    const key = e.key.toLowerCase();
+    setKeysPressed((prev) => new Set(prev).add(key));
+
+    if (key === 'x') {
+      setSitLevel((prev) => (prev + 1) % 3);
+      // Break any existing action lock when toggling sit
+      if (actionLockRef.current && currentActionRef.current !== 'sit') {
+        actionLockRef.current = false;
+      }
+    }
   }, []);
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
@@ -73,7 +82,10 @@ const GamePlayground = () => {
     
     const duration = ACTION_DURATIONS[newAction] || 500;
     setTimeout(() => {
-      actionLockRef.current = false;
+      // Only release the lock if the action hasn't been changed/interrupted
+      if (currentActionRef.current === newAction) {
+        actionLockRef.current = false;
+      }
     }, duration);
   };
 
@@ -86,19 +98,10 @@ const GamePlayground = () => {
       if (keysPressed.has('o')) { triggerLockedAction('shoot'); return; }
       if (keysPressed.has('p')) { triggerLockedAction('spellcast'); return; }
       if (keysPressed.has(' ')) { triggerLockedAction('jump'); return; }
-      if (keysPressed.has('x')) { triggerLockedAction('sit'); return; }
       if (keysPressed.has('e')) { triggerLockedAction('emote'); return; }
       if (keysPressed.has('h')) { triggerLockedAction('hurt'); return; }
       if (keysPressed.has('c')) { triggerLockedAction('climb'); return; }
       
-      if (actionLockRef.current) return;
-
-      if (keysPressed.has('z')) { 
-        setIsCombatMode(true); 
-        updateAction('combat_idle'); 
-        return; 
-      }
-
       let dx = 0;
       let dy = 0;
       let newDir = direction;
@@ -112,6 +115,12 @@ const GamePlayground = () => {
       if (keysPressed.has('d') || keysPressed.has('arrowright')) { dx += currentSpeed; newDir = 'right'; moving = true; }
 
       if (moving) {
+        // Interrupt hurt or sit state when moving
+        if (actionLockRef.current && currentActionRef.current === 'hurt') {
+          actionLockRef.current = false;
+        }
+        setSitLevel(0);
+
         setPosition((prev) => ({
           x: Math.max(0, Math.min(playgroundSize.width - charSize, prev.x + dx)),
           y: Math.max(0, Math.min(playgroundSize.height - charSize, prev.y + dy)),
@@ -120,7 +129,14 @@ const GamePlayground = () => {
         updateAction(running ? 'run' : 'walk');
         setIsCombatMode(false);
       } else {
-        if (isCombatMode) {
+        if (actionLockRef.current) return;
+
+        if (sitLevel > 0) {
+          updateAction('sit');
+        } else if (keysPressed.has('z')) { 
+          setIsCombatMode(true); 
+          updateAction('combat_idle'); 
+        } else if (isCombatMode) {
           updateAction('combat_idle');
         } else {
           updateAction('idle');
@@ -129,7 +145,7 @@ const GamePlayground = () => {
     }, 16);
 
     return () => clearInterval(moveInterval);
-  }, [keysPressed, direction, isCombatMode, playgroundSize.width, playgroundSize.height]);
+  }, [keysPressed, direction, isCombatMode, sitLevel, playgroundSize.width, playgroundSize.height]);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -162,7 +178,7 @@ const GamePlayground = () => {
           <div className="flex justify-between gap-4"><span>O</span> <span className="text-stone-400">SHOOT</span></div>
           <div className="flex justify-between gap-4"><span>P</span> <span className="text-stone-400">SPELL</span></div>
           <div className="flex justify-between gap-4"><span>E</span> <span className="text-stone-400">EMOTE</span></div>
-          <div className="flex justify-between gap-4"><span>X</span> <span className="text-stone-400">SIT</span></div>
+          <div className="flex justify-between gap-4"><span>X</span> <span className="text-stone-400">SIT (CYCLE)</span></div>
           <div className="flex justify-between gap-4"><span>C</span> <span className="text-stone-400">CLIMB</span></div>
           <div className="flex justify-between gap-4"><span>Z</span> <span className="text-stone-400">COMBAT</span></div>
           <div className="flex justify-between gap-4"><span>H</span> <span className="text-stone-400">HURT</span></div>
@@ -188,6 +204,7 @@ const GamePlayground = () => {
           direction={direction} 
           action={action}
           apron={selectedApron}
+          pose={action === 'sit' ? (sitLevel === 1 ? 1 : 2) : undefined}
         />
       </Card>
     </div>
