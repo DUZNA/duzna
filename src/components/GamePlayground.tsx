@@ -204,7 +204,7 @@ const GamePlayground = () => {
           direction={direction} 
           action={action}
           apron={selectedApron}
-          pose={action === 'sit' ? (sitLevel === 1 ? 1 : 2) : undefined}
+          pose={action === 'sit' ? (sitLevel === 1 ? 2 : 1) : undefined}
         />
       </Card>
     </div>
