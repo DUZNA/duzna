@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import GameCharacter, { ApronSet, CharacterAction, BodyType } from './GameCharacter';
+import GameCharacter, { ApronSet, CharacterAction } from './GameCharacter';
 import CustomizationMenu from './CustomizationMenu';
 import AssetPreloader from './AssetPreloader';
 import { Card } from '@/components/ui/card';
@@ -16,7 +16,7 @@ const ACTION_DURATIONS: Record<string, number> = {
   spellcast: 800,
   jump: 800,
   emote: 700,
-  hurt: 2700,
+  hurt: 2700, // 700ms animation + 2000ms pause
   climb: 820,
 };
 
@@ -27,8 +27,7 @@ const GamePlayground = () => {
   const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set());
   const [isCombatMode, setIsCombatMode] = useState(false);
   const [selectedApron, setSelectedApron] = useState<ApronSet | null>(null);
-  const [bodyType, setBodyType] = useState<BodyType>('male');
-  const [sitLevel, setSitLevel] = useState(0);
+  const [sitLevel, setSitLevel] = useState(0); // 0: none, 1: chair, 2: ground
   
   const actionLockRef = useRef<boolean>(false);
   const currentActionRef = useRef<CharacterAction>('idle');
@@ -44,6 +43,7 @@ const GamePlayground = () => {
 
     if (key === 'x') {
       setSitLevel((prev) => (prev + 1) % 3);
+      // Break any existing action lock when toggling sit
       if (actionLockRef.current && currentActionRef.current !== 'sit') {
         actionLockRef.current = false;
       }
@@ -82,6 +82,7 @@ const GamePlayground = () => {
     
     const duration = ACTION_DURATIONS[newAction] || 500;
     setTimeout(() => {
+      // Only release the lock if the action hasn't been changed/interrupted
       if (currentActionRef.current === newAction) {
         actionLockRef.current = false;
       }
@@ -114,6 +115,7 @@ const GamePlayground = () => {
       if (keysPressed.has('d') || keysPressed.has('arrowright')) { dx += currentSpeed; newDir = 'right'; moving = true; }
 
       if (moving) {
+        // Interrupt hurt or sit state when moving
         if (actionLockRef.current && currentActionRef.current === 'hurt') {
           actionLockRef.current = false;
         }
@@ -157,9 +159,7 @@ const GamePlayground = () => {
       <AssetPreloader />
       <CustomizationMenu 
         selectedApron={selectedApron} 
-        onSelectApron={setSelectedApron}
-        bodyType={bodyType}
-        onSelectBodyType={setBodyType}
+        onSelectApron={setSelectedApron} 
       />
 
       <div 
@@ -204,7 +204,6 @@ const GamePlayground = () => {
           direction={direction} 
           action={action}
           apron={selectedApron}
-          bodyType={bodyType}
           pose={action === 'sit' ? (sitLevel === 1 ? 2 : 1) : undefined}
         />
       </Card>

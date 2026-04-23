@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
-
-// Male Body Assets
 import bodyIdle from '@/assets/body.png';
 import headIdle from '@/assets/head.png';
 import bodyWalk from '@/assets/walk.png';
 import bodyRun from '@/assets/run.png';
 import headWalk from '@/assets/head_walk.png';
 import headRun from '@/assets/head_run.png';
+
+// Body Action Assets
 import bodySlash from '@/assets/slash.png';
 import bodyHalfslash from '@/assets/halfslash.png';
 import bodyBackslash from '@/assets/backslash.png';
@@ -21,6 +21,8 @@ import bodyEmote from '@/assets/emote.png';
 import bodyHurt from '@/assets/hurt.png';
 import bodyClimb from '@/assets/climb.png';
 import bodyCombatIdle from '@/assets/combat_idle.png';
+
+// Head Action Assets
 import headSlash from '@/assets/head_slash.png';
 import headHalfslash from '@/assets/head_halfslash.png';
 import headBackslash from '@/assets/head_backslash.png';
@@ -33,38 +35,6 @@ import headEmote from '@/assets/head_emote.png';
 import headHurt from '@/assets/head_hurt.png';
 import headClimb from '@/assets/head_climb.png';
 import headCombatIdle from '@/assets/head_combat_idle.png';
-
-// Female Adult Assets
-import fBodyIdle from '@/assets/Female Adult/Body/idle.png';
-import fHeadIdle from '@/assets/Female Adult/Head/idle.png';
-import fBodyWalk from '@/assets/Female Adult/Body/walk.png';
-import fHeadWalk from '@/assets/Female Adult/Head/walk.png';
-import fBodyRun from '@/assets/Female Adult/Body/run.png';
-import fHeadRun from '@/assets/Female Adult/Head/run.png';
-import fBodySlash from '@/assets/Female Adult/Body/slash.png';
-import fHeadSlash from '@/assets/Female Adult/Head/slash.png';
-import fBodyHalfslash from '@/assets/Female Adult/Body/halfslash.png';
-import fHeadHalfslash from '@/assets/Female Adult/Head/halfslash.png';
-import fBodyBackslash from '@/assets/Female Adult/Body/backslash.png';
-import fHeadBackslash from '@/assets/Female Adult/Head/backslash.png';
-import fBodyThrust from '@/assets/Female Adult/Body/thrust.png';
-import fHeadThrust from '@/assets/Female Adult/Head/thrust.png';
-import fBodyShoot from '@/assets/Female Adult/Body/shoot.png';
-import fHeadShoot from '@/assets/Female Adult/Head/shoot.png';
-import fBodySpellcast from '@/assets/Female Adult/Body/spellcast.png';
-import fHeadSpellcast from '@/assets/Female Adult/Head/spellcast.png';
-import fBodyJump from '@/assets/Female Adult/Body/jump.png';
-import fHeadJump from '@/assets/Female Adult/Head/jump.png';
-import fBodySit from '@/assets/Female Adult/Body/sit.png';
-import fHeadSit from '@/assets/Female Adult/Head/sit.png';
-import fBodyEmote from '@/assets/Female Adult/Body/emote.png';
-import fHeadEmote from '@/assets/Female Adult/Head/emote.png';
-import fBodyHurt from '@/assets/Female Adult/Body/hurt.png';
-import fHeadHurt from '@/assets/Female Adult/Head/hurt.png';
-import fBodyClimb from '@/assets/Female Adult/Body/climb.png';
-import fHeadClimb from '@/assets/Female Adult/Head/climb.png';
-import fBodyCombatIdle from '@/assets/Female Adult/Body/combat_idle.png';
-import fHeadCombatIdle from '@/assets/Female Adult/Head/combat_idle.png';
 
 // Shadow Assets
 import shadowHurt from '@/assets/shadow.png';
@@ -97,8 +67,6 @@ export type CharacterAction =
   | 'backslash' | 'thrust' | 'shoot' | 'spellcast' 
   | 'jump' | 'sit' | 'emote' | 'hurt' | 'climb' | 'combat_idle';
 
-export type BodyType = 'male' | 'female';
-
 interface LayerConfig {
   src: string | null | undefined;
   frames: number;
@@ -110,9 +78,8 @@ interface GameCharacterProps {
   direction: 'up' | 'down' | 'left' | 'right';
   action: CharacterAction;
   apron?: ApronSet | null;
-  bodyType?: BodyType;
   noTransition?: boolean;
-  pose?: number;
+  pose?: number; // Added to support fixed frames (like sitting poses)
 }
 
 const GameCharacter: React.FC<GameCharacterProps> = ({ 
@@ -120,138 +87,135 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
   direction, 
   action,
   apron,
-  bodyType = 'male',
   noTransition = false,
   pose
 }) => {
   const [frame, setFrame] = useState(0);
   
   const config = useMemo(() => {
-    const isFemale = bodyType === 'female';
-    
     switch (action) {
       case 'walk':
         return { 
-          body: { src: isFemale ? fBodyWalk : bodyWalk, frames: 9 },
-          head: { src: isFemale ? fHeadWalk : headWalk, frames: 9 },
+          body: { src: bodyWalk, frames: 9 },
+          head: { src: headWalk, frames: 9 },
           apron: { src: apron?.walk, frames: 9 },
           shadow: { src: shadowWalk, frames: 9 },
           interval: 100 
         };
       case 'run':
         return { 
-          body: { src: isFemale ? fBodyRun : bodyRun, frames: 8 },
-          head: { src: isFemale ? fHeadRun : headRun, frames: 8 },
+          body: { src: bodyRun, frames: 8 },
+          head: { src: headRun, frames: 8 },
           apron: { src: apron?.run || apron?.walk, frames: 8 },
-          shadow: { src: shadowWalk, frames: 9 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow for run
           interval: 80 
         };
       case 'slash':
         return { 
-          body: { src: isFemale ? fBodySlash : bodySlash, frames: 6 },
-          head: { src: isFemale ? fHeadSlash : headSlash, frames: 6 },
+          body: { src: bodySlash, frames: 6 },
+          head: { src: headSlash, frames: 6 },
           apron: { src: apron?.slash, frames: 6 },
           shadow: { src: shadowSlash, frames: 6 },
           interval: 80 
         };
       case 'halfslash':
         return { 
-          body: { src: isFemale ? fBodyHalfslash : bodyHalfslash, frames: 6 },
-          head: { src: isFemale ? fHeadHalfslash : headHalfslash, frames: 6 },
+          body: { src: bodyHalfslash, frames: 6 },
+          head: { src: headHalfslash, frames: 6 },
           apron: { src: apron?.halfslash, frames: 6 },
-          shadow: { src: shadowSlash, frames: 6 },
+          shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow
           interval: 80 
         };
       case 'backslash':
         return { 
-          body: { src: isFemale ? fBodyBackslash : bodyBackslash, frames: 6 },
-          head: { src: isFemale ? fHeadBackslash : headBackslash, frames: 6 },
+          body: { src: bodyBackslash, frames: 6 },
+          head: { src: headBackslash, frames: 6 },
           apron: { src: apron?.backslash, frames: 6 },
-          shadow: { src: shadowSlash, frames: 6 },
+          shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow
           interval: 80 
         };
       case 'thrust':
         return { 
-          body: { src: isFemale ? fBodyThrust : bodyThrust, frames: 8 },
-          head: { src: isFemale ? fHeadThrust : headThrust, frames: 8 },
+          body: { src: bodyThrust, frames: 8 },
+          head: { src: headThrust, frames: 8 },
           apron: { src: apron?.thrust, frames: 8 },
           shadow: { src: shadowThrust, frames: 8 },
           interval: 80 
         };
       case 'shoot':
         return { 
-          body: { src: isFemale ? fBodyShoot : bodyShoot, frames: 13 },
-          head: { src: isFemale ? fHeadShoot : headShoot, frames: 13 },
+          body: { src: bodyShoot, frames: 13 },
+          head: { src: headShoot, frames: 13 },
           apron: { src: apron?.shoot, frames: 13 },
           shadow: { src: shadowShoot, frames: 13 },
           interval: 60 
         };
       case 'spellcast':
         return { 
-          body: { src: isFemale ? fBodySpellcast : bodySpellcast, frames: 7 },
-          head: { src: isFemale ? fHeadSpellcast : headSpellcast, frames: 7 },
+          body: { src: bodySpellcast, frames: 7 },
+          head: { src: headSpellcast, frames: 7 },
           apron: { src: apron?.spellcast, frames: 7 },
           shadow: { src: shadowSpellcast, frames: 7 },
           interval: 100 
         };
       case 'jump':
         return { 
-          body: { src: isFemale ? fBodyJump : bodyJump, frames: 7 },
-          head: { src: isFemale ? fHeadJump : headJump, frames: 7 },
+          body: { src: bodyJump, frames: 7 },
+          head: { src: headJump, frames: 7 },
           apron: { src: apron?.jump, frames: 7 },
-          shadow: { src: shadowWalk, frames: 9 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow for jump
           interval: 100 
         };
       case 'sit':
         return { 
-          body: { src: isFemale ? fBodySit : bodySit, frames: 3 },
-          head: { src: isFemale ? fHeadSit : headSit, frames: 3 },
+          body: { src: bodySit, frames: 3 },
+          head: { src: headSit, frames: 3 },
           apron: { src: apron?.sit, frames: 3 },
-          shadow: { src: shadowWalk, frames: 9 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow frame 0
           interval: 120 
         };
       case 'emote':
         return { 
-          body: { src: isFemale ? fBodyEmote : bodyEmote, frames: 3 },
-          head: { src: isFemale ? fHeadEmote : headEmote, frames: 3 },
+          body: { src: bodyEmote, frames: 3 },
+          head: { src: headEmote, frames: 3 },
           apron: { src: apron?.emote, frames: 3 },
-          shadow: { src: shadowWalk, frames: 9 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow frame 0
           interval: 200 
         };
       case 'hurt':
         return { 
-          body: { src: isFemale ? fBodyHurt : bodyHurt, frames: 6, singleRow: true },
-          head: { src: isFemale ? fHeadHurt : headHurt, frames: 6, singleRow: true },
+          body: { src: bodyHurt, frames: 6, singleRow: true },
+          head: { src: headHurt, frames: 6, singleRow: true },
           apron: { src: apron?.hurt, frames: 6, singleRow: true },
           shadow: { src: shadowHurt, frames: 6, singleRow: true },
           interval: 100 
         };
       case 'climb':
         return { 
-          body: { src: isFemale ? fBodyClimb : bodyClimb, frames: 6, singleRow: true },
-          head: { src: isFemale ? fHeadClimb : headClimb, frames: 6, singleRow: true },
+          body: { src: bodyClimb, frames: 6, singleRow: true },
+          head: { src: headClimb, frames: 6, singleRow: true },
           apron: { src: apron?.climb, frames: 6, singleRow: true },
-          shadow: { src: shadowHurt, frames: 6, singleRow: true },
+          shadow: { src: shadowHurt, frames: 6, singleRow: true }, // Use hurt shadow for climb
           interval: 120 
         };
       case 'combat_idle':
         return { 
-          body: { src: isFemale ? fBodyCombatIdle : bodyCombatIdle, frames: 2 },
-          head: { src: isFemale ? fHeadCombatIdle : headCombatIdle, frames: 2 },
+          body: { src: bodyCombatIdle, frames: 2 },
+          head: { src: headCombatIdle, frames: 2 },
           apron: { src: apron?.combat_idle, frames: 2 },
-          shadow: { src: shadowSlash, frames: 6 },
+          shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow frame 0
           interval: 400 
         };
       default: // idle
         return { 
-          body: { src: isFemale ? fBodyIdle : bodyIdle, frames: 2 },
-          head: { src: isFemale ? fHeadIdle : headIdle, frames: 2 },
+          body: { src: bodyIdle, frames: 2 },
+          head: { src: headIdle, frames: 2 },
           apron: { src: apron?.idle, frames: 2 },
-          shadow: { src: shadowWalk, frames: 9 },
+          shadow: { src: shadowWalk, frames: 9 }, // Use walk shadow frame 0
           interval: 400 
         };
     }
-  }, [action, apron, bodyType]);
+  }, [action, apron]);
 
   useEffect(() => {
     if (action === 'sit' && pose !== undefined) {
@@ -269,7 +233,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       (config as any).shadow?.frames || 0
     );
     if (maxFrames <= 1) return;
-    if (action === 'sit' && pose !== undefined) return;
+    if (action === 'sit' && pose !== undefined) return; // Don't animate if pose is fixed
     
     const isLooping = ['idle', 'walk', 'run', 'climb', 'combat_idle'].includes(action);
 
@@ -277,7 +241,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
       setFrame((f) => {
         const nextFrame = f + 1;
         if (nextFrame >= maxFrames) {
-          return isLooping ? 0 : maxFrames - 1;
+          return isLooping ? 0 : maxFrames - 1; // Stay on last frame for non-looping actions
         }
         return nextFrame;
       });
