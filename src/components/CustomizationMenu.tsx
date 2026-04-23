@@ -147,7 +147,7 @@ import blackCombatIdle from '@/assets/aprons/combat_idle/black.png';
 import blueCombatIdle from '@/assets/aprons/combat_idle/blue.png';
 import bluegrayCombatIdle from '@/assets/aprons/combat_idle/bluegray.png';
 import brownCombatIdle from '@/assets/aprons/combat_idle/brown.png';
-import charcoalCombatIdle from '@/assets/combat_idle/charcoal.png';
+import charcoalCombatIdle from '@/assets/aprons/combat_idle/charcoal.png';
 import forestCombatIdle from '@/assets/aprons/combat_idle/forest.png';
 import grayCombatIdle from '@/assets/aprons/combat_idle/gray.png';
 import greenCombatIdle from '@/assets/aprons/combat_idle/green.png';
