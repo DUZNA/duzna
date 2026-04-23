@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import GameCharacter, { ApronSet } from './GameCharacter';
-import { Settings2, X, ChevronDown, ChevronRight } from 'lucide-react';
+import GameCharacter, { ApronSet, BodyType } from './GameCharacter';
+import { Settings2, X, ChevronDown, ChevronRight, User, UserRound } from 'lucide-react';
 
 // Import all apron assets (Idle)
 import yellowIdle from '@/assets/aprons/idle/yellow.png';
@@ -436,10 +436,18 @@ const APRONS: { name: string; set: ApronSet }[] = [
 interface CustomizationMenuProps {
   selectedApron: ApronSet | null;
   onSelectApron: (set: ApronSet | null) => void;
+  bodyType: BodyType;
+  onSelectBodyType: (type: BodyType) => void;
 }
 
-const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, onSelectApron }) => {
+const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ 
+  selectedApron, 
+  onSelectApron,
+  bodyType,
+  onSelectBodyType
+}) => {
   const [isClothesOpen, setIsClothesOpen] = useState(true);
+  const [isBodyOpen, setIsBodyOpen] = useState(true);
   const [isApronsOpen, setIsApronsOpen] = useState(false);
 
   return (
@@ -465,6 +473,38 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
 
             <ScrollArea className="flex-1 pr-2">
               <div className="space-y-3">
+                {/* Body Type Section */}
+                <button
+                  onClick={() => setIsBodyOpen(!isBodyOpen)}
+                  className={`w-full flex items-center justify-between p-3 border-2 border-stone-800 transition-colors ${isBodyOpen ? 'bg-stone-800 text-stone-100' : 'bg-stone-300 text-stone-800 hover:bg-stone-400'}`}
+                  style={{ fontFamily: "'VT323', monospace" }}
+                >
+                  <span className="text-2xl uppercase tracking-tight">Character</span>
+                  {isBodyOpen ? <ChevronDown size={24} /> : <ChevronRight size={24} />}
+                </button>
+
+                {isBodyOpen && (
+                  <div className="pl-4 py-4 grid grid-cols-2 gap-4">
+                    <button
+                      onClick={() => onSelectBodyType('male')}
+                      className={`flex flex-col items-center gap-2 p-4 border-2 transition-all ${bodyType === 'male' ? 'bg-stone-800 text-stone-100 border-stone-800' : 'bg-stone-200 text-stone-600 border-stone-400 hover:bg-stone-300'}`}
+                      style={{ fontFamily: "'VT323', monospace" }}
+                    >
+                      <User size={32} />
+                      <span className="text-xl uppercase">Male</span>
+                    </button>
+                    <button
+                      onClick={() => onSelectBodyType('female')}
+                      className={`flex flex-col items-center gap-2 p-4 border-2 transition-all ${bodyType === 'female' ? 'bg-stone-800 text-stone-100 border-stone-800' : 'bg-stone-200 text-stone-600 border-stone-400 hover:bg-stone-300'}`}
+                      style={{ fontFamily: "'VT323', monospace" }}
+                    >
+                      <UserRound size={32} />
+                      <span className="text-xl uppercase">Female</span>
+                    </button>
+                  </div>
+                )}
+
+                {/* Clothes Section */}
                 <button
                   onClick={() => setIsClothesOpen(!isClothesOpen)}
                   className={`w-full flex items-center justify-between p-3 border-2 border-stone-800 transition-colors ${isClothesOpen ? 'bg-stone-800 text-stone-100' : 'bg-stone-300 text-stone-800 hover:bg-stone-400'}`}
@@ -538,6 +578,7 @@ const CustomizationMenu: React.FC<CustomizationMenuProps> = ({ selectedApron, on
                     direction="down"
                     action="idle"
                     apron={selectedApron}
+                    bodyType={bodyType}
                     noTransition={true}
                   />
                 </div>
