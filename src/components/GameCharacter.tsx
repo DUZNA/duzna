@@ -130,7 +130,7 @@ const GameCharacter: React.FC<GameCharacterProps> = ({
         return { 
           body: { src: bodyBackslash, frames: 6 },
           head: { src: headBackslash, frames: 6 },
-          apron: { src: apron?.backslash, frames: 6 },
+          apron: { src: apron?.backlash, frames: 6 },
           shadow: { src: shadowSlash, frames: 6 }, // Use slash shadow
           interval: 80 
         };
